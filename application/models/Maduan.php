@@ -36,20 +36,39 @@ class Maduan extends CI_Model {
 		return $this->db->get();
 	}
 
-	public function aduanMasuk(){
+	public function aduanStatus($status){
 		$this->db->select('*, tb_aduan.dibuat as tanggal');
 		$this->db->from('tb_aduan');
 		$this->db->order_by('tanggal', 'desc');
-		$this->db->where('tb_aduan.status', 'masuk');
+		$this->db->where('tb_aduan.status', $status);
 		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
 		return $this->db->get();
 	}
 
-	public function aduanDiverifikasi(){
+	public function aduanStatusPage($limit, $status){
+		$this->db->select('*, tb_aduan.dibuat as tanggal');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		return $this->db->get('tb_aduan', $limit, 0);
+	}
+
+	public function aduanDisposisi(){
+		$this->db->select('*, tb_aduan.dibuat as tanggal, tb_user.thumb as userfoto');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
+		$this->db->where('tb_aduan.status', 'didisposisikan');
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	public function aduanSemua(){
 		$this->db->select('*, tb_aduan.dibuat as tanggal');
 		$this->db->from('tb_aduan');
 		$this->db->order_by('tanggal', 'desc');
-		$this->db->where('tb_aduan.status', 'diverifikasi');
 		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
 		return $this->db->get();
 	}
@@ -58,18 +77,11 @@ class Maduan extends CI_Model {
 		$this->db->insert('tb_disposisi', $data);
 	}
 
-	public function verifikasi($id){
-		$data = array('status' => 'diverifikasi');
+	public function updateStatus($id, $status){
+		$data = array('status' => $status);
 		$this->db->where('id_aduan', $id);
-		$this->db->update('tb_aduan', $data);
-	}
-
-	public function updateAduanDisposisi($id){
-		$data = array(
-			'status' => 'didisposisikan'
-		);
-		$this->db->where('id_aduan', $id);
-		$this->db->update('tb_aduan', $data);
+		$query = $this->db->update('tb_aduan', $data);
+		return $query;
 	}
 
 	public function semuaAduan(){
@@ -77,6 +89,40 @@ class Maduan extends CI_Model {
 		$this->db->from('tb_aduan');
 		$this->db->order_by('tb_aduan.dibuat', 'desc');
 		$this->db->join('tb_user', 'tb_user.id_user = tb_aduan.id_user', 'left');
+		return $this->db->get();
+	}
+
+	public function cariAduan($query, $status, $limit){
+		$this->db->select('*, tb_aduan.dibuat as tanggal');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->limit($limit);
+		return $this->db->get();
+	}
+
+	public function jmlCariAduan($query, $status){
+		$this->db->select('*, tb_aduan.dibuat as tanggal');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		return $this->db->get();
+	}
+
+	public function cariAduanDisposisi($query){
+		$this->db->select('*, tb_aduan.dibuat as tanggal, tb_user.thumb as userfoto');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
+		$this->db->where('tb_aduan.status', 'didisposisikan');
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->group_by('tb_aduan.id_aduan');
 		return $this->db->get();
 	}
 

@@ -63,7 +63,7 @@ class Api extends CI_Controller {
 			'code' => '1'
 		);
 		echo json_encode($response);
-		
+
 	}
 
 	public function opd(){
@@ -133,7 +133,7 @@ class Api extends CI_Controller {
             	'status' => '1'
             );
             echo json_encode($response);
-	        
+
         }
 	}
 

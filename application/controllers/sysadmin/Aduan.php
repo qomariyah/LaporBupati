@@ -75,8 +75,72 @@ class Aduan extends CI_Controller {
         $data['aduan_masuk'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
-        $data['data_aduan'] = $this->maduan->aduanMasuk()->result();
-        $data['jml_data_aduan_masuk'] = $this->maduan->aduanMasuk()->num_rows();
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysadmin/aduan/masuk');
+            $config['total_rows'] = $this->maduan->aduanStatus("masuk")->num_rows();
+            $config['per_page'] = 1;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanStatusPage($config['per_page'], "masuk")->result();
+            $data['jml_data_aduan_masuk'] = $this->maduan->aduanStatusPage($config['per_page'], "masuk")->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+
+            $config['base_url'] = site_url('sysadmin/aduan/masuk?cari='.$query);
+            $config['total_rows'] = $this->maduan->jmlCariAduan($query, "masuk")->num_rows();
+            $config['per_page'] = 1;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduan($query, "masuk", $config['per_page'])->result();
+            $data['jml_data_aduan_masuk'] = $this->maduan->cariAduan($query, "masuk", $config['per_page'])->num_rows();
+        }
+
         $this->load->view('view_admin/lbadmin', $data);
     }
 
@@ -87,8 +151,9 @@ class Aduan extends CI_Controller {
         $data['Aduan'] = "active";
         $data['aduan_diverifikasi'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
-        $data['data_aduan'] = $this->maduan->aduanDiverifikasi()->result();
-        $data['jml_data_aduan_diverifikasi'] = $this->maduan->aduanDiverifikasi()->num_rows();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $data['data_aduan'] = $this->maduan->aduanStatus("diverifikasi")->result();
+        $data['jml_data_aduan_diverifikasi'] = $this->maduan->aduanStatus("diverifikasi")->num_rows();
         $this->load->view('view_admin/lbadmin', $data);
     }
 
@@ -98,6 +163,16 @@ class Aduan extends CI_Controller {
         $data['breadcrumb'] = "Data Aduan Disposisi";
         $data['Aduan'] = "active";
         $data['aduan_didisposiskan'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        if ($this->input->get('cari') == '') {
+            $data['data_aduan'] = $this->maduan->aduanDisposisi()->result();
+            $data['jml_data_aduan_disposisi'] = $this->maduan->aduanDisposisi()->num_rows();
+        }else{
+            $query = $this->input->get('cari');
+            $data['data_aduan'] = $this->maduan->cariAduanDisposisi($query)->result();
+            $data['jml_data_aduan_disposisi'] = $this->maduan->cariAduanDisposisi($query)->num_rows();
+        }
         $this->load->view('view_admin/lbadmin', $data);
     }
 
@@ -107,6 +182,10 @@ class Aduan extends CI_Controller {
         $data['breadcrumb'] = "Data Aduan dalam Penanganan";
         $data['Aduan'] = "active";
         $data['aduan_dalam_penanganan'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $data['data_aduan'] = $this->maduan->aduanStatus("penanganan")->result();
+        $data['jml_data_aduan_penanganan'] = $this->maduan->aduanStatus("penanganan")->num_rows();
         $this->load->view('view_admin/lbadmin', $data);
     }
 
@@ -116,6 +195,10 @@ class Aduan extends CI_Controller {
         $data['breadcrumb'] = "Data Aduan Selesai";
         $data['Aduan'] = "active";
         $data['aduan_selesai'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $data['data_aduan'] = $this->maduan->aduanStatus("selesai")->result();
+        $data['jml_data_aduan_selesai'] = $this->maduan->aduanStatus("selesai")->num_rows();
         $this->load->view('view_admin/lbadmin', $data);
     }
 
@@ -125,6 +208,10 @@ class Aduan extends CI_Controller {
         $data['breadcrumb'] = "Data Aduan Bukan Kewenangan";
         $data['Aduan'] = "active";
         $data['aduan_bukan_kewenangan'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $data['data_aduan'] = $this->maduan->aduanStatus("bukan kewenangan")->result();
+        $data['jml_data_aduan_bukan_kewenangan'] = $this->maduan->aduanStatus("bukan kewenangan")->num_rows();
         $this->load->view('view_admin/lbadmin', $data);
     }
 
@@ -134,6 +221,10 @@ class Aduan extends CI_Controller {
         $data['breadcrumb'] = "Tempat Sampah Aduan";
         $data['Aduan'] = "active";
         $data['aduan_tempat_sampah'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $data['data_aduan'] = $this->maduan->aduanStatus("sampah")->result();
+        $data['jml_data_aduan_sampah'] = $this->maduan->aduanStatus("sampah")->num_rows();
         $this->load->view('view_admin/lbadmin', $data);
     }
 
@@ -144,8 +235,9 @@ class Aduan extends CI_Controller {
         $data['Aduan'] = "active";
         $data['semua_aduan'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
-        $data['data_aduan'] = $this->maduan->semuaAduan()->result();
-        $data['jml_semua_aduan'] = $this->maduan->semuaAduan()->num_rows();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $data['data_aduan'] = $this->maduan->aduanSemua()->result();
+        $data['jml_semua_aduan'] = $this->maduan->aduanSemua()->num_rows();
         $this->load->view('view_admin/lbadmin', $data);
     }
 
@@ -165,33 +257,76 @@ class Aduan extends CI_Controller {
         $komen1 = array(
             'id_admin'      => $this->session->userdata('id_admin'),
             'id_aduan'      => $this->input->post('id_aduan'),
-            'komentar'      => 'Aduan telah diverifikasi oleh Administrator',
+            'komentar'      => 'Aduan diverifikasi oleh admin Lapor Bupati',
             'role'          => 1
         );
         $komen2 = array(
             'id_admin'      => $this->session->userdata('id_admin'),
             'id_aduan'      => $this->input->post('id_aduan'),
-            'komentar'      => 'Aduan telah didisposisikan ke '.$nama_opd,
+            'komentar'      => 'Aduan didisposisikan ke '.$nama_opd,
             'role'          => 1
         );
-        $this->mkomentar->insert($komen1);
-        $this->mkomentar->insert($komen2);
-        $this->maduan->disposisi($data);
-        $this->maduan->updateAduanDisposisi($this->input->post('id_aduan'));
-        $this->session->set_flashdata('notif', 'Aduan berhasil didisposisikan ke '.$nama_opd);
-        $this->session->set_flashdata('type', 'success');
-        redirect('sysadmin/aduan/'.$uri,'refresh');
+
+        if ($this->maduan->updateStatus($this->input->post('id_aduan'), 'didisposisikan')) {
+            if ($uri == 'diverifikasi'){
+                $this->mkomentar->insert($komen2);
+            }else{
+                $this->mkomentar->insert($komen1);
+                $this->mkomentar->insert($komen2);
+            }
+            $this->maduan->disposisi($data);
+            $this->maduan->updateStatus($this->input->post('id_aduan'), 'didisposisikan');
+            $this->session->set_flashdata('notif', 'Aduan berhasil didisposisikan ke '.$nama_opd);
+            $this->session->set_flashdata('type', 'success');
+            redirect('sysadmin/aduan/'.$uri,'refresh');
+        }else{
+            $this->session->set_flashdata('notif', 'Aduan gagal didisposisikan ke '.$nama_opd);
+            $this->session->set_flashdata('type', 'error');
+            redirect('sysadmin/aduan/'.$uri,'refresh');
+        }
+        
     }
 
     public function verifikasi($id){
-        $this->maduan->verifikasi($id);
+        if ($this->maduan->updateStatus($id, 'diverifikasi')) {
+            $this->session->set_flashdata('notif', 'Aduan berhasil diverifikasi');
+            $this->session->set_flashdata('type', 'success');
+            $data = array(
+                'id_aduan' => $id,
+                'komentar' => 'Aduan diverifikasi oleh admin Lapor Bupati',
+                'id_admin' => $this->session->userdata('id_admin'),
+                'role'     => 1
+            );
+            $this->mkomentar->insert($data);
+            redirect('sysadmin/aduan/'.$this->uri->segment(5),'refresh');
+        }else{
+            $this->session->set_flashdata('notif', 'Aduan gagal diverifikasi');
+            $this->session->set_flashdata('type', 'error');
+            redirect('sysadmin/aduan/'.$this->uri->segment(5),'refresh');
+        }
+    }
+
+    public function sampah(){
+        $uri = $this->input->post('uri');
+        $id = $this->input->post('id_aduan');
+        $komentar = $this->input->post('komentar');
         $data = array(
             'id_aduan' => $id,
-            'komentar' => 'Aduan diverivikasi oleh admin Lapor Bupati',
-            'id_admin' => $this->session->userdata('id_admin')
+            'komentar' => 'Aduan anda masuk ke tempat sampah karena '.$komentar,
+            'id_admin' => $this->session->userdata('id_admin'),
+            'role'     => 1
         );
-        $this->mkomentar->insert($data);
-        redirect('lbadmin/'.$this->uri->segment(3),'refresh');
+
+        if ($this->maduan->updateStatus($id, 'sampah')) {
+            $this->mkomentar->insert($data);
+            $this->session->set_flashdata('notif', 'Aduan berhasil masuk ke tempat sampah');
+            $this->session->set_flashdata('type', 'success');
+            redirect('sysadmin/aduan/'.$uri,'refresh');
+        }else{
+            $this->session->set_flashdata('notif', 'Aduan gagal masuk ke tempat sampah');
+            $this->session->set_flashdata('type', 'error');
+            redirect('sysadmin/aduan/'.$uri,'refresh');
+        }
     }
 
 }

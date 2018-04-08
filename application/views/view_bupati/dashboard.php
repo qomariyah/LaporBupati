@@ -1,27 +1,26 @@
-<!-- START WIDGETS -->  
+ <!-- START WIDGETS -->  
 <div class="col-md-12">
     <div class="panel panel-default">
         <div class="panel-heading">                    
             <div class="panel-title-box">
-                <h3>Ikhtisar Data Aduan</h3>
-                <span>Status semua aduan</span>
+                <h3>Aduan Hari Ini</h3>
+                <span>Status semua aduan hari ini</span>
             </div>
             <ul class="panel-controls">
-                <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
                 <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                 <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
             </ul>                                
         </div>
         <div class="panel-body">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 
                 <!-- START WIDGET MESSAGES -->
-                <div class="widget widget-masuk widget-item-icon" onclick="location.href='pages-messages.html';">
+                <div class="widget widget-success widget-item-icon" onclick="location.href='pages-messages.html';">
                     <div class="widget-item-left">
-                        <span class="fa fa-arrow-down"></span>
+                        <span class="fa fa-envelope"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("masuk")->num_rows() ?></div>
+                        <div class="widget-int num-count">48</div>
                         <div class="widget-subtitle">Aduan</div>
                         <div class="widget-title">Masuk</div>
                     </div>      
@@ -32,55 +31,17 @@
                 <!-- END WIDGET MESSAGES -->
                 
             </div>
-            <div class="col-md-3">
-                
-                <!-- START WIDGET MESSAGES -->
-                <div class="widget widget-info widget-item-icon" onclick="location.href='pages-messages.html';">
-                    <div class="widget-item-left">
-                        <span class="fa fa-check-square-o"></span>
-                    </div>                             
-                    <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("diverifikasi")->num_rows() ?></div>
-                        <div class="widget-subtitle">Aduan</div>
-                        <div class="widget-title">Diverifikasi</div>
-                    </div>      
-                    <div class="widget-controls">                                
-                        <a href="<?= base_url()?>joli-admin/#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Hapus Widget"><span class="fa fa-times"></span></a>
-                    </div>
-                </div>                            
-                <!-- END WIDGET MESSAGES -->
-                
-            </div>
-            <div class="col-md-3">
-                
-                <!-- START WIDGET MESSAGES -->
-                <div class="widget widget-yellow widget-item-icon" onclick="location.href='pages-messages.html';">
-                    <div class="widget-item-left">
-                        <span class="fa fa-arrow-right"></span>
-                    </div>                             
-                    <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("didisposisikan")->num_rows() ?></div>
-                        <div class="widget-subtitle">Aduan</div>
-                        <div class="widget-title">Didisposisikan</div>
-                    </div>      
-                    <div class="widget-controls">                                
-                        <a href="<?= base_url()?>joli-admin/#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Hapus Widget"><span class="fa fa-times"></span></a>
-                    </div>
-                </div>                            
-                <!-- END WIDGET MESSAGES -->
-                
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 
                 <!-- START WIDGET MESSAGES -->
                 <div class="widget widget-warning widget-item-icon" onclick="location.href='pages-messages.html';">
                     <div class="widget-item-left">
-                        <span class="fa fa-spinner"></span>
+                        <span class="fa fa-envelope"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("penanganan")->num_rows() ?></div>
+                        <div class="widget-int num-count">48</div>
                         <div class="widget-subtitle">Aduan</div>
-                        <div class="widget-title">Penanganan</div>
+                        <div class="widget-title">Dalam Penanganan</div>
                     </div>      
                     <div class="widget-controls">                                
                         <a href="<?= base_url()?>joli-admin/#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Hapus Widget"><span class="fa fa-times"></span></a>
@@ -89,15 +50,15 @@
                 <!-- END WIDGET MESSAGES -->
                 
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 
                 <!-- START WIDGET MESSAGES -->
-                <div class="widget widget-success widget-item-icon" onclick="location.href='pages-messages.html';">
+                <div class="widget widget-info widget-item-icon" onclick="location.href='pages-messages.html';">
                     <div class="widget-item-left">
-                        <span class="fa fa-check"></span>
+                        <span class="fa fa-envelope"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("selesai")->num_rows() ?></div>
+                        <div class="widget-int num-count">48</div>
                         <div class="widget-subtitle">Aduan</div>
                         <div class="widget-title">Selesai</div>
                     </div>      
@@ -108,62 +69,6 @@
                 <!-- END WIDGET MESSAGES -->
                 
             </div>
-            <div class="col-md-3">
-                
-                <!-- START WIDGET MESSAGES -->
-                <div class="widget widget-danger widget-item-icon" onclick="location.href='pages-messages.html';">
-                    <div class="widget-item-left">
-                        <span class="fa fa-exclamation-circle"></span>
-                    </div>                             
-                    <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("bukan kewenangan")->num_rows() ?></div>
-                        <div class="widget-subtitle">Aduan</div>
-                        <div class="widget-title">Bukan Kewenangan</div>
-                    </div>      
-                    <div class="widget-controls">                                
-                        <a href="<?= base_url()?>joli-admin/#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Hapus Widget"><span class="fa fa-times"></span></a>
-                    </div>
-                </div>                            
-                <!-- END WIDGET MESSAGES -->
-                
-            </div>
-            <div class="col-md-3">
-                
-                <!-- START WIDGET MESSAGES -->
-                <div class="widget widget-sampah widget-item-icon" onclick="location.href='pages-messages.html';">
-                    <div class="widget-item-left">
-                        <span class="fa fa-trash-o"></span>
-                    </div>                             
-                    <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("sampah")->num_rows() ?></div>
-                        <div class="widget-subtitle">Aduan</div>
-                        <div class="widget-title">Tempat Sampah</div>
-                    </div>      
-                    <div class="widget-controls">                                
-                        <a href="<?= base_url()?>joli-admin/#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Hapus Widget"><span class="fa fa-times"></span></a>
-                    </div>
-                </div>                            
-                <!-- END WIDGET MESSAGES -->
-                
-            </div>
-
-            <div class="col-md-3">
-                
-                <!-- START WIDGET MESSAGES -->
-                <div class="widget widget-semua widget-item-icon" onclick="location.href='pages-messages.html';">
-                    <div class="widget-item-left">
-                        <span class="fa fa-table"></span>
-                    </div>                             
-                    <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanSemua()->num_rows(); ?></div>
-                        <div class="widget-subtitle">Semua</div>
-                        <div class="widget-title">Aduan</div>
-                    </div>      
-                    <div class="widget-controls">                                
-                        <a href="<?= base_url()?>joli-admin/#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Hapus Widget"><span class="fa fa-times"></span></a>
-                    </div>
-                </div>                            
-                <!-- END WIDGET MESSAGES -->
         </div>
         <div class="panel-footer">
             <center>
@@ -172,6 +77,85 @@
         </div>
     </div>
 </div>
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">                                   
+            <div class="panel-title-box">
+                <h3>Aduan Bulan Ini</h3>
+                <span>Status semua aduan bulan ini</span>
+            </div>
+            <ul class="panel-controls">
+                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+            </ul>                                
+        </div>
+        <div class="panel-body">
+            <div class="col-md-4">
+                
+                <!-- START WIDGET MESSAGES -->
+                <div class="widget widget-success widget-item-icon" onclick="location.href='pages-messages.html';">
+                    <div class="widget-item-left">
+                        <span class="fa fa-envelope"></span>
+                    </div>                             
+                    <div class="widget-data">
+                        <div class="widget-int num-count">48</div>
+                        <div class="widget-subtitle">Aduan</div>
+                        <div class="widget-title">Masuk</div>
+                    </div>      
+                    <div class="widget-controls">                                
+                        <a href="<?= base_url()?>joli-admin/#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Hapus Widget"><span class="fa fa-times"></span></a>
+                    </div>
+                </div>                            
+                <!-- END WIDGET MESSAGES -->
+                
+            </div>
+            <div class="col-md-4">
+                
+                <!-- START WIDGET MESSAGES -->
+                <div class="widget widget-warning widget-item-icon" onclick="location.href='pages-messages.html';">
+                    <div class="widget-item-left">
+                        <span class="fa fa-envelope"></span>
+                    </div>                             
+                    <div class="widget-data">
+                        <div class="widget-int num-count">48</div>
+                        <div class="widget-subtitle">Aduan</div>
+                        <div class="widget-title">Dalam Penanganan</div>
+                    </div>      
+                    <div class="widget-controls">                                
+                        <a href="<?= base_url()?>joli-admin/#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Hapus Widget"><span class="fa fa-times"></span></a>
+                    </div>
+                </div>                            
+                <!-- END WIDGET MESSAGES -->
+                
+            </div>
+            <div class="col-md-4">
+                
+                <!-- START WIDGET MESSAGES -->
+                <div class="widget widget-info widget-item-icon" onclick="location.href='pages-messages.html';">
+                    <div class="widget-item-left">
+                        <span class="fa fa-envelope"></span>
+                    </div>                             
+                    <div class="widget-data">
+                        <div class="widget-int num-count">48</div>
+                        <div class="widget-subtitle">Aduan</div>
+                        <div class="widget-title">Selesai</div>
+                    </div>      
+                    <div class="widget-controls">                                
+                        <a href="<?= base_url()?>joli-admin/#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Hapus Widget"><span class="fa fa-times"></span></a>
+                    </div>
+                </div>                            
+                <!-- END WIDGET MESSAGES -->
+                
+            </div>
+        </div>
+        <div class="panel-footer">
+            <center>
+                <a href="#" class="btn btn-rounded btn-danger btn-lg" data-toggle="tooltip" data-placement="top" title="Tekan untuk melihat detail data selengkapnya untuk Bulan ini">Lihat Selengkapnya</a>
+            </center>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-4">
@@ -185,6 +169,7 @@
                     </div>
                     <ul class="panel-controls" style="margin-top: 2px;">
                         <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>                                        
                             <ul class="dropdown-menu">
@@ -205,11 +190,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title-box">
-                        <h3>Grafik Aduan</h3>
-                        <span>Grafik semua status aduan</span>
+                        <h3>Sales & Event</h3>
+                        <span>Event "Purchase Button"</span>
                     </div>
                     <ul class="panel-controls" style="margin-top: 2px;">
                         <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>                                        
                             <ul class="dropdown-menu">

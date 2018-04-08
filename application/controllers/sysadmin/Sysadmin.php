@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sysadminlogin extends CI_Controller {
+class Sysadmin extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
@@ -74,7 +74,13 @@ class Sysadminlogin extends CI_Controller {
                         );
                     }
                     $this->session->set_userdata($data_session);
-                    redirect('sysadmin','refresh');
+                    if($this->session->userdata('level') == 'Administrator' || $this->session->userdata('level') == 'Super Admin'){
+                        redirect('sysadmin','refresh');
+                    }else if($this->session->userdata('level') == 'Admin OPD'){
+                        redirect('lbopd','refresh');
+                    }else if($this->session->userdata('level') == 'Bupati'){
+                        redirect('lbbupati','refresh');
+                    }
                 }else{
                     $this->session->set_flashdata('error', 'Username/password yang anda masukkan salah!');
                     redirect(base_url('sysadminlogin'),'refresh');

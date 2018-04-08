@@ -52,13 +52,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'lb';
 $route['404_override'] = 'Error404';
 $route['translate_uri_dashes'] = TRUE;
-$route['kontak'] = 'lb/kontak';
-$route['tentang'] = 'lb/tentang_lb';
+
 $route['sysadmin'] = 'sysadmin/dashboard';
+$route['sysopd'] = 'sysopd/dashboard';
+$route['sysbupati'] = 'sysbupati/dashboard';
+$route['sysadminlogin'] = 'sysadmin/sysadmin';
+$route['sysadminlogin/auth'] = 'sysadmin/sysadmin/auth';
+$route['sysadmin/(:any)'] = 'syadmin/aduan/$1';
 
 //aduan
 
 
+$route['kontak'] = 'lb/kontak';
+$route['tentang'] = 'lb/tentang_lb';
 $route['profil'] = 'front/user/profil';
 $route['petunjuk-dan-syarat'] = 'lb/petunjuk_syarat';
 $route['data-opd'] = 'lb/data_opd';

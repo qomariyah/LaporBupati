@@ -37,8 +37,6 @@ class Mapi extends CI_Model {
 
 		$this->db->join('tb_user', 'tb_user.id_user = tb_aduan.id_user', 'left');
 		$this->db->join('tb_komentar', 'tb_komentar.id_aduan = tb_aduan.id_aduan', 'left');
-		$this->db->where('tb_aduan.status !=', 'masuk');
-		$this->db->where('tb_aduan.status !=', 'sampah');
 		$this->db->where('tb_aduan.id_user', $id);
 		$this->db->where('tb_aduan.rahasia', 1)
 		->or_where('tb_aduan.rahasia =', 0);

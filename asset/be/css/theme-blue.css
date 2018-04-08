@@ -1939,7 +1939,6 @@ ul.panel-controls > li > .dropdown-menu:before {
 /* END USER */
 /* BUTTONS */
 .btn {
-  font-size: 12px;
   padding: 4px 15px;
   line-height: 20px;
   font-weight: 400;
@@ -3371,6 +3370,12 @@ td.dataTables_empty {
 }
 .widget.widget-success {
   background: #1CAF9A;
+}
+.widget.widget-semua {
+  background: #09b84f;
+}
+.widget.widget-masuk {
+  background: #a2adb2;
 }
 .widget.widget-info {
   background: #49a2d2;
