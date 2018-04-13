@@ -26,15 +26,45 @@ class Maduan extends CI_Model {
 		return $this->db->get();
 	}
 
-	public function aduanHariIni($skrg){
+	//fungsi aduan hari ini
+
+	public function aduanHariIni($skrg, $limit, $offset){
 		$this->db->select('*, tb_aduan.dibuat as tanggal');
 		$this->db->from('tb_aduan');
 		$this->db->where('date(tb_aduan.dibuat)', $skrg);
 		$this->db->where('status', 'masuk');
 		$this->db->order_by('tanggal', 'desc');
 		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->limit($limit, $offset);
 		return $this->db->get();
 	}
+
+	public function cariAduanHariIni($query, $skrg, $limit, $offset){
+		$this->db->select('*, tb_aduan.dibuat as tanggal');
+		$this->db->from('tb_aduan');
+		$this->db->where('date(tb_aduan.dibuat)', $skrg);
+		$this->db->where('status', 'masuk');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->limit($limit, $offset);
+		return $this->db->get();
+	}
+
+	public function rowAduanHariIni($skrg){
+		$this->db->where('date(tb_aduan.dibuat)', $skrg);
+		$this->db->where('status', 'masuk');
+		return $this->db->get('tb_aduan');
+	}
+
+	public function rowCariAduanHariIni($query, $skrg){
+		$this->db->where('date(tb_aduan.dibuat)', $skrg);
+		$this->db->where('status', 'masuk');
+		$this->db->like('aduan', $query, 'BOTH');
+		return $this->db->get('tb_aduan');
+	}
+
+	//fungsi aduan dengan status
 
 	public function aduanStatusPage($status, $limit, $offset){
 		$this->db->select('*, tb_aduan.dibuat as tanggal');

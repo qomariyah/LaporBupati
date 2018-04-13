@@ -44,7 +44,7 @@ class Aduan extends CI_Controller {
 
 	}
 
-	public function hari_ini(){
+	public function hari_ini($offset = 0){
 		$data['title'] = "Data Aduan Hari Ini - Admin Lapor Bupati";
         $data['content'] = "aduan-hari-ini";
         $data['breadcrumb'] = "Data Aduan Hari Ini";
@@ -52,8 +52,73 @@ class Aduan extends CI_Controller {
         $data['aduan_hari_ini'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
-        $data['data_aduan'] = $this->maduan->aduanHariIni(date('Y-m-d'))->result();
-        $data['jml_data_aduan_hari_ini'] = $this->maduan->aduanHariIni(date('Y-m-d'))->num_rows();
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysadmin/aduan/hari-ini');
+            $config['total_rows'] = $this->maduan->rowAduanHariIni(date('Y-m-d'))->num_rows();
+            $config['per_page'] = 1;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanHariIni(date('Y-m-d'), $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_hari_ini'] = $this->maduan->rowAduanHariIni(date('Y-m-d'))->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysadmin/aduan/hari-ini?cari='.$query);
+            $config['total_rows'] = $this->maduan->rowCariAduanHariIni($query, date('Y-m-d'))->num_rows();
+            $config['per_page'] = 1;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduanHariIni($query, date('Y-m-d'), $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_hari_ini'] = $this->maduan->rowCariAduanHariIni($query, date('Y-m-d'))->num_rows();
+        }
+
 		$this->load->view('view_admin/lbadmin', $data);
 	}
 

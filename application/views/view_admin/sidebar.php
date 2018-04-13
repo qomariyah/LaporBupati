@@ -28,7 +28,7 @@
                 <a href="<?= site_url('sysadmin')?>"><span class="fa fa-home"></span> <span class="xn-text">Dashboard</span></a>                        
             </li>            
             <?php
-                $hari_ini = $this->maduan->aduanHariIni(date('Y-m-d'))->num_rows();
+                $hari_ini = $this->maduan->rowAduanHariIni(date('Y-m-d'))->num_rows();
                 $masuk = $this->maduan->jmlAduanStatus("masuk")->num_rows();
                 $diverifikasi = $this->maduan->jmlAduanStatus("diverifikasi")->num_rows();
                 $disposisi = $this->maduan->rowAduanDisposisi()->num_rows();
