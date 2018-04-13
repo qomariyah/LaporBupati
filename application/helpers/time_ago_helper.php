@@ -1,11 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-/**
- * @package  : BismaLabs Official Site
- * @author   : Bisma Labs - Developer <developer@bismalabs.co.id-->
- * @since    : 2017
- * @license  : https://bismalabs.co.id/
- */
+
 if (! function_exists('time_ago')) {
     function time_ago($datetime, $full = false){
         $today = time();
@@ -32,14 +27,16 @@ if (! function_exists('time_ago')) {
         }
         //month checker
         if ($difftext == "") {
-            if ($days >= 1){
+            if($days <= 1 && $days > 0){
+                $difftext = "kemarin pukul ".date("H:s", strtotime($datetime));
+            }elseif ($days > 1){
                 $difftext = $days . " hari lalu pukul ".date("H:s", strtotime($datetime));
             }
         }
         //hour checker
         if ($difftext == "") {
-            if ($hours >= 1){
-                $difftext = $hours . " jam lalu";
+            if ($hours >= 1 && $hours <= 24){
+                $difftext = "hari ini pukul ".date("H:s", strtotime($datetime));
             }
         }
         //minutes checker

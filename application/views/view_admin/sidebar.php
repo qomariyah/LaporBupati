@@ -29,14 +29,14 @@
             </li>            
             <?php
                 $hari_ini = $this->maduan->aduanHariIni(date('Y-m-d'))->num_rows();
-                $masuk = $this->maduan->aduanStatus("masuk")->num_rows();
-                $diverifikasi = $this->maduan->aduanStatus("diverifikasi")->num_rows();
-                $disposisi = $this->maduan->aduanDisposisi()->num_rows();
-                $penanganan = $this->maduan->aduanStatus("penanganan")->num_rows();
-                $selesai = $this->maduan->aduanStatus("selesai")->num_rows();
-                $bukankewenangan = $this->maduan->aduanStatus("bukan kewenangan")->num_rows();
-                $sampah = $this->maduan->aduanStatus("sampah")->num_rows();
-                $semua = $this->maduan->aduanSemua()->num_rows();
+                $masuk = $this->maduan->jmlAduanStatus("masuk")->num_rows();
+                $diverifikasi = $this->maduan->jmlAduanStatus("diverifikasi")->num_rows();
+                $disposisi = $this->maduan->rowAduanDisposisi()->num_rows();
+                $penanganan = $this->maduan->jmlAduanStatus("penanganan")->num_rows();
+                $selesai = $this->maduan->jmlAduanStatus("selesai")->num_rows();
+                $bukankewenangan = $this->maduan->jmlAduanStatus("bukan kewenangan")->num_rows();
+                $sampah = $this->maduan->jmlAduanStatus("sampah")->num_rows();
+                $semua = $this->maduan->rowAduanSemua()->num_rows();
 
             ?>  
             <li class="xn-openable <?= @$Aduan ?>">
@@ -49,7 +49,7 @@
                     <li class="<?= @$aduan_dalam_penanganan ?>"><a href="<?= site_url('sysadmin/aduan/penanganan')?>"><span class="fa fa-spinner"></span> Penanganan<span class="pull-right badge badge-warning"><?= $penanganan ?></span></a></li>
                     <li class="<?= @$aduan_selesai ?>"><a href="<?= site_url('sysadmin/aduan/selesai')?>"><span class="fa fa-check"></span> Selesai<span class="pull-right badge badge-success"><?= $selesai ?></span></a></li>
                     <li class="<?= @$aduan_bukan_kewenangan ?>"><a href="<?= site_url('sysadmin/aduan/bukan-kewenangan')?>"><span class="fa fa-warning"></span> <span class="pull-right badge badge-danger"><?= $bukankewenangan ?></span>Bukan Kewenangan</a></li>
-                    <li class="<?= @$aduan_tempat_sampah ?>"><a href="<?= site_url('sysadmin/aduan/tempat-sampah')?>"><span class="fa fa-trash-o"></span> <span class="pull-right badge badge-danger"><?= $sampah ?></span>Sampah</a></li>
+                    <li class="<?= @$aduan_tempat_sampah ?>"><a href="<?= site_url('sysadmin/aduan/sampah')?>"><span class="fa fa-trash-o"></span> <span class="pull-right badge badge-danger"><?= $sampah ?></span>Sampah</a></li>
                     <li class="<?= @$semua_aduan ?>"><a href="<?= site_url('sysadmin/aduan/semua')?>"><span class="fa fa-table"></span> Semua<span class="pull-right badge badge-success"><?= $semua ?></span></a></li>
                 </ul>
             </li>                 

@@ -58,7 +58,6 @@ $route['sysopd'] = 'sysopd/dashboard';
 $route['sysbupati'] = 'sysbupati/dashboard';
 $route['sysadminlogin'] = 'sysadmin/sysadmin';
 $route['sysadminlogin/auth'] = 'sysadmin/sysadmin/auth';
-$route['sysadmin/(:any)'] = 'syadmin/aduan/$1';
 
 //aduan
 

@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-6">
-                                <a href="#" class="btn btn-link btn-block">Lupa kata sandi? klik di sini.</a>
+                                <a href="#" class="btn btn-link btn-block">Lupa kata sandi? <br>klik di sini.</a>
                             </div>
                             <div class="col-md-6">
                                 <input type="submit" class="btn btn-info btn-block" value="Log In">

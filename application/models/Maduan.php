@@ -36,24 +36,39 @@ class Maduan extends CI_Model {
 		return $this->db->get();
 	}
 
-	public function aduanStatus($status){
+	public function aduanStatusPage($status, $limit, $offset){
+		$this->db->select('*, tb_aduan.dibuat as tanggal');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		return $this->db->get('tb_aduan', $limit, $offset);
+	}
+
+	public function cariAduan($query, $status, $limit, $offset){
 		$this->db->select('*, tb_aduan.dibuat as tanggal');
 		$this->db->from('tb_aduan');
 		$this->db->order_by('tanggal', 'desc');
 		$this->db->where('tb_aduan.status', $status);
 		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->limit($limit, $offset);
 		return $this->db->get();
 	}
 
-	public function aduanStatusPage($limit, $status){
-		$this->db->select('*, tb_aduan.dibuat as tanggal');
-		$this->db->order_by('tanggal', 'desc');
+	public function jmlAduanStatus($status){
 		$this->db->where('tb_aduan.status', $status);
-		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
-		return $this->db->get('tb_aduan', $limit, 0);
+		return $this->db->get('tb_aduan');
 	}
 
-	public function aduanDisposisi(){
+	public function jmlCariAduan($query, $status){
+		$this->db->where('status', $status);
+		$this->db->like('aduan', $query, 'BOTH');
+		return $this->db->get('tb_aduan');
+	}
+
+	//Aduan disposisi
+
+	public function aduanDisposisi($limit, $offset){
 		$this->db->select('*, tb_aduan.dibuat as tanggal, tb_user.thumb as userfoto');
 		$this->db->from('tb_aduan');
 		$this->db->order_by('tanggal', 'desc');
@@ -61,16 +76,72 @@ class Maduan extends CI_Model {
 		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
 		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
 		$this->db->where('tb_aduan.status', 'didisposisikan');
+		$this->db->limit($limit, $offset);
 		$this->db->group_by('tb_aduan.id_aduan');
 		return $this->db->get();
 	}
 
-	public function aduanSemua(){
+	public function cariAduanDisposisi($query, $offset, $limit){
+		$this->db->select('*, tb_aduan.dibuat as tanggal, tb_user.thumb as userfoto');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
+		$this->db->where('tb_aduan.status', 'didisposisikan');
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->limit($limit, $offset);
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	public function rowCariAduanDisposisi($query){
+		$this->db->select('*, tb_aduan.dibuat as tanggal');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->where('tb_aduan.status', 'didisposisikan');
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	public function rowAduanDisposisi(){
+		$this->db->select('*, tb_aduan.dibuat as tanggal');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->where('tb_aduan.status', 'didisposisikan');
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	//Semua Aduan
+
+	public function rowAduanSemua(){
+		return $this->db->get('tb_aduan');
+	}
+
+	public function aduanSemua($limit, $offset){
 		$this->db->select('*, tb_aduan.dibuat as tanggal');
 		$this->db->from('tb_aduan');
 		$this->db->order_by('tanggal', 'desc');
 		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->limit($limit, $offset);
 		return $this->db->get();
+	}
+
+	public function cariAduanSemua($query, $limit, $offset){
+		$this->db->select('*, tb_aduan.dibuat as tanggal');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->limit($limit, $offset);
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		return $this->db->get();
+	}
+
+	public function rowCariAduanSemua($query){
+		$this->db->like('aduan', $query, 'BOTH');
+		return $this->db->get('tb_aduan');
 	}
 
 	public function disposisi($data){
@@ -91,41 +162,6 @@ class Maduan extends CI_Model {
 		$this->db->join('tb_user', 'tb_user.id_user = tb_aduan.id_user', 'left');
 		return $this->db->get();
 	}
-
-	public function cariAduan($query, $status, $limit){
-		$this->db->select('*, tb_aduan.dibuat as tanggal');
-		$this->db->from('tb_aduan');
-		$this->db->order_by('tanggal', 'desc');
-		$this->db->where('tb_aduan.status', $status);
-		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
-		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
-		$this->db->limit($limit);
-		return $this->db->get();
-	}
-
-	public function jmlCariAduan($query, $status){
-		$this->db->select('*, tb_aduan.dibuat as tanggal');
-		$this->db->from('tb_aduan');
-		$this->db->order_by('tanggal', 'desc');
-		$this->db->where('tb_aduan.status', $status);
-		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
-		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
-		return $this->db->get();
-	}
-
-	public function cariAduanDisposisi($query){
-		$this->db->select('*, tb_aduan.dibuat as tanggal, tb_user.thumb as userfoto');
-		$this->db->from('tb_aduan');
-		$this->db->order_by('tanggal', 'desc');
-		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
-		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
-		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
-		$this->db->where('tb_aduan.status', 'didisposisikan');
-		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
-		$this->db->group_by('tb_aduan.id_aduan');
-		return $this->db->get();
-	}
-
 }
 
 /* End of file Maduan.php */
