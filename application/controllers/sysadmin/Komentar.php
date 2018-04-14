@@ -21,7 +21,7 @@ class Komentar extends CI_Controller {
         $this->load->view('view_admin/lbadmin', $data);
 	}
 
-    public function komentar_hari_ini(){
+    public function hari_ini($offset = 0){
     	$data = array(
 			"title"				=> "Data Komentar Hari Ini - Admin Lapor Bupati",
 			"content"			=> "komentar-hari-ini",
@@ -30,6 +30,19 @@ class Komentar extends CI_Controller {
 			"komentar_hari_ini" 	=> "active"
 		);
         $this->load->view('view_admin/lbadmin', $data);
+    }
+
+    public function tambah(){
+    	$data = array(
+    		'id_admin'      => $this->session->userdata('id_admin'),
+            'id_aduan'      => $this->input->post('id'),
+            'komentar'      => $this->input->post('komentar'),
+            'role'          => 1
+    	);
+    	$this->mkomentar->insert($data);
+    	$this->session->set_flashdata('notif', 'Tanggapan berhasil ditambahkan');
+        $this->session->set_flashdata('type', 'success');
+        redirect('sysadmin/aduan/detail/'.$this->input->post('id'),'refresh');
     }
 
 }

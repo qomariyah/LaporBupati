@@ -9,7 +9,7 @@
                     </div>
                     <div class="mb-footer">
                         <div class="pull-right">
-                            <a href="<?= base_url('lbadmin/logout')?>" class="btn btn-danger btn-lg">Ya</a>
+                            <a href="<?= base_url('sysadminlogin/logout')?>" class="btn btn-danger btn-lg">Ya</a>
                             <button class="btn btn-default btn-lg mb-control-close">Tidak</button>
                         </div>
                     </div>

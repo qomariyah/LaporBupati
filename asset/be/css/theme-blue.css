@@ -2373,26 +2373,32 @@ label.valid {
   border-radius: 3px;
   padding: 0px 8px;
 }
-.label-primary,
-.badge-primary {
-  background-color: #33414e;
+
+.label-success, .badge-success {
+  background: #1CAF9A;
 }
-.label-success,
-.badge-success {
-  background-color: #95b75d;
+.label-semua, .badge-semua {
+  background: #09b84f;
 }
-.label-info,
-.badge-info {
-  background-color: #1caf9a;
+.label-masuk, .badge-masuk {
+  background: #a2adb2;
 }
-.label-warning,
-.badge-warning {
-  background-color: #1caf9a;
+.label-info, .badge-info {
+  background: #49a2d2;
 }
-.label-danger,
-.badge-danger {
-  background-color: #E04B4A;
+.label-yellow, .badge-yellow {
+  background: #e8ca36;
 }
+.label-warning, .badge-warning {
+  background: #f57c00;
+}
+.label-danger, .badge-danger {
+  background: #ff4e4b;
+}
+.label-sampah, .badge-sampah {
+  background: #bb211f;
+}
+
 /* EOF LABELS AND BADGES */
 /* ALERTS */
 .alert {

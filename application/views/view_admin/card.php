@@ -15,6 +15,7 @@
                             </div>
                         </div>
                     </form>
+                    <h3 class="panel-title"><?= $this->session->flashdata('query'); ?></h3>
                     <div class="pull-right">
                         <a href="<?= site_url('lbadmin/tambahopd') ?>" class="btn btn-rounded btn-success" data-toggle="tooltip" data-placement="left" title="Tekan untuk menambah data">Tambah</a>
                     </div>

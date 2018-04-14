@@ -54,10 +54,16 @@ $route['404_override'] = 'Error404';
 $route['translate_uri_dashes'] = TRUE;
 
 $route['sysadmin'] = 'sysadmin/dashboard';
+$route['sysadmin/opd/(:any)'] = "sysadmin/opd/index/$1";
+
 $route['sysopd'] = 'sysopd/dashboard';
+
 $route['sysbupati'] = 'sysbupati/dashboard';
+
 $route['sysadminlogin'] = 'sysadmin/sysadmin';
 $route['sysadminlogin/auth'] = 'sysadmin/sysadmin/auth';
+$route['sysadminlogin/oauth'] = 'sysadmin/sysadmin/oauth';
+$route['sysadminlogin/logout'] = 'sysadmin/sysadmin/logout';
 
 //aduan
 

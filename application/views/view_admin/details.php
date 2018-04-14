@@ -189,76 +189,129 @@
 </div>
 <?php } ?>
 
-<?php if ($content == 'detail-data-aduan-hari-ini') { ?>
-    <!-- START CONTENT FRAME -->
-    <div class="content-frame">                                    
-        <!-- START CONTENT FRAME TOP -->
-        <div class="content-frame-top">                        
-            <div class="page-title">                    
-                <h2><span class="fa fa-file-text"></span> <?= $breadcrumb ?></h2>
-            </div>                                                                                
-            
-            <div class="pull-right">                                                                                    
-                <button class="btn btn-default"><span class="fa fa-print"></span> Print</button>
-                <button class="btn btn-default content-frame-left-toggle"><span class="fa fa-bars"></span></button>
-            </div>                        
-        </div>
-        <!-- END CONTENT FRAME TOP -->
-        
-        <!-- START CONTENT FRAME LEFT -->
-        <div class="content-frame-left">
-            <form action="" method="" enctype="multipart/form-data">
-                <div class="block">
-                    <select class="form-control select" data-live-search="true" data-style="btn btn-info btn-block">
-                        <option value="">-- Pilih OPD --</option>
-                        <?php foreach($daftar_opd as $daftar_opd) { ?>
-                        <option value="<?= $daftar_opd->id_opd ?>">
-                            <?php echo $daftar_opd->singkatan ?>
-                        </option>
-                        <?php } ?>
-                    </select>    
-                </div>
-                <div class="block">
-                    <a href="pages-mailbox-compose.html" class="btn btn-danger btn-block btn-lg"><span class="fa fa-upload"></span> Disposisikan ke</a>
-                </div>
-            </form>
-        </div>
-        <!-- END CONTENT FRAME LEFT -->
-        
-        <!-- START CONTENT FRAME BODY -->
-        <div class="content-frame-body">
-            
+<?php if ($content == 'detail-data-aduan') { ?>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="pull-left">
-                        <img src="<?= base_url()?>asset/be/assets/images/users/user2.jpg" class="panel-title-image" alt="John Doe"/>
-                        <h3 class="panel-title">Nama Pengirim <small>email_pengirim@domain.com</small></h3>
+                <?php foreach($data_aduan as $key){ ?>
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            <img 
+                                <?php
+                                    if ($key->foto == "") {
+                                        echo "src='".base_url()."asset/fe/images/no-image.png'" ;
+                                    }else{
+                                        echo "src='".base_url()."files/user/thumb/".$key->thumb."'";
+                                    }
+                                ?>
+                            alt="<?= p($key->thumb) ?>" class="panel-title-image">
+                            <h3 class="panel-title"><?= p($key->nama_user) ?> <small><?= time_ago($key->tanggal) ?></small></h3>
+                        </div>
+                        <div class="pull-right">
+                            <?php 
+                                if ($key->status == "masuk") {
+                                   echo "<span class='badge badge-masuk'><b>".$key->status."</b></span>";
+                                }elseif($key->status == "diverifikasi"){
+                                    echo "<span class='badge badge-info'><b>".$key->status."</b></span>";
+                                }elseif($key->status == "didisposisikan"){
+                                    echo "<span class='badge badge-yellow'><b>".$key->status."</b></span>";
+                                }elseif($key->status == "penanganan"){
+                                    echo "<span class='badge badge-warning'><b>".$key->status."</b></span>";
+                                }elseif($key->status == "sampah"){
+                                    echo "<span class='badge badge-sampah'><b>".$key->status."</b></span>";
+                                }elseif($key->status == "bukan kewenangan"){
+                                    echo "<span class='badge badge-danger'><b>".$key->status."</b></span>";
+                                }elseif($key->status == "selesai"){
+                                    echo "<span class='badge badge-success'><b>".$key->status."</b></span>";
+                                }
+                                if ($key->rahasia == 1) {
+                                    echo "&nbsp<span class='badge badge-danger'><b>rahasia</b></span>";
+                                }
+                            ?>
+                            <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Bukan Kewenangan"><span class="fa fa-warning"></span></button>
+                            <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Ke tempat sampah"><span class="fa fa-trash-o"></span></button>                                    
+                        </div>
                     </div>
-                    <div class="pull-right">
-                        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Bukan Kewenangan"><span class="fa fa-warning"></span></button>
-                        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Ke tempat sampah"><span class="fa fa-trash-o"></span></button>                                    
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <h4><span class="fa fa-clock-o"></span> Today, Sep 18, 14:33</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ligula risus, viverra sit amet purus id, ullamcorper venenatis leo. Ut vitae semper neque. Nunc vel lacus vel erat sodales ultricies sed sed massa. Duis non elementum velit. Nunc quis molestie dui. Nullam ullamcorper lectus in mattis volutpat. Nunc egestas felis sit amet ultrices euismod. Donec lacinia neque vel quam pharetra, non dignissim arcu semper. Donec ultricies, neque ut vehicula ultrices, ligula velit sodales purus, eget eleifend libero risus sed turpis. Fusce hendrerit vel dui ut pulvinar. Ut sed tristique ante, sed egestas turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p>Fusce sit amet dui at nunc laoreet facilisis. Proin consequat orci sollicitudin sem cursus, quis vehicula eros ultrices. Cras fermentum justo at nibh tincidunt, consectetur elementum est aliquam.</p>
-                    <p>Nam dignissim convallis nulla, vitae porta purus fringilla ac. Praesent consectetur ex eu dui efficitur sollicitudin. Mauris libero est, aliquam a diam maximus, dignissim laoreet lacus.</p>
-                    <p>Nulla ac nisi sodales, auctor dui et, consequat turpis. Cras dolor turpis, sagittis vel elit in, varius elementum arcu. Mauris aliquet lorem ac enim blandit, nec consequat tortor auctor. Sed eget nunc at justo congue mollis eget a urna. Phasellus in mauris quis tortor porta tristique at a risus.</p>
-                    
-                    <div class="form-group push-up-20">
-                        <label>Komentar</label>
-                        <textarea class="form-control" rows="3" placeholder="Komentar"></textarea>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <button class="btn btn-success pull-right"><span class="fa fa-mail-reply"></span> Balas</button>
-                </div>
-            </div>
+                    <div class="panel-body">
+                         <?php if (!empty($key->lampiran)) { ?>
+                            <center>
+                                <img class="img-responsive" src="<?= base_url() ?>/files/aduan/source/<?= $key->lampiran ?>">
+                            </center>
+                        <?php } ?><br>
+                        <p style="font-size: 20px" align="justify">
+                            <?= p($key->aduan) ?>
+                        </p><br>
+
+                        <p>
+                            <?php if ($key->jmlkomen == 0) {
+                                echo "Belum ada tanggapan";
+                            }else{
+                                echo $key->jmlkomen." tanggapan";
+                            } ?>
+                        </p>
+                        <div class="timeline-body comments">
+                            <?php foreach($data_komentar as $komen){ ?>
+                                <div class="comment-item">
+                                    <?php
+                                        if (!empty($komen->id_admin)) { ?>
+                                            <img 
+                                                <?php
+                                                    if ($komen->foto_admin == "") {
+                                                        echo "src='".base_url()."asset/fe/images/no-image.png'" ;
+                                                    }else{
+                                                        echo "src='".base_url()."files/administrator/thumb/".$komen->foto_admin."'";
+                                                    }
+                                                ?>
+                                            alt="<?= p($komen->foto_admin) ?>">
+                                            <p class="comment-head">
+                                                <a href="#"><?= p($komen->nama_admin) ?></a> <span class="text">Administrator</span>
+                                            </p>
+                                    <?php }elseif (!empty($komen->id_opd)) { ?>
+                                            <img 
+                                                <?php
+                                                    if ($komen->foto_opd == "") {
+                                                        echo "src='".base_url()."asset/fe/images/no-image.png'" ;
+                                                    }else{
+                                                        echo "src='".base_url()."files/opd/thumb/".$komen->foto_opd."'";
+                                                    }
+                                                ?>
+                                            alt="<?= p($komen->foto_opd) ?>">
+                                            <p class="comment-head">
+                                                <a href="#"><?= p($komen->singkatan) ?></a> <span class="text">Administrator</span>
+                                            </p>
+                                    <?php }elseif (!empty($komen->id_user)) { ?>
+                                            <img 
+                                                <?php
+                                                    if ($komen->foto_user == "") {
+                                                        echo "src='".base_url()."asset/fe/images/no-image.png'" ;
+                                                    }else{
+                                                        echo "src='".base_url()."files/user/thumb/".$komen->foto_user."'";
+                                                    }
+                                                ?>
+                                            alt="<?= p($komen->foto_user) ?>">
+                                            <p class="comment-head">
+                                                <a href="#"><?= p($komen->singkatan) ?></a> <span class="text">Administrator</span>
+                                            </p>
+                                    <?php } ?>
+                                    <p style="font-size: 14px; ;line-height: 20px"><?= p($komen->komentar) ?></p>
+                                    <small class="text"><?= time_ago($komen->tanggal) ?></small>
+                                </div>
+                            <?php } ?>
+                        </div>
+                        <form method="POST" action="<?= site_url('sysadmin/komentar/tambah') ?>">
+                            <div class="form-group push-up-20">
+                                <input type="hidden" name="id" value="<?= $this->uri->segment(4) ?>">
+                                <textarea class="form-control" rows="2" name="komentar" placeholder="Ketikkan tanggapan anda tentang aduan ini..."></textarea>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <input type="submit" value="Balas" class="btn btn-success pull-right">
+                        </div>
+                        </form>
+                <?php } ?>
+            </div> 
         </div>
-        <!-- END CONTENT FRAME BODY -->
     </div>
-    <!-- END CONTENT FRAME -->    
 <?php } ?>
 
 <?php if ($content == 'detail-masukan') { ?>

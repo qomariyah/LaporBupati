@@ -67,9 +67,9 @@
                             $this->load->view('view_admin/form');
                         }else if($content == "aduan-hari-ini"){
                             $this->load->view('view_admin/list');
-                        }else if($content == "detail-data-aduan-hari-ini"){
+                        }else if($content == "detail-data-aduan"){
                             $this->load->view('view_admin/details');
-                        }else if($content == "aduan-diverivikasi"){
+                        }else if($content == "aduan-diverifikasi"){
                             $this->load->view('view_admin/list');
                         }else if($content == "aduan-masuk"){
                             $this->load->view('view_admin/list');
@@ -82,6 +82,8 @@
                         }else if($content == "aduan-bukan-kewenangan"){
                             $this->load->view('view_admin/list');
                         }else if($content == "aduan-tempat-sampah"){
+                            $this->load->view('view_admin/list');
+                        }else if($content == "aduan-rahasia"){
                             $this->load->view('view_admin/list');
                         }else if($content == "semua-aduan"){
                             $this->load->view('view_admin/list');

@@ -6,13 +6,7 @@ class Sysadmin extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
         $this->load->model('mlogin');
-
-        if($this->session->userdata('status') == 'loginberhasil'){
-            redirect(base_url('sysadmin'));
-        }
-        if($this->session->userdata('level') == 'Administrator'){
-            redirect(base_url('sysadmin'));
-        }
+        
 	}
 
     public function create_captcha(){
@@ -43,6 +37,12 @@ class Sysadmin extends CI_Controller {
     }
 
 	public function index() {
+        if($this->session->userdata('status') == 'loginberhasil'){
+            redirect(base_url('sysadmin'));
+        }
+        if($this->session->userdata('level') == 'Administrator'){
+            redirect(base_url('sysadmin'));
+        }
 		$data['title'] = "Lapor Bupati - Admin Login";
         $data['error'] = "";
         $data['image'] = $this->create_captcha();
@@ -50,6 +50,12 @@ class Sysadmin extends CI_Controller {
     }
 
     public function auth() {
+        if($this->session->userdata('status') == 'loginberhasil'){
+            redirect(base_url('sysadmin'));
+        }
+        if($this->session->userdata('level') == 'Administrator'){
+            redirect(base_url('sysadmin'));
+        }
         if ($this->input->post('captcha') != $this->session->userdata('captchaword')) {
             $this->session->set_flashdata('error', 'Kode Salah! silahkan masukkan kode yang benar!');
             redirect(base_url('sysadminlogin'),'refresh');
@@ -93,6 +99,12 @@ class Sysadmin extends CI_Controller {
     }
 
     public function oauth() {
+        if($this->session->userdata('status') == 'loginberhasil'){
+            redirect(base_url('sysadmin'));
+        }
+        if($this->session->userdata('level') == 'Administrator'){
+            redirect(base_url('sysadmin'));
+        }
         $this->session->set_flashdata('error', 'Anda belum login! silahkan masukkan username & password!');
         redirect(base_url('sysadminlogin'),'refresh');
     }

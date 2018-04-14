@@ -21,7 +21,7 @@
                         <span class="fa fa-arrow-down"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("masuk")->num_rows() ?></div>
+                        <div class="widget-int num-count"><?= $this->maduan->jmlAduanStatus("masuk")->num_rows() ?></div>
                         <div class="widget-subtitle">Aduan</div>
                         <div class="widget-title">Masuk</div>
                     </div>      
@@ -40,7 +40,7 @@
                         <span class="fa fa-check-square-o"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("diverifikasi")->num_rows() ?></div>
+                        <div class="widget-int num-count"><?= $this->maduan->jmlAduanStatus("diverifikasi")->num_rows() ?></div>
                         <div class="widget-subtitle">Aduan</div>
                         <div class="widget-title">Diverifikasi</div>
                     </div>      
@@ -59,7 +59,7 @@
                         <span class="fa fa-arrow-right"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("didisposisikan")->num_rows() ?></div>
+                        <div class="widget-int num-count"><?= $this->maduan->jmlAduanStatus("didisposisikan")->num_rows() ?></div>
                         <div class="widget-subtitle">Aduan</div>
                         <div class="widget-title">Didisposisikan</div>
                     </div>      
@@ -78,7 +78,7 @@
                         <span class="fa fa-spinner"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("penanganan")->num_rows() ?></div>
+                        <div class="widget-int num-count"><?= $this->maduan->jmlAduanStatus("penanganan")->num_rows() ?></div>
                         <div class="widget-subtitle">Aduan</div>
                         <div class="widget-title">Penanganan</div>
                     </div>      
@@ -97,7 +97,7 @@
                         <span class="fa fa-check"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("selesai")->num_rows() ?></div>
+                        <div class="widget-int num-count"><?= $this->maduan->jmlAduanStatus("selesai")->num_rows() ?></div>
                         <div class="widget-subtitle">Aduan</div>
                         <div class="widget-title">Selesai</div>
                     </div>      
@@ -116,7 +116,7 @@
                         <span class="fa fa-exclamation-circle"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("bukan kewenangan")->num_rows() ?></div>
+                        <div class="widget-int num-count"><?= $this->maduan->jmlAduanStatus("bukan kewenangan")->num_rows() ?></div>
                         <div class="widget-subtitle">Aduan</div>
                         <div class="widget-title">Bukan Kewenangan</div>
                     </div>      
@@ -135,7 +135,7 @@
                         <span class="fa fa-trash-o"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanStatus("sampah")->num_rows() ?></div>
+                        <div class="widget-int num-count"><?= $this->maduan->jmlAduanStatus("sampah")->num_rows() ?></div>
                         <div class="widget-subtitle">Aduan</div>
                         <div class="widget-title">Tempat Sampah</div>
                     </div>      
@@ -155,7 +155,7 @@
                         <span class="fa fa-table"></span>
                     </div>                             
                     <div class="widget-data">
-                        <div class="widget-int num-count"><?= $this->maduan->aduanSemua()->num_rows(); ?></div>
+                        <div class="widget-int num-count"><?= $this->maduan->rowAduanSemua()->num_rows(); ?></div>
                         <div class="widget-subtitle">Semua</div>
                         <div class="widget-title">Aduan</div>
                     </div>      

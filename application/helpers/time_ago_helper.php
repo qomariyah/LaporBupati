@@ -16,27 +16,27 @@ if (! function_exists('time_ago')) {
         //year checker
         if ($difftext == "") {
             if ($years >= 1){
-                $difftext = date_indo(date("Y-m-d", strtotime($datetime)))." pukul ".date("H:s", strtotime($datetime));
+                $difftext = date_indo(date("Y-m-d", strtotime($datetime)))." ".date("H:s", strtotime($datetime));
             }
         }
         //month checker
         if ($difftext == "") {
             if ($months >= 1) {
-                $difftext = date_indo(date("Y-m-d", strtotime($datetime)))." pukul ".date("H:s", strtotime($datetime));
+                $difftext = date_indo(date("Y-m-d", strtotime($datetime)))." ".date("H:s", strtotime($datetime));
             }
         }
         //month checker
         if ($difftext == "") {
             if($days <= 1 && $days > 0){
-                $difftext = "kemarin pukul ".date("H:s", strtotime($datetime));
+                $difftext = "kemarin ".date("H:s", strtotime($datetime));
             }elseif ($days > 1){
-                $difftext = $days . " hari lalu pukul ".date("H:s", strtotime($datetime));
+                $difftext = $days . " hari lalu ".date("H:s", strtotime($datetime));
             }
         }
         //hour checker
         if ($difftext == "") {
             if ($hours >= 1 && $hours <= 24){
-                $difftext = "hari ini pukul ".date("H:s", strtotime($datetime));
+                $difftext = "hari ini ".date("H:s", strtotime($datetime));
             }
         }
         //minutes checker

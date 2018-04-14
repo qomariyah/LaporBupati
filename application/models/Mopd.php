@@ -16,6 +16,16 @@ class Mopd extends CI_Model {
         return $this->db->get('tb_opd', $limit, $offset)->result();
     }
 
+    public function cariOpd($query, $limit, $offset) {
+        $this->db->like('nama_opd', $query, 'BOTH');
+        return $this->db->get('tb_opd', $limit, $offset);
+    }
+
+    public function jmlCariOpd($query){
+        $this->db->like('nama_opd', $query, 'BOTH');
+        return $this->db->get('tb_opd');
+    }
+
 	public function create($data){
 		$this->db->insert('tb_opd', $data);
 	}

@@ -122,16 +122,6 @@ class Aduan extends CI_Controller {
 		$this->load->view('view_admin/lbadmin', $data);
 	}
 
-    public function detail(){
-        $data['title'] = "Detail Data Aduan - Admin Lapor Bupati";
-        $data['content'] = "detail-data-aduan";
-        $data['breadcrumb'] = "Detail Data Aduan";
-        $data['Aduan'] = "active";
-        $data['aduan_hari_ini'] = "active";
-        $data['daftar_opd'] = $this->mopd->daftar_opd();
-        $this->load->view('view_admin/lbadmin', $data);
-    }
-
     public function masuk($offset = 0){
         $data['title'] = "Data Aduan Masuk - Admin Lapor Bupati";
         $data['content'] = "aduan-masuk";
@@ -212,8 +202,8 @@ class Aduan extends CI_Controller {
 
     public function diverifikasi($offset = 0){
         $data['title'] = "Data Aduan Diterima - Admin Lapor Bupati";
-        $data['content'] = "aduan-diverivikasi";
-        $data['breadcrumb'] = "Data Aduan Diverivikasi";
+        $data['content'] = "aduan-diverifikasi";
+        $data['breadcrumb'] = "Data Aduan Diverifikasi";
         $data['Aduan'] = "active";
         $data['aduan_diverifikasi'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
@@ -755,6 +745,97 @@ class Aduan extends CI_Controller {
             $data['data_aduan'] = $this->maduan->cariAduanSemua($query, $config['per_page'], $offset)->result();
             $data['jml_semua_aduan'] = $this->maduan->rowCariAduanSemua($query)->num_rows();
         }
+        $this->load->view('view_admin/lbadmin', $data);
+    }
+
+    public function rahasia($offset = 0){
+        $data['title'] = "Data Aduan Rahasia - Admin Lapor Bupati";
+        $data['content'] = "aduan-rahasia";
+        $data['breadcrumb'] = "Data Aduan Rahasia";
+        $data['Aduan'] = "active";
+        $data['aduan_rahasia'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysadmin/aduan/semua/');
+            $config['total_rows'] = $this->maduan->rowAduanRahasia()->num_rows();
+            $config['per_page'] = 5;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanRahasia($config['per_page'], $offset)->result();
+            $data['jml_semua_aduan'] = $this->maduan->aduanRahasia($config['per_page'], $offset)->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysadmin/aduan/semua?cari='.$query);
+            $config['total_rows'] = $this->maduan->rowCariAduanRahasia($query)->num_rows();
+            $config['per_page'] = 5;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduanRahasia($query, $config['per_page'], $offset)->result();
+            $data['jml_semua_aduan'] = $this->maduan->rowCariAduanRahasia($query)->num_rows();
+        }
+
+        $this->load->view('view_admin/lbadmin', $data);
+    }
+
+
+
+    public function detail($id){
+        $data['title'] = "Detail Data Aduan - Admin Lapor Bupati";
+        $data['content'] = "detail-data-aduan";
+        $data['breadcrumb'] = "Detail Data Aduan";
+        $data['Aduan'] = "active";
+        $data['data_aduan'] = $this->maduan->getAduanById($id)->result();
+        $data['data_komentar'] = $this->mkomentar->komentarById($id)->result();
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
         $this->load->view('view_admin/lbadmin', $data);
     }
 
