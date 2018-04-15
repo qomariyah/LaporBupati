@@ -35,7 +35,7 @@ if (! function_exists('time_ago')) {
         }
         //hour checker
         if ($difftext == "") {
-            if ($hours >= 1 && $hours <= 24){
+            if ($hours > 0 && $hours <= 24){
                 $difftext = "hari ini ".date("H:s", strtotime($datetime));
             }
         }

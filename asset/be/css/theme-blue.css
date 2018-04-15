@@ -1944,7 +1944,7 @@ ul.panel-controls > li > .dropdown-menu:before {
   font-weight: 400;
   -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
-  border-radius: 0px;
+  border-radius: 3px;
   -webkit-transition: all 200ms ease;
   -moz-transition: all 200ms ease;
   -ms-transition: all 200ms ease;

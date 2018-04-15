@@ -29,7 +29,15 @@ class Aduan extends CI_Controller {
 	}
 
 	public function edit(){
-
+        $uri = $this->input->post('uri');
+        $id = $this->input->post('id_aduan');
+        $data = array(
+            'aduan'         => $this->input->post('aduan')
+        );
+        $this->maduan->edit($data, $id);
+        $this->session->set_flashdata('notif', 'Data aduan berhasil diedit');
+        $this->session->set_flashdata('type', 'success');
+        redirect('sysadmin/aduan/detail/'.$id);
 	}
 
 	public function update(){
@@ -56,7 +64,7 @@ class Aduan extends CI_Controller {
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/hari-ini');
             $config['total_rows'] = $this->maduan->rowAduanHariIni(date('Y-m-d'))->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['num_links'] = 5;
             $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
@@ -88,7 +96,7 @@ class Aduan extends CI_Controller {
             $query = $this->input->get('cari');
             $config['base_url'] = site_url('sysadmin/aduan/hari-ini?cari='.$query);
             $config['total_rows'] = $this->maduan->rowCariAduanHariIni($query, date('Y-m-d'))->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['page_query_string'] = TRUE;
             $config['num_links'] = 5;
@@ -134,7 +142,7 @@ class Aduan extends CI_Controller {
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/masuk');
             $config['total_rows'] = $this->maduan->jmlAduanStatus("masuk")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['num_links'] = 5;
             $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
@@ -166,7 +174,7 @@ class Aduan extends CI_Controller {
             $query = $this->input->get('cari');
             $config['base_url'] = site_url('sysadmin/aduan/masuk?cari='.$query);
             $config['total_rows'] = $this->maduan->jmlCariAduan($query, "masuk")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['page_query_string'] = TRUE;
             $config['num_links'] = 5;
@@ -212,7 +220,7 @@ class Aduan extends CI_Controller {
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/diverifikasi');
             $config['total_rows'] = $this->maduan->jmlAduanStatus("diverifikasi")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['num_links'] = 5;
             $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
@@ -244,7 +252,7 @@ class Aduan extends CI_Controller {
             $query = $this->input->get('cari');
             $config['base_url'] = site_url('sysadmin/aduan/diverifikasi?cari='.$query);
             $config['total_rows'] = $this->maduan->jmlCariAduan($query, "diverifikasi")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['page_query_string'] = TRUE;
             $config['num_links'] = 5;
@@ -371,7 +379,7 @@ class Aduan extends CI_Controller {
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/penanganan');
             $config['total_rows'] = $this->maduan->jmlAduanStatus("penanganan")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['num_links'] = 5;
             $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
@@ -403,7 +411,7 @@ class Aduan extends CI_Controller {
             $query = $this->input->get('cari');
             $config['base_url'] = site_url('sysadmin/aduan/penanganan?cari='.$query);
             $config['total_rows'] = $this->maduan->jmlCariAduan($query, "penanganan")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['page_query_string'] = TRUE;
             $config['num_links'] = 5;
@@ -449,7 +457,7 @@ class Aduan extends CI_Controller {
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/selesai');
             $config['total_rows'] = $this->maduan->jmlAduanStatus("selesai")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['num_links'] = 5;
             $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
@@ -481,7 +489,7 @@ class Aduan extends CI_Controller {
             $query = $this->input->get('cari');
             $config['base_url'] = site_url('sysadmin/aduan/selesai?cari='.$query);
             $config['total_rows'] = $this->maduan->jmlCariAduan($query, "selesai")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['page_query_string'] = TRUE;
             $config['num_links'] = 5;
@@ -527,7 +535,7 @@ class Aduan extends CI_Controller {
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/bukan-kewenangan');
             $config['total_rows'] = $this->maduan->jmlAduanStatus("bukan kewenangan")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['num_links'] = 5;
             $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
@@ -559,7 +567,7 @@ class Aduan extends CI_Controller {
             $query = $this->input->get('cari');
             $config['base_url'] = site_url('sysadmin/aduan/bukan-kewenangan?cari='.$query);
             $config['total_rows'] = $this->maduan->jmlCariAduan($query, "bukan kewenangan")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['page_query_string'] = TRUE;
             $config['num_links'] = 5;
@@ -605,7 +613,7 @@ class Aduan extends CI_Controller {
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/sampah');
             $config['total_rows'] = $this->maduan->jmlAduanStatus("sampah")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['num_links'] = 5;
             $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
@@ -637,7 +645,7 @@ class Aduan extends CI_Controller {
             $query = $this->input->get('cari');
             $config['base_url'] = site_url('sysadmin/aduan/sampah?cari='.$query);
             $config['total_rows'] = $this->maduan->jmlCariAduan($query, "sampah")->num_rows();
-            $config['per_page'] = 1;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['page_query_string'] = TRUE;
             $config['num_links'] = 5;
@@ -683,7 +691,7 @@ class Aduan extends CI_Controller {
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/semua/');
             $config['total_rows'] = $this->maduan->rowAduanSemua()->num_rows();
-            $config['per_page'] = 5;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['num_links'] = 5;
             $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
@@ -715,7 +723,7 @@ class Aduan extends CI_Controller {
             $query = $this->input->get('cari');
             $config['base_url'] = site_url('sysadmin/aduan/semua?cari='.$query);
             $config['total_rows'] = $this->maduan->rowCariAduanSemua($query)->num_rows();
-            $config['per_page'] = 5;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['page_query_string'] = TRUE;
             $config['num_links'] = 5;
@@ -760,7 +768,7 @@ class Aduan extends CI_Controller {
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/semua/');
             $config['total_rows'] = $this->maduan->rowAduanRahasia()->num_rows();
-            $config['per_page'] = 5;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['num_links'] = 5;
             $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
@@ -792,7 +800,7 @@ class Aduan extends CI_Controller {
             $query = $this->input->get('cari');
             $config['base_url'] = site_url('sysadmin/aduan/semua?cari='.$query);
             $config['total_rows'] = $this->maduan->rowCariAduanRahasia($query)->num_rows();
-            $config['per_page'] = 5;
+            $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
             $config['page_query_string'] = TRUE;
             $config['num_links'] = 5;

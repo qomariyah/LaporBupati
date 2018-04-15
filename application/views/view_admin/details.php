@@ -199,7 +199,7 @@
                             <img 
                                 <?php
                                     if ($key->foto == "") {
-                                        echo "src='".base_url()."asset/fe/images/no-image.png'" ;
+                                        echo "src='".base_url()."asset/fe/images/no-image-male-no-frame.png'" ;
                                     }else{
                                         echo "src='".base_url()."files/user/thumb/".$key->thumb."'";
                                     }
@@ -228,8 +228,70 @@
                                     echo "&nbsp<span class='badge badge-danger'><b>rahasia</b></span>";
                                 }
                             ?>
-                            <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Bukan Kewenangan"><span class="fa fa-warning"></span></button>
-                            <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Ke tempat sampah"><span class="fa fa-trash-o"></span></button>                                    
+                            <div class="btn-group">
+                                <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" data-toggle="modal" data-target="#edit<?= p($key->id_aduan) ?>">Edit Aduan</a></li>
+                                    <li><a href="<?= site_url('sysadmin/aduan/verifikasi/'.$key->id_aduan.'/detail')?>">Verifikasi</a></li>
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#sampah<?= p($key->id_aduan) ?>">Ke tempat sampah</a>
+                                    </li>                                                    
+                                </ul>
+                            </div>       
+                            <!-- Modal sampah begin -->
+                                <div class="modal" id="sampah<?= p($key->id_aduan) ?>" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+                                    <div class="modal-dialog modal-md">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                <h4 class="modal-title" id="smallModalHead">Tuliskan alasan mengapa aduan ini dimasukkan ke sampah</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="<?= site_url('sysadmin/aduan/sampah') ?>">
+                                                    <div class="form-group">                                     
+                                                        <div class="form-group">
+                                                            <label class="control-label">Alasan/komentar</label>
+                                                            <textarea class="form-control" rows="5" name="komentar" placeholder="Tanggapan..." autofocus required></textarea>
+                                                        </div>
+                                                        <input type="hidden" name="uri" value="<?= $this->uri->segment(3) ?>">
+                                                        <input type="hidden" name="id_aduan" value="<?= $key->id_aduan ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" class="btn btn-rounded btn-success" value="Kirim">
+                                                    </div>
+                                                </form>        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <!-- Modal sampah end -->  
+                                <!-- Modal edit begin -->
+                                <div class="modal" id="edit<?= p($key->id_aduan) ?>" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+                                    <div class="modal-dialog modal-md">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                <h4 class="modal-title" id="smallModalHead">Edit aduan untuk mencegah kata-kata tidak pantas</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="<?= site_url('sysadmin/aduan/edit') ?>">
+                                                    <div class="form-group">                                     
+                                                        <div class="form-group">
+                                                            <label class="control-label">Isi aduan</label>
+                                                            <textarea class="form-control" rows="5" name="aduan" placeholder="Tanggapan..." autofocus required><?= p($key->aduan) ?></textarea>
+                                                        </div>
+                                                        <input type="hidden" name="uri" value="<?= $this->uri->segment(3) ?>">
+                                                        <input type="hidden" name="id_aduan" value="<?= $key->id_aduan ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" class="btn btn-rounded btn-success" value="Edit">
+                                                    </div>
+                                                </form>        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <!-- Modal edit end -->                                
                         </div>
                     </div>
                     <div class="panel-body">

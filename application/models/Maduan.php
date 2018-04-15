@@ -227,6 +227,11 @@ class Maduan extends CI_Model {
 		$this->db->join('tb_user', 'tb_user.id_user = tb_aduan.id_user', 'left');
 		return $this->db->get();
 	}
+
+	public function edit($data, $id){
+		$this->db->where('id_aduan', $id);
+		return $this->db->update('tb_aduan', $data);
+	}
 }
 
 /* End of file Maduan.php */

@@ -69,7 +69,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('sysadmin/aduan/verifikasi/'.$key->id_aduan.'/hari-ini')?>">Verifikasi</a></li>
@@ -232,7 +232,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('sysadmin/aduan/verifikasi/'.$key->id_aduan.'/masuk')?>">Verifikasi</a></li>
@@ -368,7 +368,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li>
@@ -503,7 +503,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -639,7 +639,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -775,7 +775,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -911,7 +911,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -1047,7 +1047,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -1198,7 +1198,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -1349,7 +1349,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -1534,7 +1534,7 @@
                             <td class="col-md-2"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle"><i class="fa fa-gear"></i> <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle"><i class="fa fa-gear"></i> <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_masukan')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>                                                    
@@ -1615,7 +1615,7 @@
                             <td class="col-md-2"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle"><i class="fa fa-gear"></i> <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle"><i class="fa fa-gear"></i> <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_masukan')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>                                                    
@@ -1696,7 +1696,7 @@
                             <td class="col-md-2"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle"><i class="fa fa-gear"></i> <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle"><i class="fa fa-gear"></i> <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_masukan')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>                                                    
@@ -1756,7 +1756,7 @@
                             <td class="col-md-1"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_komentar')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>          
@@ -1815,7 +1815,7 @@
                             <td class="col-md-1"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_komentar')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>          
@@ -1874,7 +1874,7 @@
                             <td class="col-md-1"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_komentar')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>          
