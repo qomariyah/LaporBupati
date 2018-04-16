@@ -1748,61 +1748,108 @@
     <!-- END CONTENT FRAME --> 
 <?php } ?>
 
-<?php if ($content == 'semua-komentar') { ?>
-    <div class="row">
+<?php if ($content == 'komentar') { ?>
+    <div class="row">                     
         <div class="col-md-12">
-            <!-- START DEFAULT DATATABLE -->
+            <!-- CONTACTS WITH CONTROLS -->
             <div class="panel panel-default">
-                <div class="panel-heading">                                
-                    <h3 class="panel-title"><?= $breadcrumb ?></h3>
-                    <form method="POST">
-                        <div class="col-md-2 pull-right">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Data Komentar</h3>
+                    <form method="GET" action="">
+                        <div class="col-md-3">
                             <div class="form-group">                                         
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="fa fa-search"></span></span>
-                                    <input type="text" name="cari" class="form-control" placeholder="Cari Aduan..." />
+                                    <input type="text" name="cari" class="form-control" placeholder="Cari <?= $content ?>" />
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                        <h3 class="panel-title"><?= $this->session->flashdata('query'); ?></h3>
+                    </form>
+                    <ul class="panel-controls">                                             
+                        <a href="<?= site_url('lbadmin/tambah_user') ?>" class="btn btn-rounded btn-success" data-toggle="tooltip" data-placement="left" title="Tekan untuk menambah data">Tambah</a>
+                    </ul>         
                 </div>
-                <div class="panel-body list-group">
-                    <table>
-                    <?php for ($i=0; $i < 15 ; $i++) {  ?>
+                <div class="panel-body list-group list-group-contacts">
+                <table>
+                    <?php if ($jml_data_komentar == 0) { ?>
                         <tr>
-                            <td class="col-md-3">
-                                <a href="<?= site_url('sysadmin/detail/')?>" class="list-group-item"><b>EmailPengirim@gmail.com</b></a>
+                            <td class="col-md-3 list-group-item"><b>Data Komentar ditemukan</b></td>
+                        </tr>
+                    <?php }else{ 
+                        foreach ($data_komentar as $row) { ?>
+                        <tr>
+                            <td class="col-md-3 list-group-item">
+                                <img 
+                                    <?php
+                                        if (!empty($row->id_admin)) {
+                                            if (!empty($row->foto_admin)) {
+                                                echo "src='".base_url()."files/administrator/thumb/".$row->foto_admin."'";
+                                            }else{
+                                                echo "src='".base_url()."asset/fe/images/no-image-male-no-frame.png'" ;
+                                            }
+                                        }elseif (!empty($row->id_opd)){
+                                            if (!empty($row->foto_opd)) {
+                                                echo "src='".base_url()."files/opd/thumb/".$row->foto_opd."'";
+                                            }else{
+                                                echo "src='".base_url()."asset/fe/images/no-image.png'" ;
+                                            }
+                                        }elseif (!empty($row->id_user)) {
+                                            if (!empty($row->foto_user)) {
+                                                echo "src='".base_url()."files/user/thumb/".$row->foto_user."'";
+                                            }else{
+                                                echo "src='".base_url()."asset/fe/images/no-image-male-no-frame.png'" ;
+                                            }
+                                        }
+                                    ?>
+                                class="pull-left">
+                                <span class="contacts-title">
+                                    <?php
+                                        if (!empty($row->id_admin)) {
+                                            echo $row->nama_admin;
+                                        }elseif (!empty($row->id_opd)){
+                                            echo $row->singkatan;
+                                        }elseif (!empty($row->id_user)) {
+                                            echo $row->nama_user;
+                                        }
+                                    ?>
+                                </span>
+                                <p><?php
+                                    if (!empty($row->id_admin)) {
+                                        echo "Administrator";
+                                    }elseif (!empty($row->id_opd)){
+                                        echo "Admin OPD ".$row->singkatan;
+                                    }elseif (!empty($row->id_user)) {
+                                        echo "User";
+                                    }
+                                ?></p>
                             </td>
-                            <td class="col-md-7">
-                                <a href="<?= site_url('sysadmin/detail/')?>" class="list-group-item">Lorem ipsum dolor sit Sed facilisis suscipit eros vitae iaculisSed facilisis suscipit eros ...</a>
+                            <td class="col-md-7 list-group-item">
+                                <a href="#"><?= p($row->komentar) ?></a>
                             </td>
-                            <td class="col-md-1"><b><?= date('d-M-Y') ?></b></td>
-                            <td class="col-md-1">
+                            <td class="col-md-2 list-group-item"><b><?= time_ago($row->tanggal) ?></b></td>
+                            <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle"><i class="fa fa-bars"></i> <!-- <span class="caret"></span> --></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="<?= site_url('lbadmin/detail_komentar')?>">Lihat selengkapnya</a></li>
-                                        <li><a href="#">Ke tempat sampah</a></li>          
+                                        <li><a href="<?= site_url('sysadmin/user/detail/'.$row->id_user) ?>"><i class="fa fa-eye"></i> Lihat Profil</a></li>
+                                        <li><a href="<?= site_url('sysadmin/user/edit/'.$row->id_user) ?>"><i class="fa fa-pencil"></i> Edit</a></li>
+                                        <li><a href="<?= site_url('sysadmin/user/delete/'.$row->id_user) ?>"><i class="fa fa-trash-o"></i> Hapus</a></li>
+                                        <li><a href="<?= site_url('sysadmin/user/blokir/'.$row->id_user) ?>"><i class="fa fa-lock"></i> Blokir</a></li>
                                     </ul>
                                 </div>      
                             </td>
                         </tr>
-                    <?php } ?>
-                    </table>           
+                    <?php } } ?>
+                </table>
                 </div>
                 <div class="panel-footer">
                     <center>
-                        <ul class="pagination pagination-sm">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li class="active"><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul> 
+                        <?= $pagination ?> 
                     </center>   
                 </div>
             </div>
+            <!-- END CONTACTS WITH CONTROLS -->
         </div>
     </div>
 <?php } ?>

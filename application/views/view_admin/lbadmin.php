@@ -108,11 +108,7 @@
                             $this->load->view('view_admin/list');
                         }else if($content == "masukan-bulan-ini"){
                             $this->load->view('view_admin/list');
-                        }else if($content == "semua-komentar"){
-                            $this->load->view('view_admin/list');
-                        }else if($content == "komentar-hari-ini"){
-                            $this->load->view('view_admin/list');
-                        }else if($content == "komentar-kemarin"){
+                        }else if($content == "komentar"){
                             $this->load->view('view_admin/list');
                         }else if($content == "pengaturan"){
                             $this->load->view('view_admin/setting');

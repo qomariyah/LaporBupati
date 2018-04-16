@@ -10,27 +10,89 @@ class Komentar extends CI_Controller {
 		$this->load->model('mkomentar');
 	}
 
-	public function index(){
-		$data = array(
-			"title"				=> "Data Komentar - Admin Lapor Bupati",
-			"content"			=> "semua-komentar",
-			"breadcrumb"		=> "Data Komentar",
-			"Komentar"			=> "active",
-			"semua_komentar" 	=> "active"
-		);
+	public function index($offset = 0){
+		$data["title"] = "Data Komentar - Admin Lapor Bupati";
+		$data["content"]	= "komentar";
+		$data["breadcrumb"] = "Data Komentar";
+		$data["Komentar"] = "active";
+		$data["semua_komentar"] = "active";
+
+        $query = $this->input->get('cari');
+
+        if (!isset($query)) {
+            $jmldata = $this->mkomentar->jmlKomentar();
+            $config['base_url'] = site_url('sysadmin/komentar/');
+            $config['total_rows'] = $jmldata;
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $awal = $offset+1;
+            $dari = $config['per_page']+$offset+1;
+            $this->pagination->initialize($config);
+
+            $this->session->set_flashdata('query', $jmldata.' data');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_komentar'] = $this->mkomentar->komentar($config['per_page'], $offset)->result();
+            $data['jml_data_komentar'] = $this->mkomentar->jmlKomentar();
+        }else{
+            $jmldata = $this->mkomentar->jmlKomentarCari($query);
+            $config['base_url'] = site_url('sysadmin/komentar?cari='.$query);
+            $config['total_rows'] = $jmldata;
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page')+1;
+            $dari = $offset+19;
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b> '.$jmldata.' data');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_komentar'] = $this->mkomentar->komentarCari($query, $config['per_page'], $offset-1)->result();
+            $data['jml_data_komentar'] = $jmldata;
+        }
+
         $this->load->view('view_admin/lbadmin', $data);
 	}
-
-    public function hari_ini($offset = 0){
-    	$data = array(
-			"title"				=> "Data Komentar Hari Ini - Admin Lapor Bupati",
-			"content"			=> "komentar-hari-ini",
-			"breadcrumb"		=> "Data Komentar Hari Ini",
-			"Komentar"			=> "active",
-			"komentar_hari_ini" 	=> "active"
-		);
-        $this->load->view('view_admin/lbadmin', $data);
-    }
 
     public function tambah(){
     	$data = array(
