@@ -313,7 +313,71 @@
                         </p>
                         <div class="timeline-body comments">
                             <?php foreach($data_komentar as $komen){ ?>
-                                <div class="comment-item">
+                                <div class="comment-item"><div class="btn-group pull-right">
+                                    <a href="#" data-toggle="dropdown" class="btn btn-xs dropdown-toggle"><span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#" data-toggle="modal" data-target="#edit<?= p($komen->id_komentar) ?>"><i class="fa fa-pencil"></i> Edit</a></li>
+                                        <li>
+                                            <a href="#" class="mb-control" data-box="#mb<?= p($komen->id_komentar) ?>"><i class="fa fa-trash-o"></i> Hapus</a>
+                                            <!-- Modal delete SEKTOR -->
+                                            <div class="message-box message-box-danger animated fadeIn" data-sound="alert" id="mb<?= $komen->id_komentar ?>">
+                                                <div class="mb-container">
+                                                    <div class="mb-middle">
+                                                        <div class="mb-title"><span class="fa fa-trash-o"></span> Hapus <strong>Data</strong> ?</div>
+                                                        <div class="mb-content">
+                                                            <p>Apakah Anda yakin akan menghapus data dari sistem?</p>                    
+                                                            <p>Berhati-hatilah, data mungkin tidak bisa dikembalikan!.</p>
+                                                        </div>
+                                                        <div class="mb-footer">
+                                                            <div class="pull-right">
+                                                                <form action="<?= site_url('sysadmin/komentar/delete') ?>" method="POST">
+                                                                    <input type="hidden" name="id" value="<?= $komen->id_komentar ?>">
+                                                                    <input type="hidden" name="id_aduan" value="<?= $key->id_aduan ?>">
+                                                                    <input type="hidden" name="uri" value="<?= $this->uri->segment(3) ?>">
+                                                                    <input type="submit" class="btn btn-danger btn-lg" value="Ya">
+                                                                    <button class="btn btn-info btn-lg mb-control-close">Tidak</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal delete SEKTOR -->
+                                        </li>                                                  
+                                    </ul>
+                                </div>
+                                <!-- Modal edit begin -->
+                                <div class="modal" id="edit<?= p($komen->id_komentar) ?>" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+                                    <div class="modal-dialog modal-md">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                <h4 class="modal-title" id="smallModalHead">Edit tanggapan untuk mencegah kata-kata tidak pantas</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="<?= site_url('sysadmin/komentar/update') ?>">
+                                                    <div class="form-group">                                     
+                                                        <div class="form-group">
+                                                            <label class="control-label">Tanggapan</label>
+                                                            <textarea class="form-control" rows="3" name="komentar" placeholder="Tanggapan..." autofocus required><?= p($komen->komentar) ?></textarea>
+                                                        </div>
+                                                        <input type="hidden" name="uri" value="<?= $this->uri->segment(3) ?>">
+                                                        <input type="hidden" name="id_aduan" value="<?= $key->id_aduan ?>">
+                                                        <input type="hidden" name="id_komentar" value="<?= p($komen->id_komentar) ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Lampiran</label>
+                                                        <input type="file" class="form-control pull-left" name="" style="margin-top: 5px">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" style="margin-top: 10px" class="btn btn-success" value="Edit">
+                                                    </div>
+                                                </form>        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <!-- Modal edit end -->      
                                     <?php
                                         if (!empty($komen->id_admin)) { ?>
                                             <img 
@@ -363,11 +427,12 @@
                         <form method="POST" action="<?= site_url('sysadmin/komentar/tambah') ?>">
                             <div class="form-group push-up-20">
                                 <input type="hidden" name="id" value="<?= $this->uri->segment(4) ?>">
-                                <textarea class="form-control" rows="2" name="komentar" placeholder="Ketikkan tanggapan anda tentang aduan ini..."></textarea>
+                                <textarea class="form-control" rows="2" name="komentar" placeholder="Ketikkan tanggapan anda tentang aduan ini..." required></textarea>
+                                <input type="file" class="pull-left" name="" style="margin-top: 5px">
+                                <input type="submit" value="Balas" style="margin-top: 5px" class="btn btn-success pull-right">
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <input type="submit" value="Balas" class="btn btn-success pull-right">
                         </div>
                         </form>
                 <?php } ?>

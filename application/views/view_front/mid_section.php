@@ -19,7 +19,7 @@
 					<div class="col-md-6" id="form-register">
 						<div class="book-form inn-com-form">
 							<form class="col s12" method="POST">
-								<p><strong>Penting!</strong> Pastikan isi aduan menggunakan bahasa yang baik dan santun.</p>
+								<p><strong>Penting!</strong> Pastikan isi aduan menggunakan bahasa yang baik dan santun.</p><br>
 								<div class="row">
 									<div class="col s12">
 										<textarea id="textarea" minlength="50" required placeholder="Pesan Aduan"></textarea>
@@ -53,7 +53,7 @@
 						</div>
 						<div class="book-form2 inn-com-form">
 							<form class="col s12" method="POST">
-								<p><strong>Daftar!</strong> dan ikut serta dalam pembangunan Kabupaten Pekalongan.</p>
+								<p><strong>Daftar!</strong> dan ikut serta dalam pembangunan Kabupaten Pekalongan.</p><br>
 								<div>
 									<label class="col s4">NO. KTP</label>
 									<input type="text" maxlength="16" required placeholder="contoh : 12345678901234" class="validate">
@@ -175,7 +175,7 @@
 			<div class="container">
 				<div class="row">
 					<h4><?= $judul; ?></h4>
-					<p>Curabitur auctor, massa sed interdum ornare, nulla sem vestibulum purus, eu maximus magna urna eu nunc.</p>
+					<p>Laporkan Permasalahan di Sekitarmu Untuk Kemajuan Kotamu</p>
 					<p> </p>
 					<ul>
 						<li><a href="<?= site_url() ?>">Home</a>
@@ -196,16 +196,18 @@
 							<div class="hl-2"></div>
 							<div class="hl-3"></div>
 						</div>
-						<p>Quisque at volutpat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
 						<div class="about-left">
-							<h2>Welcome to <span>My Hotel</span></h2>
-							<h4>Cras eu nisl quis est mattis placerat. Etiam ut ante et lacus imperdiet sagittis a finibus mauris.</h4>
-							<p>Proin nisl mi, eleifend in faucibus et, venenatis eu turpis. Ut hendrerit eleifend odio. Nullam ullamcorper viverra ex quis tempus. In hac habitasse platea dictumst. Vestibulum sed tempor metus. </p>
-							<p>Duis sollicitudin augue nec bibendum mollis. Proin luctus diam vel hendrerit dictum. Nunc tincidunt nibh in sem blandit venenatis. Suspendisse rutrum ultricies porttitor. Quisque at volutpat nibh.Aliquam dapibus turpis mollis felis fermentum bibendum. In finibus a nulla vitae dapibus. Nam non suscipit urna. Vestibulum et lacinia justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> <a href="#" class="link-btn">Call to us: (+404) 142 21 23 78</a> </div>
+							<h2>Lapor <span>Bupati</span></h2>
+							<h4>Laporkan Permasalahan di Sekitarmu Untuk Kemajuan Kotamu</h4>
+							<p align="justify">Lapor Bupati merupakan sistem informasi pengaduan masyarakat berbasis android dan web yang digunakan sebagai sarana penyampaian laporan, keluhan, maupun aspirasi masyarakat Kabupaten Pekalongan.</p>
+							
+							<p align="justify">Lapor Bupati melibatkan partisipasi publik dan bersifat dua arah sehingga dapat tercipta komunikasia antara masyarakat dengan penyelenggara. Masyarakat dapat menyampaikan pengaduan yang nantinya akan ditindaklanjuti oleh Organisasi Perangkat Daerah (OPD) terkait. Lapor Bupati dikembangkan dalam rangka peningkatan kualitas pelayanan publik di Kabupaten Pekalongan.</p>
+
+							<a href="#" class="link-btn">Kontak : 085 600 900 300</a> </div>
 					</div>
 					<div class="col-md-6">
 						<div class="about-right"> <img src="<?= base_url()?>asset/fe/images/about.jpg" alt=""> </div>
@@ -223,7 +225,6 @@
 				<div class="row">
 					<h4><?= $judul; ?></h4>
 					<p>Curabitur auctor, massa sed interdum ornare, nulla sem vestibulum purus, eu maximus magna urna eu nunc.</p>
-					<p> </p>
 					<ul>
 						<li><a href="<?= site_url() ?>">Home</a>
 						</li>
@@ -243,7 +244,6 @@
 							<div class="hl-2"></div>
 							<div class="hl-3"></div>
 						</div>
-						<p>Quisque at volutpat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
 					</div>
 				</div>
 				<div class="row">
@@ -274,16 +274,16 @@
 						<div class="book-form inn-com-form">
 							<center><h3>MASUKAN</h3></center>
 							<center><p>Bantu kami dalam menyempurnakan aplikasi dengan memberikan masukan, kritik, dan saran.</p></center>
-							<form class="col s12">
+							<form action="<?= site_url('front/kontak/kirimmasukan') ?>" class="col s12" method="POST">
 								<div class="row">
 									<div class="input-field col s12">
-										<input type="email" class="validate">
+										<input type="email" class="validate" name="email" value="<?= $this->session->userdata('email')?>">
 										<label data-error="wrong" data-success="right">Email</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="input-field col s12">
-										<textarea id="textarea" class="materialize-textarea" placeholder="Masukan"></textarea>
+										<textarea id="textarea" class="materialize-textarea" placeholder="Masukan" name="masukan"></textarea>
 									</div>
 								</div>
 								<div class="row">
@@ -316,11 +316,18 @@
 			<br>
 			<div class="db-profile">
 				<center>
-					<img class="materialboxed" src="<?= base_url() ?>asset/fe/images/no-image-male-no-frame.png" alt="">
+					<img class="materialboxed" <?php
+	                        if ($this->session->userdata('foto') == "") {
+	                            echo "src='".base_url()."asset/fe/images/no-image-male-no-frame.png'" ;
+	                        }else{
+	                            echo "src='".base_url()."files/user/source/".$this->session->userdata('foto')."'";
+	                        }
+	                    ?> alt="<?= $this->session->userdata('foto') ?>" />
 				</center>
-				<h4>Qomariyah</h4>
-				<p>28800 Orchard Lake Road, Suite 180 Farmington Hills, U.S.A. Landmark : Next To Airport</p>
+				<h4><?= $this->session->userdata('nama_user')?></h4>
+				<p><?= $this->session->userdata('alamat') ?></p>
 			</div>
+
 			<div class="db-profile-view">
 				<table>
 					<thead>
@@ -335,33 +342,31 @@
 						<tr>
 							<td>32</td>
 							<td>Citizen</td>
-							<td>22 November 2010</td>
+							<td><?= $this->session->userdata('dibuat') ?></td>
 							<td><a href="<?= site_url('aduan-saya')?>" class="waves-effect waves-light event-regi">Lihat aduan saya</a></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div class="db-profile-edit">
-				<form class="col s12">
+				<form class="col s12" method="POST" action="#">
 					<div>
 						<label class="col s4">No. KTP</label>
 						<div class="input-field col s8">
-							<input type="number" value="332332332332" class="validate"> </div>
+							<input type="number" value="<?= $this->session->userdata('no_ktp') ?>" class="validate">
+						</div>
 					</div>
 					<div>
 						<label class="col s4">Nama Lengkap</label>
 						<div class="input-field col s8">
-							<input type="text" value="Qomariyah" class="validate"> </div>
-					</div>
-					<div>
-						<label class="col s4">Username</label>
-						<div class="input-field col s8">
-							<input type="text" value="qoriiiy" class="validate"> </div>
+							<input type="text" value="<?= $this->session->userdata('nama_user') ?>" class="validate">
+						</div>
 					</div>
 					<div>
 						<label class="col s4">Password</label>
 						<div class="input-field col s8">
-							<input type="password" value="Qomariyah" class="validate"> </div>
+							<input type="password" value="<?= $this->session->userdata('password') ?>" class="validate">
+						</div>
 					</div>
 					<div>
 						<label class="col s4">Jenis Kelamin</label>
@@ -375,39 +380,47 @@
 					<div>
 						<label class="col s4">Tempat Lahir</label>
 						<div class="input-field col s8">
-							<input type="text" value="Pekalongan" class="validate"> </div>
+							<input type="text" value="<?= $this->session->userdata('tmp_lahir') ?>" class="validate">
+						</div>
 					</div>
 					<div>
 						<label class="col s4">Tanggal Lahir</label>
 						<div class="input-field col s8">
-							<input type="text" id="from" name="from"> </div>
+							<input type="text" id="from" name="from" value="<?= $this->session->userdata('tgl_lahir') ?>">
+						</div>
 					</div>
 					<div>
 						<label class="col s4">Email</label>
 						<div class="input-field col s8">
-							<input type="email" value="qomariyah2211@gmail.com" class="validate"> </div>
+							<input type="email" value="<?= $this->session->userdata('email') ?>" class="validate">
+						</div>
 					</div>
 					<div>
 						<label class="col s4">No. Telepon</label>
 						<div class="input-field col s8">
-							<input type="text" value="0185419635" class="validate"> </div>
+							<input type="text" value="<?= $this->session->userdata('no_telepon') ?>" class="validate">
+						</div>
 					</div>
 					<div>
 						<div class="file-field input-field">
 							<div class="btn" id="pro-file-upload"> <span>Foto</span>
-								<input type="file"> </div>
+								<input type="file">
+							</div>
 							<div class="file-path-wrapper">
-								<input class="file-path validate" type="text" placeholder="Unggah Foto Profil"> </div>
+								<input class="file-path validate" type="text" placeholder="Unggah Foto Profil">
+							</div>
 						</div>
 					</div>
 					<div>
 						<label class="col s4">Alamat</label>
 						<div class="input-field col s8">
-							<input type="text" value="Bahurekso No. 304 Kajen" class="validate"> </div>
+							<input type="text" value="<?= $this->session->userdata('alamat') ?>" class="validate">
+						</div>
 					</div>
 					<div>
 						<div class="input-field col s8">
-							<input type="submit" value="Perbarui data" class="waves-effect waves-light pro-sub-btn" id="pro-sub-btn"> </div>
+							<input type="submit" value="Perbarui data" class="waves-effect waves-light pro-sub-btn" id="pro-sub-btn">
+						</div>
 					</div>
 				</form>
 			</div>
@@ -577,11 +590,7 @@
 							<div class="hp-over">
 								<ul class="nav nav-tabs hp-over-nav">
 									<li class="active">
-										<a data-toggle="tab" href="#home"><img src="<?= base_url() ?>asset/fe/images/icon/petunjuk.png" alt=""> <span class="tab-hide">Petunjuk</span>
-										</a>
-									</li>
-									<li>
-										<a data-toggle="tab" href="#menu1"><img src="<?= base_url() ?>asset/fe/images/icon/syarat.png" alt=""> <span class="tab-hide">Syarat</span>
+										<a data-toggle="tab" href="#menu1"><img src="<?= base_url() ?>asset/fe/images/icon/syarat.png" alt=""> <span class="tab-hide">Petunjuk &amp; Syarat</span>
 										</a>
 									</li>
 									<li>
@@ -594,48 +603,75 @@
 									</li>
 								</ul>
 								<div class="tab-content">
-									<div id="home" class="tab-pane fade in active tab-space">
+									<div id="menu1" class="tab-pane fade in active tab-space">
 										<div class="row">
 											<div class="col-md-6 hp-ov-fac"> <img src="<?= base_url() ?>asset/fe/images/hotel/1.jpg" alt=""> </div>
 											<div class="col-md-6">
-												<p>Maecenas erat lorem, vulputate sed ex at, vehicula dignissim risus. Nullam non nisi congue elit cursus tempus. Nunc vel ante nec libero semper maximus. Donec cursus sed massa eget commodo. Phasellus semper neque id iaculis malesuada. Nulla efficitur dui vitae orci blandit tempor. Mauris sed venenatis nibh, sed sodales risus.</p>
-												<p>Nam sit amet tortor in elit fermentum consectetur et sit amet eros. Sed varius velit at eros tempor sodales. Fusce at enim at lectus sollicitudin pharetra at in risus. Donec ut semper turpis. Maecenas lobortis ante ut eros scelerisque, at semper augue ullamcorper.</p>
+												<p align="justify">Untuk dapat mengirimkan pengaduan, masyarakat dapat mengunjungi website Lapor Bupati di http://www.laporbupati.pekalongankab.go.id atau dengan mengunduh aplikasi Lapor Bupati di Google Playstore.</p>
+
+												<p align="justify">Pelapor harus membuat akun dengan mengisi form yang telah disediakan dengan mengisi data diri atau identitas yang jelas dan dapat dipertanggungjawabkan.</p>
+
+												<p align="justify">Masyarakat dapat mengirimkan pengaduan melalui website maupun aplikasi android Lapor Bupati. Aduan akan diverifikasi oleh Administrator Lapor Bupati kemudian akan diteruskan ke Organisasi Perangkat Daerah (OPD) terkait paling lambat 5 hari setelah aduan diterima.Setiap aduan yang telah diverifikasi oleh admin akan dipublikasikan. OPD diberi waktu paling lambat 7 hari untuk menindaklanjuti aduan yang disampaikan masyarakat.</p>
+
+												<p align="justify">Pelapor akan menerima pemberitahuan mengenai tindaklanjut dari aduan yang sudah disampaikan.</p>
+
+												<p align="justify">Indikator warna aduan menunjukkan status tindak lanjut dari setiap aduan.<br>Biru : aduan telah diverifikasi<br>Kuning : aduan telah didisposisikan<br>Merah : aduan yang bukan kewenangan Pemerintah Kabupaten Pekalongan<br>Hijau : aduan telah selesai ditangani</p>
+
+												<p align="justify">Substansi dari aduan yang dikirmkan berkaitan dengan pembangunan daerah, pelayanan publik yang merupakan kewenangan Pemerintah Kabupaten Pekalongan.</p>
+
+												<p align="justify">Pembatasan pada Penggunaan Anda <br>Anda diperbolehkan untuk mengakses layanan untuk penggunaan pribadi dengan tunduk pada ketentuan kami ubah atau perbarui dari waktu ke waktu. Anda dilarang untuk :<br>a. Menggunakan layanan untuk tujuan melawan hukum;
+													<br>b. Menggunakan layanan untuk memposting atau mengomunikasikan materi materi yang berisi hal-hal yang melanggar hukum, melecehkan, memfitnah, melanggar privasi, kasar, membahayakan, vulgar, mengandung pornografi, cabul, tidak senonoh, rahasia, tertutup atau pantas dipertanyakan. Material apapun yang bersifat komersial. Materi yang menyalahi, mengambil alih secara tidak sah atau melanggar hak cipta, merek dagang, hak paten, atau hak kepemilikan apapun dari pihak ketiga manapun. Materi yang dapat menimbulkan keresahan di masyarakat dan bersifat SARA;
+													<br>c. Menggunakan layanan untuk kepentingan komersial;
+													<br>d. Memposting tautan ke website eksternal yang tidak senonoh dan mengandung  pornografi ataupun memposting atau mengkounikasikan iklan komersial, surat berantai, tawaran pekerjaan, atau iklan baris atau iklan pribadi;
+													<br>e. Menggunakan layanan untuk menyediakan materi yang mengandung virus atau fitur lainnya yang mencemari atau merusak;
+													<br>f. Menipu atau menyalin dalam bentuk apapun yang berkenaan dengan layanan yang ditawarkan.
+													<br>g. Membuat sebuah atau memberikan sebuah informasi lainnya dengan alasa palsu, dengan informasi yang salah atau tidak lengkap, atau menyestkan orang lain.
+													<br>h. Menggunakan aplikasi dan website Lapor Bupati secara bertentangan dengan perjanjian lain yang anda punya, termasuk tanpa batasan, perjanjian kerja.
+													<br>i. Menyebabkan, memungkinkan, atau membantu orang lain untuk menggunakan akun anda atau berkedok sebagai anda, atau akun yang anda tidak diijinkan untuk mengakses.
+													<br>j. Memalsukan username, memanipulasi pengidentifikasi, atau meniru orang lain atau mengaburkan identitas anda atau afiliasi anda dengan orang atau identitas tertentu.
+													<br>k. Meniru atau memalsukan penggunaan aplikasi Lapor Bupati.
+													<br>l. Merusak, atau mencoba mengganggu fungsi, operasi, atau keamanan dari Lapor Bupati, termasuk, namun tidak terbatas pada memperkenalkan virus, worm, Trojan horse, atau kode berbahaya lainnya yang serupa ke dalam layanan Lapor Bupati atau sistem yang berhubungan dengan jaringan, atau apabila ada pelanggaran keamanan, otentikasi atau aturan penggunaan materi atau tindakan, atau overloading, flooding, spamming, mail bombing, pinging atau crashing layanan Lapor Bupati.
+													<br>m. Mengumpulkan alamat email atau informasi kontak lainnya dari pengguna lain atau klien dari Lapor Bupati dengan cara elektronik lainnya.
+													<br>n. Melakukan reverse engineering, decompling, disassembling, deciphering, atau mencoba untuk memperoleh source code untuk setiap kekayaan intelektual yang digunakan untuk menyediakan Lapor Bupati.
+													<br>o. Terlibat framing, mirroring, atau mensimulasikan tampilan atau fungsi dari Lapor Bupati.</p>
 											</div>
 										</div>
 									</div>
-									<div id="menu1" class="tab-pane fade tab-space">
+									<div id="menu2" class="tab-pane fade tab-space">
 										<ul class="collapsible popout" data-collapsible="accordion">
 											<li>
-												<div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-												<div class="collapsible-body"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+												<div class="collapsible-header">Bagaimana cara menggunakan Lapor Bupati?</div>
+												<div class="collapsible-body"><span>Kunjungi website Lapor Bupati di http://www.laporbupati.pekalongankab.go.id atau dapat mengunduhnya di Google Playstore.</span>
 												</div>
 											</li>
 											<li>
-												<div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-												<div class="collapsible-body"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+												<div class="collapsible-header">Bagaimana alur sistem Lapor Bupati?</div>
+												<div class="collapsible-body"><span>Gambar Alur Lapor Bupati</span>
 												</div>
 											</li>
 											<li>
-												<div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-												<div class="collapsible-body"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+												<div class="collapsible-header">Bagaimana cara membuat aduan pada Lapor Bupati?</div>
+												<div class="collapsible-body"><span>- Uraikanlah aduan secara jelas, lengkap, dan kronologis.<br>- Gunakan bahasa Indonesia yang baik dan benar.<br>- Lampirkan bukti pendukung seperti foto.<br>- Substansi dari aduan berkaitan dengan pembangunan daerah dan pelayanan publik yang menjadi kewenangan Pemerintah Kabupaten Pekalongan.</span>
+												</div>
+											</li>
+											<li>
+												<div class="collapsible-header">Apakah identitas dari pelapor dapat terjaga kemanannya ketika menyampaikan aduan?</div>
+												<div class="collapsible-body"><span>Terdapat fitur Aduan Rahasia yang dapat digunakan oleh pelapor untuk melindung identitas ketika mengirimkan aduan. Dengan menggunakan fitur aduan rahasia, aduan yang disampaikan tidak akan dipublikasikan. Aduan hanya dilihat oleh pelapor, administrator, dan instansi yang berkaitan.</span>
+												</div>
+											</li>
+											<li>
+												<div class="collapsible-header">Bagaimana cara agar aduan yang disampaikan dapat segera diverifikasi?</div>
+												<div class="collapsible-body"><span>Aduan yang telah dikirimkan akan diverifikasi oleh admin paling lambat 5 hari setelah dikirmkannya aduan. Pastikan bahwa aduan yang disampaikan mempunyai substansi yang jelas memuat informasi 5W + 1H (what, where, when, who, why, how) secara lengkap.</span>
 												</div>
 											</li>
 										</ul>
 									</div>
-									<div id="menu2" class="tab-pane fade tab-space">
-										<div class="row">
-											<div class="col-md-6 hp-ov-fac"> <img src="<?= base_url() ?>asset/fe/images/hotel/1.jpg" alt=""> </div>
-											<div class="col-md-6">
-												<p>Maecenas erat lorem, vulputate sed ex at, vehicula dignissim risus. Nullam non nisi congue elit cursus tempus. Nunc vel ante nec libero semper maximus. Donec cursus sed massa eget commodo. Phasellus semper neque id iaculis malesuada. Nulla efficitur dui vitae orci blandit tempor. Mauris sed venenatis nibh, sed sodales risus.</p>
-												<p>Nam sit amet tortor in elit fermentum consectetur et sit amet eros. Sed varius velit at eros tempor sodales. Fusce at enim at lectus sollicitudin pharetra at in risus. Donec ut semper turpis. Maecenas lobortis ante ut eros scelerisque, at semper augue ullamcorper.</p>
-											</div>
-										</div>
-									</div>
 									<div id="menu3" class="tab-pane fade tab-space">
-										<p>Maecenas erat lorem, vulputate sed ex at, vehicula dignissim risus. Nullam non nisi congue elit cursus tempus. Nunc vel ante nec libero semper maximus. Donec cursus sed massa eget commodo. Phasellus semper neque id iaculis malesuada. Nulla efficitur dui vitae orci blandit tempor. Mauris sed venenatis nibh, sed sodales risus.</p>
-										<p>Nam sit amet tortor in elit fermentum consectetur et sit amet eros. Sed varius velit at eros tempor sodales. Fusce at enim at lectus sollicitudin pharetra at in risus. Donec ut semper turpis. Maecenas lobortis ante ut eros scelerisque, at semper augue ullamcorper.</p>
-										<p>Maecenas erat lorem, vulputate sed ex at, vehicula dignissim risus. Nullam non nisi congue elit cursus tempus. Nunc vel ante nec libero semper maximus. Donec cursus sed massa eget commodo. Phasellus semper neque id iaculis malesuada. Nulla efficitur dui vitae orci blandit tempor. Mauris sed venenatis nibh, sed sodales risus.</p>
-										<p>Nam sit amet tortor in elit fermentum consectetur et sit amet eros. Sed varius velit at eros tempor sodales. Fusce at enim at lectus sollicitudin pharetra at in risus. Donec ut semper turpis. Maecenas lobortis ante ut eros scelerisque, at semper augue ullamcorper.</p>
+										<p>Undang-Undang Nomor 25 Tahun 2009 tentang Pelayanan Publik.</p>
+										<p>Peraturan Pemerintah Nomor 96 Tahun 2012 tentang Pelaksanaan Undang-Undang Nomor 25 Tahun 2009 tentang Pelayanan Publik.</p>
+										<p>Peraturan Presiden Nomor 76 Tahun 2013 tentang Pengelolaan Pengaduan Pelayanan Publik.</p>
+										<p>Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik.</p>
+										<p>Peraturan Pemerintah Nomor 61 Tahun 2010 tentang Pelaksanaan Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik.</p>
 									</div>
 								</div>
 							</div>
@@ -654,14 +690,13 @@
 			<div class="container">
 				<div class="row">
 					<h4><?= $judul; ?></h4>
-					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.
-						<p>
-							<ul>
-								<li><a href="<?= site_url() ?>">Home</a>
-								</li>
-								<li><a href="<?= site_url('data-opd') ?>"><?= $breadcrumb; ?></a>
-								</li>
-							</ul>
+					<p>Informasi mengenai Organisasi Perangkat Daerah (OPD) yang terdapat di Kabupaten Pekalongan.<p>
+					<ul>
+						<li><a href="<?= site_url() ?>">Home</a>
+						</li>
+						<li><a href="<?= site_url('data-opd') ?>"><?= $breadcrumb; ?></a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -676,25 +711,34 @@
 							<div class="hl-2"></div>
 							<div class="hl-3"></div>
 						</div>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+						<p>Informasi mengenai Organisasi Perangkat Daerah (OPD) yang terdapat di Kabupaten Pekalongan.</p>
 					</div>
 					<!--TYPOGRAPHY SECTION-->
 					<div class="col-md-12">
 						<div class="head-typo typo-com">
-							<h2>Events: April 2017</h2>
-							<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. </p>
 							<!--EVENT-->
 							<?php foreach ($data_opd as $row) { ?>
 							<div class="row events">
-								<div class="col-md-2"> <img src="<?= base_url() ?>asset/fe/images/no-image.png" alt="" /> </div>
+								<div class="col-md-2"> <img <?php
+                                            if ($row->foto == "") {
+                                                echo "src='".base_url()."asset/fe/images/no-image.png'" ;
+                                            }else{
+                                                echo "src='".base_url()."files/opd/thumb/".$row->thumb."'";
+                                            }
+                                        ?> alt="<?= $row->foto ?>" />
+                                </div>
 								<div class="col-md-8">
 									<h4><?= $row->nama_opd; ?></h4> <span><?= $row->alamat; ?></span>
 									<p>Telepon : <?= $row->no_telp;?> &nbsp; Email : <?= $row->email; ?></p>
 								</div>
-								<div class="col-md-2"> <a href="<?= site_url('detail-opd')?>" class="waves-effect waves-light event-regi">Selengkapnya</a> </div>
+								<div class="col-md-2"> <a href="<?= site_url('front/opd/detail/'.$row->id_opd) ?>" class="waves-effect waves-light event-regi">Selengkapnya</a> </div>
 							</div>
 							<!--END EVENT-->
 							<?php } ?>
+							<br>
+							<center>
+								<?= $link_opd; ?>
+							</center>
 						</div>
 					</div>
 					<!--END TYPOGRAPHY SECTION-->
@@ -706,18 +750,18 @@
 
 <?php if ($content == 'detail-opd') { ?>
 	<!--ABOUT SECTION-->
+	<?php foreach ($detailopd as $row) { ?>
 		<div class="inn-banner">
 			<div class="container">
 				<div class="row">
-					<h4><?= $judul; ?></h4>
-					<p>Curabitur auctor, massa sed interdum ornare, nulla sem vestibulum purus, eu maximus magna urna eu nunc.</p>
+					<h4><?= $row['nama_opd'] ?></h4>
 					<p> </p>
 					<ul>
 						<li><a href="<?= site_url() ?>">Home</a>
 						</li>
-						<li><a href="<?= site_url('data-opd')?>">Data OPD</a>
+						<li><a href="<?= site_url('opd')?>">Informasi OPD</a>
 						</li>
-						<li><a href="<?= site_url('detail-opd')?>">Detail OPD</a>
+						<li><a href="#"><?= $row['singkatan'] ?></a>
 						</li>
 					</ul>
 				</div>
@@ -726,30 +770,32 @@
 		<div class="inn-body-section">
 			<div class="container">
 				<div class="row">
-					<div class="page-head">
-						<h2>Dinas Pendidikan Dan Kebudayaan</h2>
-						<div class="head-title">
-							<div class="hl-1"></div>
-							<div class="hl-2"></div>
-							<div class="hl-3"></div>
-						</div>
-						<p>Quisque at volutpat nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<div class="about-left">
-							<h2>Welcome to <span>My Hotel</span></h2>
-							<h4>Cras eu nisl quis est mattis placerat. Etiam ut ante et lacus imperdiet sagittis a finibus mauris.</h4>
-							<p>Proin nisl mi, eleifend in faucibus et, venenatis eu turpis. Ut hendrerit eleifend odio. Nullam ullamcorper viverra ex quis tempus. In hac habitasse platea dictumst. Vestibulum sed tempor metus. </p>
-							<p>Duis sollicitudin augue nec bibendum mollis. Proin luctus diam vel hendrerit dictum. Nunc tincidunt nibh in sem blandit venenatis. Suspendisse rutrum ultricies porttitor. Quisque at volutpat nibh.Aliquam dapibus turpis mollis felis fermentum bibendum. In finibus a nulla vitae dapibus. Nam non suscipit urna. Vestibulum et lacinia justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> <a href="#" class="link-btn">Call to us: (+404) 142 21 23 78</a> </div>
+						<div class="about-right">
+							<img <?php
+                                if ($row['foto']== "") {
+                                    echo "src='".base_url()."asset/fe/images/no-image.png'" ;
+                                }else{
+                                    echo "src='".base_url()."files/opd/source/".$row['foto']."'";
+                                }
+                            ?> alt="<?= $row['foto'] ?>" class="materialboxed" />
+						</div>
 					</div>
 					<div class="col-md-6">
-						<div class="about-right"> <img src="<?= base_url()?>asset/fe/images/about.jpg" alt=""> </div>
+						<div class="about-left">
+							<h4><?= $row['nama_opd'] ?></h4>
+
+							<p align="justify"><?= $row['deskripsi'] ?></p>
+
+							<a href="#" class="link-btn">Kontak: <?= $row['no_telp'] ?></a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	<?php } ?>
 	<!--END ABOUT SECTION-->
 <?php } ?>
 

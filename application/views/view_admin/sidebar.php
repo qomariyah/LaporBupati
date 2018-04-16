@@ -12,7 +12,7 @@
                 </a>
                 <div class="profile">
                     <div class="profile-image">
-                        <img src="<?= base_url()?>files/administrator/thumb/<?= $this->session->userdata('thumb'); ?>" alt="John Doe"/>
+                        <img src="<?= base_url()?>files/administrator/thumb/<?= $this->session->userdata('thumb'); ?>" alt="<?= $this->session->userdata('nama_admin'); ?>"/>
                     </div>
                     <div class="profile-data">
                         <div class="profile-data-name"><?= $this->session->userdata('nama_admin'); ?></div>

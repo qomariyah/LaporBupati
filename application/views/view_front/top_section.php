@@ -16,7 +16,7 @@
 										<a href="#!" data-toggle="modal" data-target="#modal3">Lupa Kata Sandi</a>
 									</li>
 									<li>
-										<a href="<?= site_url('lb/logout') ?>">Log Out</a>
+										<a href="<?= site_url('logout') ?>">Log Out</a>
 									</li>
 							<?php } else { ?>
 								<li>
@@ -33,7 +33,7 @@
 						</ul>
 						<!-- ROOM Dropdown Structure -->
 						<ul id='drop-room' class='dropdown-content drop-con-man'>
-							<li><a href="<?= site_url('data-opd')?>">Data OPD</a>
+							<li><a href="<?= site_url('opd')?>">OPD</a>
 							</li>
 							<li><a href="<?= site_url('tentang')?>">Tentang</a>
 							</li>

@@ -45,6 +45,33 @@ class Komentar extends CI_Controller {
         redirect('sysadmin/aduan/detail/'.$this->input->post('id'),'refresh');
     }
 
+    public function delete(){
+    	$id = $this->input->post('id');
+    	$id_aduan = $this->input->post('id_aduan');
+    	$uri = $this->input->post('uri');
+    	$this->mkomentar->delete($id);
+    	$this->session->set_flashdata('notif', 'Tanggapan berhasil dihapus');
+        $this->session->set_flashdata('type', 'success');
+    	if ($uri == 'detail') {
+    		redirect('sysadmin/aduan/detail/'.$id_aduan,'refresh');
+    	}
+    }
+
+    public function update(){
+    	$id_aduan = $this->input->post('id_aduan');
+    	$id = $this->input->post('id_komentar');
+    	$uri = $this->input->post('uri');
+    	$data = array(
+    		'komentar'		=> $this->input->post('komentar')
+    	);
+    	$this->mkomentar->update($data, $id);
+    	$this->session->set_flashdata('notif', 'Tanggapan berhasil dihapus');
+        $this->session->set_flashdata('type', 'success');
+    	if ($uri == 'detail') {
+    		redirect('sysadmin/aduan/detail/'.$id_aduan,'refresh');
+    	}
+    }
+
 }
 
 /* End of file Komentar.php */

@@ -66,9 +66,20 @@ $route['sysadminlogin/oauth'] = 'sysadmin/sysadmin/oauth';
 $route['sysadminlogin/logout'] = 'sysadmin/sysadmin/logout';
 
 //aduan
+$route['kontak'] 			  = 'front/kontak';
+$route['tentang'] 			  = 'front/tentang';
+$route['profil'] 			  = 'front/user/profil';
+$route['petunjuk-dan-syarat'] = 'lb/petunjuk_syarat';
+$route['opd'] 				  = 'front/opd';
+$route['opd/detail']		  = 'front/opd/detail';
+$route['aduan-saya'] 		  = 'aduan/aduan_saya';
+$route['login']				  = 'lb/login';
+$route['auth']                = 'front/user/auth';
+$route['lupa-sandi'] 		  = 'lb/forget_password';
+$route['daftar'] 			  = 'front/user/register';
+$route['logout']			  = 'front/user/logout';
 
-
-$route['kontak'] = 'lb/kontak';
+/*$route['kontak'] = 'lb/kontak';
 $route['tentang'] = 'lb/tentang_lb';
 $route['profil'] = 'front/user/profil';
 $route['petunjuk-dan-syarat'] = 'lb/petunjuk_syarat';
@@ -78,4 +89,4 @@ $route['aduan-saya'] = 'aduan/aduan_saya';
 $route['login'] = 'lb/login';
 $route['auth'] = 'lb/auth';
 $route['lupa-sandi'] = 'lb/forget_password';
-$route['daftar'] = 'front/user/register';
+$route['daftar'] = 'front/user/register';*/

@@ -7,6 +7,10 @@ class Mmasukan extends CI_Model {
 		return $this->db->get('tb_masukan');
 	}
 
+	public function create($data) {
+		$this->db->insert('tb_masukan', $data);
+	}
+
 }
 
 /* End of file Mmasukan.php */

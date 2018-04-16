@@ -5,16 +5,51 @@ class User extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		//Do your magic here
 		$this->load->model('muser');
+		$this->load->model('mfront');
 	}
 
 	public function index(){
 		
 	}
 
+	public function auth(){
+		$email  = $this->input->post('email');
+		$pass   = $this->input->post('pass');
+		$result = $this->mfront->login($email, $pass);
+		if ($result->num_rows() > 0 ) {
+			foreach ($result->result() as $row){
+                $data_session = array(
+                    'id_user' 	=> $row->id_user,
+                    'nama_user' => $row->nama_user,
+                    'email'		=> $row->email,
+                    'no_ktp'	=> $row->no_ktp,
+                    'jk'		=> $row->jk,
+                    'tmp_lahir'	=> $row->tmp_lahir,
+                    'tgl_lahir'	=> $row->tgl_lahir,
+                    'password'	=> $row->password,
+                    'no_telepon'=> $row->no_telepon,
+                    'foto'		=> $row->foto,
+                    'thumb'		=> $row->thumb,
+                    'alamat'	=> $row->alamat,
+                    'bio'		=> $row->bio,
+                    'dibuat'	=> $row->dibuat,
+                    'code' 		=> 'loginuserberhasil'
+                );
+            }
+            $this->session->set_userdata($data_session);
+            redirect(site_url(),'refresh');
+        }else {
+        	$data['title']		= "Login - Lapor Bupati";
+			$data['content']	= "login";
+			$data['error']		= "<p class='alert alert-danger'>Gagal Coeg</p>";
+			$data['image']		= $this->create_captcha();
+			$this->load->view('view_front/lbfront', $data);
+        }
+	}
+
 	public function profil() {
-		$data['title'] = "Profil Saya - Lapor Bupati";
+		$data['title'] = "Profil- Lapor Bupati";
 		$data['content'] = "profil";
 		$this->load->view('view_front/lbfront', $data);
 	}

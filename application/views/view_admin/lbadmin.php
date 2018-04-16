@@ -17,6 +17,7 @@
         <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url() ?>asset/be/css/elfinder.min.css">
         <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url() ?>asset/be/css/theme.css">
         <link rel="stylesheet" type="text/css" id="theme" href="<?= base_url()?>asset/be/css/theme-blue.css"/>
+        <link rel="stylesheet" type="text/css" href="<?= base_url()?>asset/be/css/file.css"/>
         <!-- EOF CSS INCLUDE -->                                    
     </head>
     <body>
@@ -156,7 +157,7 @@
         <script type="text/javascript" charset="utf-8">
             $().ready(function() {
                 var elf = $('#elfinder').elfinder({
-                    url : '<?= base_url(); ?>lbadmin/elfinder_init',  // connector URL (REQUIRED)
+                    url : '<?= base_url(); ?>sysadmin/filemanager/elfinder_init',  // connector URL (REQUIRED)
                     lang: 'id'             // language (OPTIONAL)
                 }).elfinder('instance');
             });
