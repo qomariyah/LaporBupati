@@ -20,7 +20,7 @@ class Mapi extends CI_Model {
 	}
 
 	public function aduan(){
-		$this->db->select('tb_aduan.id_aduan, tb_aduan.id_sektor, tb_aduan.id_user, tb_aduan.aduan, tb_aduan.kategori, tb_aduan.lampiran, tb_aduan.longitude, tb_aduan.latitude, tb_aduan.dibuat, tb_aduan.status, tb_user.nama_user, tb_user.thumb, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
+		$this->db->select('tb_aduan.id_aduan, tb_aduan.id_sektor, tb_aduan.id_user, tb_aduan.aduan, tb_aduan.kategori, tb_aduan.lampiran, tb_aduan.longitude, tb_aduan.latitude, tb_aduan.dibuat, tb_aduan.status, tb_user.nama_user, tb_user.thumb, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "bukan kewenangan" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
 
 		$this->db->join('tb_user', 'tb_user.id_user = tb_aduan.id_user', 'left');
 		$this->db->join('tb_komentar', 'tb_komentar.id_aduan = tb_aduan.id_aduan', 'left');
@@ -33,7 +33,7 @@ class Mapi extends CI_Model {
 	}
 
 	public function aduansaya($id){
-		$this->db->select('tb_aduan.id_aduan, tb_aduan.id_sektor, tb_aduan.id_user, tb_aduan.aduan, tb_aduan.kategori, tb_aduan.lampiran, tb_aduan.longitude, tb_aduan.latitude, tb_aduan.dibuat, tb_aduan.status, tb_user.nama_user, tb_user.thumb, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
+		$this->db->select('tb_aduan.id_aduan, tb_aduan.id_sektor, tb_aduan.id_user, tb_aduan.aduan, tb_aduan.kategori, tb_aduan.lampiran, tb_aduan.longitude, tb_aduan.latitude, tb_aduan.dibuat, tb_aduan.status, tb_user.nama_user, tb_user.thumb, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "bukan kewenangan" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
 
 		$this->db->join('tb_user', 'tb_user.id_user = tb_aduan.id_user', 'left');
 		$this->db->join('tb_komentar', 'tb_komentar.id_aduan = tb_aduan.id_aduan', 'left');
@@ -46,7 +46,7 @@ class Mapi extends CI_Model {
 	}
 
 	public function cariaduan($q){
-		$this->db->select('tb_aduan.id_aduan, tb_aduan.id_sektor, tb_aduan.id_user, tb_aduan.aduan, tb_aduan.kategori, tb_aduan.lampiran, tb_aduan.longitude, tb_aduan.latitude, tb_aduan.dibuat, tb_aduan.status, tb_user.nama_user, tb_user.thumb, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
+		$this->db->select('tb_aduan.id_aduan, tb_aduan.id_sektor, tb_aduan.id_user, tb_aduan.aduan, tb_aduan.kategori, tb_aduan.lampiran, tb_aduan.longitude, tb_aduan.latitude, tb_aduan.dibuat, tb_aduan.status, tb_user.nama_user, tb_user.thumb, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "bukan kewenangan" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
 		
 		$this->db->join('tb_user', 'tb_user.id_user = tb_aduan.id_user', 'left');
 		$this->db->join('tb_komentar', 'tb_komentar.id_aduan = tb_aduan.id_aduan', 'left');

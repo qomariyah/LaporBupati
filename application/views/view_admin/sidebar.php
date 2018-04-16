@@ -57,9 +57,7 @@
             <li class="xn-openable <?= @$Komentar ?>">
                 <a href="#"><span class="fa fa-comment"></span> <span class="xn-text">Komentar</span></a>
                 <ul>
-                    <li class="<?= @$komentar_hari_ini ?>"><a href="<?= site_url('sysadmin/komentar/hari-ini')?>"><span class="fa fa-clock-o"></span> Hari ini<span class="pull-right badge badge-info">14</span></a></li>
-                    <li class="<?= @$komentar_kemarin ?>"><a href="<?= site_url('sysadmin/komentar/kemarin')?>"><span class="fa fa-clock-o"></span> Kemarin<span class="pull-right badge badge-danger">14</span></a></li>
-                    <li class="<?= @$semua_komentar ?>"><a href="<?= site_url('sysadmin/komentar/semua')?>"><span class="fa fa-table"></span> Semua<span class="pull-right badge badge-success">14</span></a></li>
+                    <li class="<?= @$semua_komentar ?>"><a href="<?= site_url('sysadmin/komentar')?>"><span class="fa fa-table"></span> Data Komentar<span class="pull-right badge badge-success">14</span></a></li>
                 </ul>
             </li>                
             <li class="xn-openable <?= @$Administrator ?>">

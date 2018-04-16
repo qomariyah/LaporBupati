@@ -60,6 +60,7 @@ class Aduan extends CI_Controller {
         $data['aduan_hari_ini'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/hari-ini');
@@ -121,6 +122,7 @@ class Aduan extends CI_Controller {
             
             $this->pagination->initialize($config);
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduanHariIni($query, date('Y-m-d'), $config['per_page'], $offset)->result();
@@ -138,6 +140,7 @@ class Aduan extends CI_Controller {
         $data['aduan_masuk'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/masuk');
@@ -199,6 +202,7 @@ class Aduan extends CI_Controller {
             
             $this->pagination->initialize($config);
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduan($query, "masuk", $config['per_page'], $offset)->result();
@@ -216,6 +220,7 @@ class Aduan extends CI_Controller {
         $data['aduan_diverifikasi'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/diverifikasi');
@@ -277,6 +282,7 @@ class Aduan extends CI_Controller {
             
             $this->pagination->initialize($config);
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduan($query, "diverifikasi", $config['per_page'], $offset)->result();
@@ -294,6 +300,7 @@ class Aduan extends CI_Controller {
         $data['aduan_didisposiskan'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/didisposiskan');
@@ -358,6 +365,7 @@ class Aduan extends CI_Controller {
             $this->pagination->initialize($config);
 
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduanDisposisi($query, $offset, $config['per_page'])->result();
@@ -375,6 +383,7 @@ class Aduan extends CI_Controller {
         $data['aduan_dalam_penanganan'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/penanganan');
@@ -436,6 +445,7 @@ class Aduan extends CI_Controller {
             
             $this->pagination->initialize($config);
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduan($query, "penanganan", $config['per_page'], $offset)->result();
@@ -453,6 +463,7 @@ class Aduan extends CI_Controller {
         $data['aduan_selesai'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/selesai');
@@ -514,6 +525,7 @@ class Aduan extends CI_Controller {
             
             $this->pagination->initialize($config);
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduan($query, "selesai", $config['per_page'], $offset)->result();
@@ -531,6 +543,7 @@ class Aduan extends CI_Controller {
         $data['aduan_bukan_kewenangan'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/bukan-kewenangan');
@@ -592,6 +605,7 @@ class Aduan extends CI_Controller {
             
             $this->pagination->initialize($config);
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduan($query, "bukan kewenangan", $config['per_page'], $offset)->result();
@@ -609,6 +623,7 @@ class Aduan extends CI_Controller {
         $data['aduan_tempat_sampah'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/sampah');
@@ -670,6 +685,7 @@ class Aduan extends CI_Controller {
             
             $this->pagination->initialize($config);
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduan($query, "sampah", $config['per_page'])->result();
@@ -687,6 +703,7 @@ class Aduan extends CI_Controller {
         $data['semua_aduan'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/semua/');
@@ -748,6 +765,7 @@ class Aduan extends CI_Controller {
             
             $this->pagination->initialize($config);
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduanSemua($query, $config['per_page'], $offset)->result();
@@ -764,6 +782,7 @@ class Aduan extends CI_Controller {
         $data['aduan_rahasia'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
         $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
 
         if ($this->input->get('cari') == "") {
             $config['base_url'] = site_url('sysadmin/aduan/semua/');
@@ -825,6 +844,7 @@ class Aduan extends CI_Controller {
             
             $this->pagination->initialize($config);
             $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
 
             $data['pagination'] = $this->pagination->create_links();
             $data['data_aduan'] = $this->maduan->cariAduanRahasia($query, $config['per_page'], $offset)->result();

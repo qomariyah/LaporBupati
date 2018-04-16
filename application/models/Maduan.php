@@ -19,6 +19,15 @@ class Maduan extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function getAduanByIdUser($id){
+		$this->db->select('*, tb_aduan.dibuat as tanggal, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "bukan kewenangan" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
+		$this->db->from('tb_aduan');
+		$this->db->where('tb_aduan.id_user', $id);
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->order_by('tb_aduan.dibuat', 'desc');
+		return $this->db->get();
+	}
+
 	public function aduanTerbaru(){
 		$this->db->select('*, tb_aduan.dibuat as tanggal');
 		$this->db->from('tb_aduan');

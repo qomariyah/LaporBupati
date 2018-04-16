@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = TRUE;
 
 $route['sysadmin'] = 'sysadmin/dashboard';
 $route['sysadmin/opd/(:any)'] = "sysadmin/opd/index/$1";
+$route['sysadmin/user/(:any)'] = "sysadmin/user/index/$1";
 
 $route['sysopd'] = 'sysopd/dashboard';
 

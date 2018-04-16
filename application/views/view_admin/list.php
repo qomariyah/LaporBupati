@@ -14,7 +14,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form>  
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                        
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -69,7 +70,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('sysadmin/aduan/verifikasi/'.$key->id_aduan.'/hari-ini')?>">Verifikasi</a></li>
@@ -178,7 +179,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form> 
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                           
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -232,7 +234,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('sysadmin/aduan/verifikasi/'.$key->id_aduan.'/masuk')?>">Verifikasi</a></li>
@@ -314,7 +316,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form>   
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                         
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -368,7 +371,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li>
@@ -449,7 +452,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form>     
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                       
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -503,7 +507,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -585,7 +589,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form>    
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                        
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -639,7 +644,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -721,7 +726,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form>     
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                       
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -775,7 +781,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -857,7 +863,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form>     
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                       
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -911,7 +918,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -993,7 +1000,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form>        
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                    
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -1047,7 +1055,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -1129,7 +1137,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form>      
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                      
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -1198,7 +1207,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -1280,7 +1289,8 @@
                                 </div>
                             </div>
                         </div>
-                    </form>                          
+                    </form>      
+                    <h3 class="panel-title pull-right"><?= $this->session->flashdata('query'); ?></h3>                      
                 </div>
                 <div class="panel-body list-group list-group-contacts">
                     <table>
@@ -1349,7 +1359,7 @@
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('sysadmin/detail/')?>">Detail Aduan</a></li>
                                         <li><a href="<?= site_url('lbadmin/verifikasi/'.$content.'/'.$key->id_aduan)?>">Verifikasi</a></li>
@@ -1431,6 +1441,7 @@
                                 </div>
                             </div>
                         </div>
+                        <h3 class="panel-title"><?= $this->session->flashdata('query'); ?></h3>
                     </form>
                     <ul class="panel-controls">                                             
                         <a href="<?= site_url('lbadmin/tambah_user') ?>" class="btn btn-rounded btn-success" data-toggle="tooltip" data-placement="left" title="Tekan untuk menambah data">Tambah</a>
@@ -1440,7 +1451,7 @@
                 <table>
                     <?php foreach ($data_user as $row) { ?>
                         <tr>
-                            <td class="col-md-2 list-group-item">
+                            <td class="col-md-3 list-group-item">
                                 <img 
                                     <?php
                                         if ($row->foto == "") {
@@ -1450,20 +1461,32 @@
                                         }
                                     ?>
                                 alt="<?= $row->thumb ?>" class="pull-left">
-                                <span class="contacts-title"><?= $row->nama_user ?></span>
-                                <p><?= $row->no_telepon ?></p>
+                                <span class="contacts-title">
+                                    <?= p($row->nama_user) ?>&nbsp;
+                                    <i class="fa fa-envelope-o"> <?= $row->jmladuan ?></i>
+                                </span>
+                                <p><?= p($row->no_telepon) ?></p>
                             </td>
-                            <td class="col-md-8 list-group-item">
-                                <a href="<?= site_url('lbadmin/detail_user/'.$row->id_user)?>" class="list-group-item"><?= $row->no_ktp." | ".$row->alamat ?></a>
+                            <td class="col-md-7 list-group-item">
+                                <a href="<?= site_url('sysadmin/user/detail/'.$row->id_user)?>">
+                                    <?php
+                                        if (empty($row->alamat)) {
+                                            echo $row->email." - alamat belum ditambahkan";
+                                        }else{
+                                            echo $row->email." - ".$row->alamat;
+                                        }
+                                    ?>
+                                </a>
                             </td>
-                            <td class="col-md-1 list-group-item"><b><?= date('d-M-Y H:s', strtotime($row->dibuat)) ?></b></td>
+                            <td class="col-md-2 list-group-item"><b><?= time_ago($row->dibuat) ?></b></td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle"><i class="fa fa-bars"></i> <!-- <span class="caret"></span> --></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle"><i class="fa fa-bars"></i> <!-- <span class="caret"></span> --></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="<?= site_url('lbadmin/detail_user/'.$row->id_user) ?>">Lihat Profil</a></li>
-                                        <li><a href="<?= site_url('lbadmin/edit_user/'.$row->id_user) ?>">Edit</a></li>
-                                        <li><a href="<?= site_url('lbadmin/delete_user/'.$row->id_user) ?>">Hapus</a></li>
+                                        <li><a href="<?= site_url('sysadmin/user/detail/'.$row->id_user) ?>"><i class="fa fa-eye"></i> Lihat Profil</a></li>
+                                        <li><a href="<?= site_url('sysadmin/user/edit/'.$row->id_user) ?>"><i class="fa fa-pencil"></i> Edit</a></li>
+                                        <li><a href="<?= site_url('sysadmin/user/delete/'.$row->id_user) ?>"><i class="fa fa-trash-o"></i> Hapus</a></li>
+                                        <li><a href="<?= site_url('sysadmin/user/blokir/'.$row->id_user) ?>"><i class="fa fa-lock"></i> Blokir</a></li>
                                     </ul>
                                 </div>      
                             </td>
@@ -1534,7 +1557,7 @@
                             <td class="col-md-2"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle"><i class="fa fa-gear"></i> <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-gear"></i> <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_masukan')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>                                                    
@@ -1615,7 +1638,7 @@
                             <td class="col-md-2"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle"><i class="fa fa-gear"></i> <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-gear"></i> <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_masukan')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>                                                    
@@ -1696,7 +1719,7 @@
                             <td class="col-md-2"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle"><i class="fa fa-gear"></i> <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-gear"></i> <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_masukan')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>                                                    
@@ -1756,7 +1779,7 @@
                             <td class="col-md-1"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_komentar')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>          
@@ -1815,7 +1838,7 @@
                             <td class="col-md-1"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_komentar')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>          
@@ -1874,7 +1897,7 @@
                             <td class="col-md-1"><b><?= date('d-M-Y') ?></b></td>
                             <td class="col-md-1">
                                 <div class="btn-group pull-right">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
+                                    <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs"><i class="fa fa-bars"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="<?= site_url('lbadmin/detail_komentar')?>">Lihat selengkapnya</a></li>
                                         <li><a href="#">Ke tempat sampah</a></li>          

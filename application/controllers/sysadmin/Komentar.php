@@ -65,7 +65,7 @@ class Komentar extends CI_Controller {
     		'komentar'		=> $this->input->post('komentar')
     	);
     	$this->mkomentar->update($data, $id);
-    	$this->session->set_flashdata('notif', 'Tanggapan berhasil dihapus');
+    	$this->session->set_flashdata('notif', 'Tanggapan berhasil diubah');
         $this->session->set_flashdata('type', 'success');
     	if ($uri == 'detail') {
     		redirect('sysadmin/aduan/detail/'.$id_aduan,'refresh');

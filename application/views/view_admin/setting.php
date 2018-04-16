@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        
+        <?php foreach ($data_pengaturan as $key) { ?>
         <form class="form-horizontal">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -12,15 +12,15 @@
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-9 col-md-offset-1">
                         <div class="form-group">
                             <label class="col-md-3 control-label">Nama Website</label>
                             <div class="col-md-9">                                            
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                    <input type="text" placeholder="Nama Website" class="form-control"/>
+                                    <input type="text" placeholder="Nama Website" value="<?= p($key->nama_aplikasi) ?>" class="form-control"/>
                                 </div>                                            
-                                <span class="help-block">This is sample of text field</span>
+                                <span class="help-block">Digunakan untuk nama website dan nama aplikasi android</span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -28,35 +28,37 @@
                             <div class="col-md-9">                                            
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                    <input type="text" placeholder="Kabupaten/Kota" class="form-control"/>
+                                    <input type="text" placeholder="Kabupaten/Kota" value="<?= p($key->nama_kabupaten) ?>" class="form-control"/>
                                 </div>                                            
-                                <span class="help-block">This is sample of text field</span>
+                                <span class="help-block">Daerah yang menerapkan aplikasi</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Alamat</label>
-                            <div class="col-md-9">                                            
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                    <input type="text" placeholder="Alamat" class="form-control"/>
-                                </div>                                            
-                                <span class="help-block">This is sample of text field</span>
+                            <div class="col-md-9 col-xs-12">                                            
+                                <textarea class="form-control" rows="3" style="resize: none;"><?= p($key->alamat) ?></textarea>
+                                <span class="help-block">Alamat di mana kantor berada</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Tentang</label>
                             <div class="col-md-9 col-xs-12">                                            
-                                <textarea class="form-control" rows="5"></textarea>
+                                <textarea class="form-control" rows="7" style="resize: none;"><?= p($key->tentang) ?></textarea>
                                 <span class="help-block">Default textarea field</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Meta Text</label>
+                            <div class="col-md-9 col-xs-12">                                            
+                                <textarea class="form-control" rows="3" style="resize: none;"><?= p($key->metatext) ?></textarea>
+                                <span class="help-block">Text untuk SEO</span>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Maps</label>
                             <div class="col-md-9 col-xs-12">                                            
-                                <textarea class="form-control" rows="5"></textarea>
-                                <span class="help-block">Default textarea field</span>
+                                <textarea class="form-control" rows="5" style="resize: none;"><?= p($key->maps) ?></textarea>
+                                <span class="help-block">Lokasi maps di mana kantor berada</span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -80,13 +82,15 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-footer">
-                <button class="btn btn-danger btn-rounded" data-toggle="tooltip" data-placement="left" title="Tekan untuk membatalka">Batal</button>                               
-                <input type="submit" class="btn btn-success btn-rounded pull-right" data-toggle="tooltip" data-placement="left" title="Tekan untuk menyimpan data" value="Simpan">
+            <div class="panel-footer">                               
+                <center>
+                    <input type="submit" class="btn btn-success btn-rounded" data-toggle="tooltip" data-placement="left" title="Tekan untuk menyimpan data" value="Simpan">
+                    <button class="btn btn-danger btn-rounded" data-toggle="tooltip" data-placement="right" title="Tekan untuk membatalka">Batal</button>
+                </center>
             </div>
         </div>
         </form>
-        
+        <?php } ?>
     </div>
 </div>
          

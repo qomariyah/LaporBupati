@@ -8,54 +8,94 @@ class User extends CI_Controller {
 		parent::__construct();
 		//Do your magic here
 		$this->load->model('muser');
+        $this->load->model('maduan');
 	}
 
 	public function index($offset = 0){
-		$config['base_url'] = site_url('lbadmin/user/page/');
-        $config['total_rows'] = $this->muser->jumlah_user();
-        $config['per_page'] = 10;
-        $config['use_page_number'] = false;
-        $config['num_links'] = 2;
-        $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
-        $config['full_tag_close'] = '</ul>';
-        $config['first_link'] = 'First';
-        $config['first_tag_open'] = '<li class="prev page">';
-        $config['first_tag_close'] = '</li>';
-        $config['last_link'] = 'Last';
-        $config['last_tag_open'] = '<li class="next page">';
-        $config['last_tag_close'] = '</li>';
-        $config['next_link'] = 'Next';
-        $config['next_tag_open'] = '<li class="next page">';
-        $config['next_tag_close'] = '</li>';
-        $config['prev_link'] = 'Prev';
-        $config['prev_tag_open'] = '<li class="prev page">';
-        $config['prev_tag_close'] = '</li>';
-        $config['cur_tag_open'] = '<li class="active"><a href="">';
-        $config['cur_tag_close'] = '</a></li>';
-        $config['num_tag_open'] = '<li class="page">';
-        $config['num_tag_close'] = '</li>';
-        
-        $this->pagination->initialize($config);
-
         $data['title'] = "Data User - Admin Lapor Bupati";
         $data['content'] = "user";
         $data['breadcrumb'] = "Data User";
         $data['User'] = "active";
         $data['duser'] = "active";
-        $data['data_user'] = $this->muser->get_limit_user($config['per_page'], $offset);
-        $data['link_user'] = $this->pagination->create_links();
+
+        $query = $this->input->get('cari');
+
+        $this->session->set_flashdata('query', '');
+
+		if (!isset($query)) {
+            $config['base_url'] = site_url('sysadmin/user/');
+            $config['total_rows'] = $this->muser->jumlah_user();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = false;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            
+            $data['data_user'] = $this->muser->get_limit_user($config['per_page'], $offset);
+            $data['link_user'] = $this->pagination->create_links();
+
+        }else{
+            $config['base_url'] = site_url('sysadmin/user?cari='.$query);
+            $config['total_rows'] = $this->muser->jumlah_user_cari($query);
+            $config['per_page'] = 20;
+            $config['use_page_number'] = false;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+            $data['data_user'] = $this->muser->get_limit_user_cari($query, $config['per_page'], $offset);
+            $data['link_user'] = $this->pagination->create_links();
+        }
         $this->load->view('view_admin/lbadmin', $data);
 	}
 
-    public function detail_user($id){
+    public function detail($id){
         $user = $this->muser->get_id_user($id)->num_rows();
         if ($user > 0) {
             $data['title'] = "Informasi Detail User";
             $data['content'] = "detail-user";
             $data['breadcrumb'] = "Detail User";
-            $data['user'] = "active";
+            $data['User'] = "active";
             $data['duser'] = "active";
             $data['detailuser'] = $this->muser->get_id_user($id)->result_array();
+            $data['data_aduan'] = $this->maduan->getAduanByIdUser($id)->result();
             $this->load->view('view_admin/lbadmin', $data);
         }else{
             $this->load->view('404');
