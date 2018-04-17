@@ -871,32 +871,4 @@
             </form>>
         </div>
     </div>
- <?php if ($content == 'edit-aduan') { ?>
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
-			<form action="">
-	            <div class="panel panel-colorful">
-	                <div class="panel-body">
-	                    <h3 align="center"><?= $breadcrumb ?></h3>
-	                    <p>Bantu kami dalam menyempurnakan aplikasi dengan memberikan masukan, kritik, dan saran</p>
-	                    <div class="form-group">
-	                        <label>E-mail</label>
-	                        <input type="email" class="form-control" placeholder="youremail@domain.com">
-	                    </div>
-	                    <div class="form-group">
-	                        <label>Subject</label>
-	                        <input type="email" class="form-control" placeholder="Message subject">
-	                    </div>                                
-	                    <div class="form-group">
-	                        <label>Pesan</label>
-	                        <textarea class="form-control" placeholder="Pesan" rows="5"></textarea>
-	                    </div>                                
-	                </div>
-	                <div class="panel-footer">
-	                    <a class="btn btn-success pull-right"><span class="fa fa-envelope-o"></span> Kirim</a>
-	                </div>
-	            </div>
-            </form>>
-        </div>
-    </div>
 <?php } ?>

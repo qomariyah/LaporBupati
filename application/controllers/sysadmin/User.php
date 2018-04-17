@@ -11,7 +11,7 @@ class User extends CI_Controller {
         $this->load->model('maduan');
 	}
 
-	public function index($offset = 0){
+	public function data($offset = 0){
         $data['title'] = "Data User - Admin Lapor Bupati";
         $data['content'] = "user";
         $data['breadcrumb'] = "Data User";
@@ -23,7 +23,7 @@ class User extends CI_Controller {
         $this->session->set_flashdata('query', '');
 
 		if (!isset($query)) {
-            $config['base_url'] = site_url('sysadmin/user/');
+            $config['base_url'] = site_url('sysadmin/user/data');
             $config['total_rows'] = $this->muser->jumlah_user();
             $config['per_page'] = 20;
             $config['use_page_number'] = false;
@@ -53,7 +53,7 @@ class User extends CI_Controller {
             $data['link_user'] = $this->pagination->create_links();
 
         }else{
-            $config['base_url'] = site_url('sysadmin/user?cari='.$query);
+            $config['base_url'] = site_url('sysadmin/user/data?cari='.$query);
             $config['total_rows'] = $this->muser->jumlah_user_cari($query);
             $config['per_page'] = 20;
             $config['use_page_number'] = false;

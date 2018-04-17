@@ -11,13 +11,13 @@ class Opd extends CI_Controller {
         $this->load->model('madmin');
 	}
 
-	public function index($offsset = 0){
+	public function data($offsset = 0){
 		$query = $this->input->get('cari');
         $perpage = 8;
         $this->session->set_flashdata('query', '');
 
         if (empty($query)) {
-            $config['base_url'] = site_url('sysadmin/opd');
+            $config['base_url'] = site_url('sysadmin/opd/data');
             $config['total_rows'] = $this->mopd->jumlah_opd();
             $config['per_page'] = $perpage;
             $config['uri_segment'] = 3;
@@ -55,7 +55,7 @@ class Opd extends CI_Controller {
 
             $offsset = $this->input->get('per_page');
 
-            $config['base_url'] = site_url('sysadmin/opd?cari='.$query);
+            $config['base_url'] = site_url('sysadmin/opd/data?cari='.$query);
             $config['total_rows'] = $this->mopd->jmlCariOpd($query)->num_rows();
             $config['per_page'] = $perpage;
             $config['uri_segment'] = 3;
@@ -97,7 +97,7 @@ class Opd extends CI_Controller {
         $this->load->view('view_admin/lbadmin', $data);
 	}
 
-    public function tambahopd(){
+    public function tambah(){
         $data['title'] = "Tambah Data OPD - Admin Lapor Bupati";
         $data['content'] = "tambah-opd";
         $data['breadcrumb'] = "Tambah Data OPD";

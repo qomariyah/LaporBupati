@@ -10,7 +10,7 @@ class Komentar extends CI_Controller {
 		$this->load->model('mkomentar');
 	}
 
-	public function index($offset = 0){
+	public function data($offset = 0){
 		$data["title"] = "Data Komentar - Admin Lapor Bupati";
 		$data["content"]	= "komentar";
 		$data["breadcrumb"] = "Data Komentar";
@@ -21,7 +21,7 @@ class Komentar extends CI_Controller {
 
         if (!isset($query)) {
             $jmldata = $this->mkomentar->jmlKomentar();
-            $config['base_url'] = site_url('sysadmin/komentar/');
+            $config['base_url'] = site_url('sysadmin/komentar/data/');
             $config['total_rows'] = $jmldata;
             $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;
@@ -45,8 +45,8 @@ class Komentar extends CI_Controller {
             $config['num_tag_open'] = '<li class="page">';
             $config['num_tag_close'] = '</li>';
 
-            $awal = $offset+1;
-            $dari = $config['per_page']+$offset+1;
+            @$awal = $offset+1;
+            @$dari = $config['per_page']+$offset+1;
             $this->pagination->initialize($config);
 
             $this->session->set_flashdata('query', $jmldata.' data');
@@ -56,7 +56,7 @@ class Komentar extends CI_Controller {
             $data['jml_data_komentar'] = $this->mkomentar->jmlKomentar();
         }else{
             $jmldata = $this->mkomentar->jmlKomentarCari($query);
-            $config['base_url'] = site_url('sysadmin/komentar?cari='.$query);
+            $config['base_url'] = site_url('sysadmin/komentar/data?cari='.$query);
             $config['total_rows'] = $jmldata;
             $config['per_page'] = 20;
             $config['use_page_number'] = FALSE;

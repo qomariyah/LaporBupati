@@ -54,9 +54,10 @@ $route['404_override'] = 'Error404';
 $route['translate_uri_dashes'] = TRUE;
 
 $route['sysadmin'] = 'sysadmin/dashboard';
-$route['sysadmin/opd/(:any)'] = "sysadmin/opd/index/$1";
-$route['sysadmin/user/(:any)'] = "sysadmin/user/index/$1";
-$route['sysadmin/komentar/(:any)'] = "sysadmin/komentar/index/$1";
+$route['sysadmin/opd'] = "sysadmin/opd/data";
+$route['sysadmin/administrator'] = "sysadmin/administrator/data";
+$route['sysadmin/komentar'] = "sysadmin/komentar/data";
+$route['sysadmin/user'] = "sysadmin/user/data";
 
 $route['sysopd'] = 'sysopd/dashboard';
 

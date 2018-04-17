@@ -9,8 +9,8 @@ class Administrator extends CI_Controller {
         $this->load->model('madmin');
 	}
 
-	public function index($offset = 0){
-		$config['base_url'] = site_url('lbadmin/administrator');
+	public function data($offset = 0){
+		$config['base_url'] = site_url('lbadmin/administrator/data');
         $config['total_rows'] = $this->madmin->jumlah_admin();
         $config['per_page'] = 8;
         $config['use_page_number'] = TRUE;
