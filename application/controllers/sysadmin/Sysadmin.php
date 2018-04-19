@@ -83,7 +83,17 @@ class Sysadmin extends CI_Controller {
                     if($this->session->userdata('level') == 'Administrator' || $this->session->userdata('level') == 'Super Admin'){
                         redirect('sysadmin','refresh');
                     }else if($this->session->userdata('level') == 'Admin OPD'){
-                        redirect('lbopd','refresh');
+
+                        $adminopd = $this->mlogin->adminOpd($this->session->userdata('id_admin'))->result();
+                        foreach ($adminopd as $key) {
+                            $data_session1 = array(
+                                'id_opd' => $key->id_opd
+                            );
+                        }
+
+                        $this->session->set_userdata($data_session1);
+
+                        redirect('sysopd','refresh');
                     }else if($this->session->userdata('level') == 'Bupati'){
                         redirect('lbbupati','refresh');
                     }

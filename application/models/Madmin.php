@@ -61,6 +61,11 @@ class Madmin extends CI_Model {
         return $data->result();
     }
 
+    public function autoId(){
+        $this->db->order_by('id_admin', 'desc');
+        return $this->db->get('tb_admin', 1, 0);
+    }
+
 }
 
 /* End of file Mhbadmin.php */

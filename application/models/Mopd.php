@@ -52,6 +52,11 @@ class Mopd extends CI_Model {
         return $this->db->get()->result();
     }
 
+    public function autoID(){
+        $this->db->order_by('id_opd', 'desc');
+        return $this->db->get('tb_opd', 1, 0);
+    }
+
 }
 
 /* End of file Minstansi.php */

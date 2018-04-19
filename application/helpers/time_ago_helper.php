@@ -27,12 +27,8 @@ if (! function_exists('time_ago')) {
         }
         //month checker
         if ($difftext == "") {
-            if($days <= 1 && $days > 0){
-                $difftext = "kemarin ".date("H:s", strtotime($datetime));
-            }elseif ($days > 1 && $days < 4){
-                $difftext = $days . " hari lalu ".date("H:s", strtotime($datetime));
-            }elseif ($days > 4) {
-                $difftext = date_indo(date("Y-m-d", strtotime($datetime)))." ".date("H:s", strtotime($datetime));
+            if($days > 1){
+                $difftext = $days." hari lalu ".date("H:s", strtotime($datetime));
             }
         }
         //hour checker
@@ -49,7 +45,9 @@ if (! function_exists('time_ago')) {
         }
         //seconds checker
         if ($difftext == "") {
-            if ($seconds >= 1 && $seconds <= 5){
+            if ($seconds < 1){
+                $difftext = "Baru saja";
+            }elseif ($seconds >= 1 && $seconds <= 5){
                 $difftext = "Baru saja";
             }elseif($seconds > 5){
                 $difftext = $seconds. " detik lalu";

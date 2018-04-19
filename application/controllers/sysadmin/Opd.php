@@ -98,16 +98,31 @@ class Opd extends CI_Controller {
 	}
 
     public function tambah(){
+        $last_id = $this->mopd->autoID()->result();
+        foreach ($last_id as $key) {
+            $id = $key->id_opd;
+        }
+        $num_id = substr($id, 4, 6)+1;
+        if (strlen($num_id) == 1) {
+            $auto_id = "OPD00".$num_id;
+        }elseif (strlen($num_id) == 2) {
+            $auto_id = "OPD0".$num_id;
+        }elseif (strlen($num_id) == 3) {
+            $auto_id = "OPD".$num_id;
+        }
+        
+
         $data['title'] = "Tambah Data OPD - Admin Lapor Bupati";
         $data['content'] = "tambah-opd";
         $data['breadcrumb'] = "Tambah Data OPD";
         $data['opd'] = "active";
         $data['topd'] = "active";
+        $data['id_opd'] = $auto_id;
         $data['adminopd'] = $this->madmin->getAdminopd();
         $this->load->view('view_admin/lbadmin', $data);
     }
 
-    public function create_opd(){
+    public function create(){
         $nm_file = "opd_".time(); //nama file + fungsi time
         $config['upload_path'] = './files/opd/source/'; //folder untuk meyimpan foto
         $config['allowed_types'] = 'jpg|png|jpeg';
@@ -147,7 +162,7 @@ class Opd extends CI_Controller {
                     'id_admin'    => $this->input->post('id_admin')
                 );
                 $this->mopd->create($data);
-                redirect('lbadmin/opd/tambah_berhasil');
+                redirect('sysadmin/opd');
             }else{
                 $data = array(
                     'id_opd'      => $this->input->post('id_opd'),
@@ -163,12 +178,12 @@ class Opd extends CI_Controller {
                     'id_admin'    => $this->input->post('id_admin')
                 );
                 $this->mopd->create($data);
-                redirect('lbadmin/opd/tambah-berhasil');
+                redirect('sysadmin/opd');
             }
         }
     }
 
-    public function detail_opd($id){
+    public function detail($id){
         $data['title'] = "Informasi Detail OPD";
         $data['content'] = "detail-opd";
         $data['breadcrumb'] = "Detail OPD";
@@ -178,7 +193,7 @@ class Opd extends CI_Controller {
         $this->load->view('view_admin/lbadmin', $data);
     }
 
-    public function edit_opd($id){
+    public function edit($id){
         $data['title'] = "Edit Data OPD - Admin Lapor Bupati";
         $data['content'] = "edit-opd";
         $data['breadcrumb'] = "Edit Data OPD";
@@ -188,7 +203,7 @@ class Opd extends CI_Controller {
         $this->load->view('view_admin/lbadmin', $data);
     }
 
-    public function update_opd(){
+    public function update(){
         $nm_file = "opd_".time(); //nama file + fungsi time
         $config['upload_path'] = './files/opd/source/'; //folder untuk meyimpan foto
         $config['allowed_types'] = 'jpg|png|jpeg';
@@ -234,7 +249,7 @@ class Opd extends CI_Controller {
                 $path2 = "./files/opd/thumb/".$thumb;
                 unlink($path1);
                 unlink($path2);
-                redirect('lbadmin/opd/update-berhasil');
+                redirect('sysadmin/opd');
             }
         }else{
             $data = array(
@@ -251,11 +266,11 @@ class Opd extends CI_Controller {
                 );
                 $id = $this->input->post('id_opd');
                 $this->mopd->update($id, $data);
-                redirect('lbadmin/opd/update-berhasil');
+                redirect('sysadmin/opd');
         }
     }
 
-    public function delete_opd($id){
+    public function delete($id){
         $foto = $this->uri->segment(4);
         $thumb = $this->uri->segment(5);
         $path1 = "./files/opd/source/".$foto;
@@ -263,7 +278,7 @@ class Opd extends CI_Controller {
         unlink($path1);
         unlink($path2);
         $this->mopd->delete($id);
-        redirect('lbadmin/opd/hapus-berhasil');
+        redirect('sysadmin/opd');
     }
 
 }

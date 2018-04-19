@@ -6,19 +6,19 @@
 					<h3 class="panel-title"><?= $breadcrumb ?></h3>
 				</div>   
 				<div class="panel-body">
-					<form enctype="multipart/form-data" method="POST" action="<?= site_url('lbadmin/create_admin') ?>">
+					<form enctype="multipart/form-data" method="POST" action="<?= site_url('sysadmin/administrator/create') ?>">
 						<div class="col-md-5">
 							<div class="form-group">                                         
 			                    <div class="input-group">
 			                        <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-		                            <input type="text" name="id_admin" minlength="6" maxlength="6" class="form-control" required placeholder="ID Admin" />
+		                            <input type="text" name="id_admin" value="<?= $id_admin ?>" minlength="6" maxlength="6" class="form-control" required readonly placeholder="ID Admin" />
 		                        </div>
 		                        <span class="help-block">Hanya 6 karakter</span>
 		                	</div>
 							<div class="form-group">                                         
 			                    <div class="input-group">
 			                        <span class="input-group-addon"><span class="fa fa-user"></span></span>
-		                            <input type="text" name="nama_admin" maxlength="50" class="form-control" required placeholder="Nama Lengkap" />
+		                            <input type="text" autofocus name="nama_admin" maxlength="50" class="form-control" required placeholder="Nama Lengkap" />
 		                        </div>
 		                        <span class="help-block">Maksimal 50 karakter</span>
 		                	</div>	
@@ -282,7 +282,7 @@
 <?php if ($content == 'tambah-opd') { ?>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<form enctype="multipart/form-data" class="form-horizontal" method="POST" action="<?= site_url('lbadmin/create_opd') ?>">
+			<form enctype="multipart/form-data" class="form-horizontal" method="POST" action="<?= site_url('sysadmin/opd/create') ?>">
                 <div class="panel panel-colorful">
                     <div class="panel-heading">
                         <h3 class="panel-title"><?= $breadcrumb ?></h3>
@@ -293,7 +293,7 @@
                             <div class="col-md-8 col-xs-12">                                            
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="fa fa-tags"></span></span>
-                                    <input type="text" class="form-control" required autofocus name="id_opd" maxlength="6" minlength="6" placeholder="ID. OPD" />
+                                    <input type="text" class="form-control" value="<?= $id_opd ?>" required readonly name="id_opd" maxlength="6" minlength="6" placeholder="ID. OPD" />
                                 </div>                                            
                                 <span class="help-block">Hanya 6 Karakter</span>
                             </div>
@@ -303,7 +303,7 @@
                             <div class="col-md-8 col-xs-12">         
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="fa fa-building-o"></span></span>
-                                    <input type="text" class="form-control" maxlength="150" name="nama_opd" required placeholder="Nama OPD" />
+                                    <input type="text" class="form-control" maxlength="150" name="nama_opd" autofocus required placeholder="Nama OPD" />
                                 </div>                                            
                                 <span class="help-block">Maksimal 150 karakter</span>
                             </div>
@@ -425,7 +425,7 @@
 <?php if ($content == 'edit-opd') { ?>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<form enctype="multipart/form-data" class="form-horizontal" method="POST" action="<?= site_url('lbadmin/update_opd') ?>">
+			<form enctype="multipart/form-data" class="form-horizontal" method="POST" action="<?= site_url('sysadmin/opd/update') ?>">
 				<?php foreach ($dataopd as $row) { ?>
                 <div class="panel panel-colorful">
                     <div class="panel-heading">

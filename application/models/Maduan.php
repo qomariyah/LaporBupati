@@ -241,6 +241,142 @@ class Maduan extends CI_Model {
 		$this->db->where('id_aduan', $id);
 		return $this->db->update('tb_aduan', $data);
 	}
+
+
+	//OPD SECTION
+	public function aduanOpdHari($id, $status, $limit, $offset, $skrg){
+		$this->db->select('*, tb_disposisi.dibuat as tanggal, tb_user.thumb as userfoto, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->where('tb_disposisi.id_opd', $id);
+		$this->db->where('date(tb_disposisi.dibuat)', $skrg);
+		$this->db->limit($limit, $offset);
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	public function cariAduanOpdHari($query, $id, $status, $limit, $offset, $skrg){
+		$this->db->select('*, tb_disposisi.dibuat as tanggal, tb_user.thumb as userfoto, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->where('tb_disposisi.id_opd', $id);
+		$this->db->where('date(tb_disposisi.dibuat)', $skrg);
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->limit($limit, $offset);
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	public function jmlAduanOpdHari($id, $status, $skrg){
+		$this->db->join('tb_aduan', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->where('date(tb_disposisi.dibuat)', $skrg);
+		$this->db->where('id_opd', $id);
+		return $this->db->get('tb_disposisi')->num_rows();
+	}
+
+	public function jmlCariAduanOpdHari($query, $id, $status, $skrg){
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->join('tb_aduan', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->where('id_opd', $id);
+		$this->db->where('date(tb_disposisi.dibuat)', $skrg);
+		$this->db->where('tb_aduan.status', $status);
+		return $this->db->get('tb_disposisi')->num_rows();
+	}
+
+	public function aduanOpd($id, $status, $limit, $offset){
+		$this->db->select('*, tb_disposisi.dibuat as tanggal, tb_user.thumb as userfoto, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->where('tb_disposisi.id_opd', $id);
+		$this->db->limit($limit, $offset);
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	public function cariAduanOpd($query, $id, $status, $limit, $offset){
+		$this->db->select('*, tb_disposisi.dibuat as tanggal, tb_user.thumb as userfoto, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->where('tb_disposisi.id_opd', $id);
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->limit($limit, $offset);
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	public function jmlAduanOpd($id, $status){
+		$this->db->join('tb_aduan', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->where('tb_aduan.status', $status);
+		$this->db->where('id_opd', $id);
+		return $this->db->get('tb_disposisi')->num_rows();
+	}
+
+	public function jmlCariAduanOpd($query, $id, $status){
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->join('tb_aduan', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->where('id_opd', $id);
+		$this->db->where('tb_aduan.status', $status);
+		return $this->db->get('tb_disposisi')->num_rows();
+	}
+
+	public function aduanOpdSemua($id, $limit, $offset){
+		$this->db->select('*, tb_disposisi.dibuat as tanggal, tb_user.thumb as userfoto, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
+		$this->db->where('tb_disposisi.id_opd', $id);
+		$this->db->limit($limit, $offset);
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	public function cariAduanOpdSemua($query, $id, $limit, $offset){
+		$this->db->select('*, tb_disposisi.dibuat as tanggal, tb_user.thumb as userfoto, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen');
+		$this->db->from('tb_aduan');
+		$this->db->order_by('tanggal', 'desc');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->join('tb_disposisi', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->join('tb_opd', 'tb_opd.id_opd = tb_disposisi.id_opd');
+		$this->db->where('tb_disposisi.id_opd', $id);
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->limit($limit, $offset);
+		$this->db->group_by('tb_aduan.id_aduan');
+		return $this->db->get();
+	}
+
+	public function jmlAduanOpdSemua($id){
+		$this->db->join('tb_aduan', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->where('id_opd', $id);
+		return $this->db->get('tb_disposisi')->num_rows();
+	}
+
+	public function jmlCariAduanOpdSemua($query, $id){
+		$this->db->like('tb_aduan.aduan', $query, 'BOTH');
+		$this->db->join('tb_aduan', 'tb_aduan.id_aduan = tb_disposisi.id_aduan');
+		$this->db->where('id_opd', $id);
+		return $this->db->get('tb_disposisi')->num_rows();
+	}
+	//END OF OPD SECTION
+
 }
 
 /* End of file Maduan.php */

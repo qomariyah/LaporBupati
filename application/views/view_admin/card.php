@@ -17,7 +17,7 @@
                     </form>
                     <h3 class="panel-title"><?= $this->session->flashdata('query'); ?></h3>
                     <div class="pull-right">
-                        <a href="<?= site_url('lbadmin/tambahopd') ?>" class="btn btn-rounded btn-success" data-toggle="tooltip" data-placement="left" title="Tekan untuk menambah data">Tambah</a>
+                        <a href="<?= site_url('sysadmin/opd/tambah') ?>" class="btn btn-rounded btn-success" data-toggle="tooltip" data-placement="left" title="Tekan untuk menambah data">Tambah</a>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -95,8 +95,8 @@
                             </div>
                             <div class="panel-footer">
                                 <center>
-                                    <a href="<?= site_url('lbadmin/detail_opd/'.$row->id_opd) ?>" class="btn btn-xs btn-rounded btn-success" data-toggle="tooltip" data-placement="top" title="Tekan untuk melihat detail data">Detail</a>
-                                    <a href="<?= site_url('lbadmin/edit_opd/'.$row->id_opd) ?>" class="btn btn-xs btn-rounded btn-info" data-toggle="tooltip" data-placement="top" title="Tekan untuk mengedit data">Edit</a>
+                                    <a href="<?= site_url('sysadmin/opd/detail/'.$row->id_opd) ?>" class="btn btn-xs btn-rounded btn-success" data-toggle="tooltip" data-placement="top" title="Tekan untuk melihat detail data">Detail</a>
+                                    <a href="<?= site_url('sysadmin/opd/edit/'.$row->id_opd) ?>" class="btn btn-xs btn-rounded btn-info" data-toggle="tooltip" data-placement="top" title="Tekan untuk mengedit data">Edit</a>
                                     <a href="#" class="btn btn-xs btn-rounded btn-danger mb-control" data-toggle="tooltip" data-placement="top" title="Tekan untuk menghapus data" data-box="#mb-deladmin" onClick="noty({text: 'Successful action', layout: 'topRight', type: 'success'});">Hapus</a> 
                                 </center>
                             </div>
@@ -111,7 +111,7 @@
                                         </div>
                                         <div class="mb-footer">
                                             <div class="pull-right">
-                                                <a href="<?= site_url('lbadmin/delete_opd/'.$row->id_opd.'/'.$row->nama_opd) ?>" class="btn btn-danger btn-lg">Ya</a>
+                                                <a href="<?= site_url('sysadmin/opd/delete/'.$row->id_opd.'/'.$row->nama_opd) ?>" class="btn btn-danger btn-lg">Ya</a>
                                                 <button class="btn btn-info btn-lg mb-control-close">Tidak</button>
                                             </div>
                                         </div>
@@ -161,7 +161,7 @@
                         </div>
                     </form>
                     <div class="pull-right">
-                        <a href="<?= site_url('lbadmin/tambah_administrator') ?>" class="btn btn-rounded btn-success" data-toggle="tooltip" data-placement="left" title="Tekan untuk menambah data">Tambah</a>
+                        <a href="<?= site_url('sysadmin/administrator/tambah') ?>" class="btn btn-rounded btn-success" data-toggle="tooltip" data-placement="left" title="Tekan untuk menambah data">Tambah</a>
                     </div>                            
                 </div>
                 <div class="panel-body">

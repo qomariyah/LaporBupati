@@ -932,6 +932,26 @@ class Aduan extends CI_Controller {
         }
     }
 
+    public function status(){
+        $id = $this->input->post('id');
+        if ($this->maduan->updateStatus($id, 'penanganan')) {
+            $this->session->set_flashdata('notif', 'Status aduan berhasil diubah ke penanganan');
+            $this->session->set_flashdata('type', 'success');
+            $data = array(
+                'id_aduan' => $id,
+                'komentar' => 'Aduan sedang dalam penanganan',
+                'id_admin' => $this->session->userdata('id_admin'),
+                'role'     => 1
+            );
+            $this->mkomentar->insert($data);
+            redirect('sysadmin/aduan/'.$this->uri->segment(5),'refresh');
+        }else{
+            $this->session->set_flashdata('notif', 'Aduan gagal ubah status');
+            $this->session->set_flashdata('type', 'error');
+            redirect('sysadmin/aduan/'.$this->uri->segment(5),'refresh');
+        }
+    }
+
     public function kesampah(){
         $uri = $this->input->post('uri');
         $id = $this->input->post('id_aduan');

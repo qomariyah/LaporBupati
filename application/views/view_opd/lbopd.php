@@ -47,72 +47,20 @@
                     <?php
                         if($content == 'dashboard'){
                             $this->load->view('view_opd/dashboard');
-                        }else if($content == "administrator"){
-                            $this->load->view('view_opd/card');
-                        }else if($content == "tambah-administrator"){
-                            $this->load->view('view_opd/form');
-                        }else if($content == "edit-administrator"){
-                            $this->load->view('view_opd/form');
-                        }else if($content == "opd"){
-                            $this->load->view('view_opd/card');
-                        }else if($content == "tambah-opd"){
-                            $this->load->view('view_opd/form');
-                        }else if($content == "edit-opd"){
-                            $this->load->view('view_opd/form');
-                        }else if($content == "sektor"){
-                            $this->load->view('view_opd/table');
-                        }else if($content == "tambah-sektor"){
-                            $this->load->view('view_opd/form');
-                        }else if($content == "edit-sektor"){
-                            $this->load->view('view_opd/form');
                         }else if($content == "aduan-hari-ini"){
                             $this->load->view('view_opd/list');
-                        }else if($content == "detail-data-aduan-hari-ini"){
-                            $this->load->view('view_opd/details');
-                        }else if($content == "aduan-diterima"){
+                        }else if($content == "aduan-masuk"){
                             $this->load->view('view_opd/list');
-                        }else if($content == "aduan-didisposisikan"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "aduan-dalam-penanganan"){
+                        }else if($content == "aduan-penanganan"){
                             $this->load->view('view_opd/list');
                         }else if($content == "aduan-selesai"){
                             $this->load->view('view_opd/list');
-                        }else if($content == "aduan-bukan-kewenangan"){
+                        }else if($content == "aduan-semua"){
                             $this->load->view('view_opd/list');
-                        }else if($content == "aduan-tempat-sampah"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "semua-aduan"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "filemanager"){
-                            $this->load->view('view_opd/elfinder');
-                        }else if($content == "detail-opd"){
+                        }else if($content == "detail-data-aduan"){
                             $this->load->view('view_opd/details');
-                        }else if($content == "user"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "detail-user"){
-                            $this->load->view('view_opd/details');
-                        }else if($content == "tambah-user"){
-                            $this->load->view('view_opd/form');
-                        }else if($content == "edit-user"){
-                            $this->load->view('view_opd/form');
-                        }else if($content == "semua-masukan"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "detail-masukan"){
-                            $this->load->view('view_opd/details');
-                        }else if($content == "masukan-hari-ini"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "masukan-bulan-ini"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "semua-komentar"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "komentar-hari-ini"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "komentar-kemarin"){
-                            $this->load->view('view_opd/list');
-                        }else if($content == "pengaturan"){
-                            $this->load->view('view_opd/setting');
-                        }else if($content == "tambah-masukan"){
-                            $this->load->view('view_opd/form');
+                        }else if($content == "opd"){
+                            $this->load->view('view_opd/card');
                         }
 
                     ?>
@@ -190,6 +138,24 @@
         <script type="text/javascript" src="<?= base_url()?>asset/be/js/actions.js"></script>
         
         <script type="text/javascript" src="<?= base_url()?>asset/be/js/demo_dashboard.js"></script>
+
+        <script type='text/javascript' src='<?= base_url()?>asset/be/js/plugins/noty/jquery.noty.js'></script>
+        <script type='text/javascript' src='<?= base_url()?>asset/be/js/plugins/noty/layouts/topRight.js'></script>           
+        <script type='text/javascript' src='<?= base_url()?>asset/be/js/plugins/noty/themes/default.js'></script>
+
+        <?php
+            $notif = $this->session->flashdata('notif');
+            $type = $this->session->flashdata('type');
+            if ($this->session->flashdata('notif')) { ?>
+                <script type="text/javascript">    
+                    noty({
+                        text: '<?= $notif ?>',
+                        layout: 'topRight',
+                        timeout: 3000,
+                        type: '<?= $type ?>'
+                    })                                               
+                </script>
+        <?php } ?>
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->         
     </body>

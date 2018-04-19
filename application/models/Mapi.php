@@ -26,6 +26,7 @@ class Mapi extends CI_Model {
 		$this->db->join('tb_komentar', 'tb_komentar.id_aduan = tb_aduan.id_aduan', 'left');
 		$this->db->where('tb_aduan.status !=', 'masuk');
 		$this->db->where('tb_aduan.status !=', 'sampah');
+		$this->db->where('tb_aduan.status !=', 'bukan kewenangan');
 		$this->db->where('tb_aduan.rahasia', 0);
 		$this->db->order_by('tb_aduan.dibuat', 'desc');
 		$this->db->group_by('tb_aduan.id_aduan');
@@ -52,6 +53,7 @@ class Mapi extends CI_Model {
 		$this->db->join('tb_komentar', 'tb_komentar.id_aduan = tb_aduan.id_aduan', 'left');
 		$this->db->where('tb_aduan.status !=', 'masuk');
 		$this->db->where('tb_aduan.status !=', 'sampah');
+		$this->db->where('tb_aduan.status !=', 'bukan kewenangan');
 		$this->db->where('tb_aduan.rahasia', 0);
 		$this->db->order_by('tb_aduan.dibuat', 'desc');
 		$this->db->group_by('tb_aduan.id_aduan');

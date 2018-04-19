@@ -47,11 +47,27 @@ class Administrator extends CI_Controller {
 	}
 
 	public function tambah(){
+        $last_id = $this->madmin->autoId()->result();
+        foreach ($last_id as $key) {
+            $id = $key->id_admin;
+        }
+        $num_id = substr($id, 4, 6)+1;
+        $auto_id = "ADM0".$num_id;
+
+        if (strlen($num_id) == 1) {
+            $auto_id = "ADM00".$num_id;
+        }elseif (strlen($num_id) == 2) {
+            $auto_id = "ADM0".$num_id;
+        }elseif (strlen($num_id) == 3) {
+            $auto_id = "ADM".$num_id;
+        }
+
 		$data['title'] = "Tambah Data Adimistrator - Admin Lapor Bupati";
         $data['content'] = "tambah-administrator";
         $data['breadcrumb'] = "Tambah Data Adimistrator";
         $data['Administrator'] = "active";
         $data['tambah_administrator'] = "active";
+        $data['id_admin'] = $auto_id;
         $data['data_id'] = $this->madmin->createID();
 		$this->load->view('view_admin/lbadmin', $data);
 	}

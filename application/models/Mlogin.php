@@ -12,6 +12,11 @@ class Mlogin extends CI_Model {
         return $this->db->get('tb_admin');
     }
 
+    public function adminOpd($id){
+    	$this->db->where('id_admin', $id);
+    	return $this->db->get('tb_opd');
+    }
+
 }
 
 /* End of file Mlogin.php */

@@ -230,7 +230,7 @@
                                 }
                             ?>
                             <div class="btn-group">
-                                <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs">Pilihan <span class="caret"></span></a>
+                                <a href="#" data-toggle="dropdown" class="btn btn-info btn-xs dropdown-toggle">Pilihan <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#" data-toggle="modal" data-target="#edit<?= p($key->id_aduan) ?>">Edit Aduan</a></li>
                                     <li><a href="<?= site_url('sysadmin/aduan/verifikasi/'.p($key->id_aduan).'/detail')?>">Verifikasi</a></li>
@@ -404,9 +404,9 @@
                                                 ?>
                                             alt="<?= p($komen->foto_opd) ?>">
                                             <p class="comment-head">
-                                                <a href="#"><?= p($komen->singkatan) ?></a> <span class="text">Administrator</span>
+                                                <a href="#"><?= p($komen->singkatan) ?></a> <span class="text">Admin OPD</span>
                                             </p>
-                                    <?php }elseif (!empty($komen->id_user)) { ?>
+                                    <?php }elseif ($komen->id_user != 0) { ?>
                                             <img 
                                                 <?php
                                                     if ($komen->foto_user == "") {
@@ -417,7 +417,7 @@
                                                 ?>
                                             alt="<?= p($komen->foto_user) ?>">
                                             <p class="comment-head">
-                                                <a href="#"><?= p($komen->singkatan) ?></a> <span class="text">Administrator</span>
+                                                <a href="#"><?= p($komen->nama_user) ?></a> <span class="text">User</span>
                                             </p>
                                     <?php } ?>
                                     <p style="font-size: 14px; ;line-height: 20px"><?= p($komen->komentar) ?></p>

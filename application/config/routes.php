@@ -53,16 +53,21 @@ $route['default_controller'] = 'lb';
 $route['404_override'] = 'Error404';
 $route['translate_uri_dashes'] = TRUE;
 
+//Admin
 $route['sysadmin'] = 'sysadmin/dashboard';
 $route['sysadmin/opd'] = "sysadmin/opd/data";
 $route['sysadmin/administrator'] = "sysadmin/administrator/data";
 $route['sysadmin/komentar'] = "sysadmin/komentar/data";
 $route['sysadmin/user'] = "sysadmin/user/data";
 
+//OPD
 $route['sysopd'] = 'sysopd/dashboard';
+$route['sysopd/opd'] = "sysopd/opd/data";
 
+//bupati
 $route['sysbupati'] = 'sysbupati/dashboard';
 
+//syslogin
 $route['sysadminlogin'] = 'sysadmin/sysadmin';
 $route['sysadminlogin/auth'] = 'sysadmin/sysadmin/auth';
 $route['sysadminlogin/oauth'] = 'sysadmin/sysadmin/oauth';
