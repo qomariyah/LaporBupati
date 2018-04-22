@@ -59,7 +59,7 @@
         <li class="xn-openable <?= @$masukan ?>">
             <a href="#"><span class="fa fa-dropbox"></span> <span class="xn-text">Masukan</span></a>
             <ul>
-                <li class="<?= @$tmasukan ?>"><a href="<?= site_url('sysopd/tambah_masukan')?>"><span class="fa fa-plus"></span> Tambah Masukan</a></li>
+                <li class="<?= @$tmasukan ?>"><a href="<?= site_url('sysopd/masukan/tambah')?>"><span class="fa fa-plus"></span> Tambah Masukan</a></li>
             </ul>
         </li>   
         <li class="xn-openable <?= @$Laporan ?>">

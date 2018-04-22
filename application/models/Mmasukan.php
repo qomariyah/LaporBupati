@@ -8,7 +8,12 @@ class Mmasukan extends CI_Model {
 	}
 
 	public function create($data) {
-		$this->db->insert('tb_masukan', $data);
+		return $this->db->insert('tb_masukan', $data);
+	}
+
+	public function delete($id){
+		$this->db->where('id_masukan', $id);
+		return $this->db->delete('tb_masukan');
 	}
 
 }

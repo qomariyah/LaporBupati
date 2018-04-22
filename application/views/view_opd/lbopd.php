@@ -61,6 +61,10 @@
                             $this->load->view('view_opd/details');
                         }else if($content == "opd"){
                             $this->load->view('view_opd/card');
+                        }else if($content == "tambah-masukan"){
+                            $this->load->view('view_opd/form');
+                        }else if($content == "sektor"){
+                            $this->load->view('view_opd/table');
                         }
 
                     ?>

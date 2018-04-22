@@ -79,13 +79,14 @@ $route['tentang'] 			  = 'front/tentang';
 $route['profil'] 			  = 'front/user/profil';
 $route['petunjuk-dan-syarat'] = 'lb/petunjuk_syarat';
 $route['opd'] 				  = 'front/opd';
-$route['opd/detail']		  = 'front/opd/detail';
+$route['opd/detail/(:any)']		  = 'front/opd/detail/$1';
 $route['aduan-saya'] 		  = 'aduan/aduan_saya';
 $route['login']				  = 'lb/login';
 $route['auth']                = 'front/user/auth';
 $route['lupa-sandi'] 		  = 'lb/forget_password';
 $route['daftar'] 			  = 'front/user/register';
 $route['logout']			  = 'front/user/logout';
+$route['aduan/detail/(:any)']		  = 'front/aduan/detail/$1';
 
 /*$route['kontak'] = 'lb/kontak';
 $route['tentang'] = 'lb/tentang_lb';

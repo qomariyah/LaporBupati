@@ -17,30 +17,30 @@
 						</div>
 					</div>
 					<div class="col-md-6" id="form-register">
+						<?php if ($this->session->userdata('code') == 'loginuserberhasil') { ?>
 						<div class="book-form inn-com-form">
-							<form class="col s12" method="POST">
+							<form class="col s12" method="POST" action="<?= site_url('front/aduan/tambah') ?>" enctype="multipart/form-data">
 								<p><strong>Penting!</strong> Pastikan isi aduan menggunakan bahasa yang baik dan santun.</p><br>
 								<div class="row">
 									<div class="col s12">
-										<textarea id="textarea" minlength="50" required placeholder="Pesan Aduan"></textarea>
+										<textarea id="textarea" minlength="50" name="aduan" required placeholder="Pesan Aduan"></textarea>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col s12">
-										<select required>
-											<option>-- Pilih Kategori --</option>
-											<option>Non Infrastruktur</option>
-											<option>Infrastruktur</option>
+										<select required name="kategori">
+											<option value="Non Infrastruktur">Non Infrastruktur</option>
+											<option value="Infrastruktur">Infrastruktur</option>
 										</select>
 									</div>
 								</div>
 								<div class="row">
 									<div class="file-field input-field col s12">
 										<div class="btn" id="pro-file-upload"> <span>File</span>
-											<input type="file">
+											<input type="file" name="lampiran">
 										</div>
 										<div class="file-path-wrapper">
-											<input class="file-path validate" type="text" placeholder="Unggah Foto">
+											<input class="file-path" type="text" placeholder="Unggah Foto">
 										</div>
 									</div>
 								</div>
@@ -51,7 +51,8 @@
 								</div>
 							</form>
 						</div>
-						<div class="book-form2 inn-com-form">
+						<?php }else{ ?>
+						<div class="book-form inn-com-form">
 							<form class="col s12" method="POST">
 								<p><strong>Daftar!</strong> dan ikut serta dalam pembangunan Kabupaten Pekalongan.</p><br>
 								<div>
@@ -80,6 +81,7 @@
 								</div>
 							</form>
 						</div>
+						<?php } ?>
 					</div>
 
 					<!--END TYPOGRAPHY SECTION-->
@@ -125,12 +127,12 @@
                                             }
                                         ?>
                                     alt="<?= $row->thumb ?>" alt="<?= $row->foto ?>">
-								<p><a href="<?= base_url('aduan/detail/').base64_encode($row->id_aduan) ?>"><?= $row->nama_user?></a> <span><?= $row->dibuat?></span>
+								<p><a href="<?= base_url('aduan/detail/').base64_encode($row->id_aduan) ?>"><?= $row->nama_user?></a> <small><?= $row->jmladuan ?></small><span><?= time_ago($row->tanggal) ?></span>
 								</p>
 							</div>
-							<p><?php
+							<p style="font-size: 16px"><?php
                                 if (strlen($row->aduan) <= 150) {
-                                    echo $row->aduan;
+                                    echo p($row->aduan);
                                 }else{
                                     echo substr($row->aduan, 0, 150)." ..."; ?>
                                     <a href="<?= site_url('aduan/detail/').base64_encode($row->id_aduan) ?>"> Selengkapnya</a>
@@ -138,7 +140,8 @@
                             ?></p>
 							<ul>
 								<li> <i class="fa fa-tag"></i> <span><?= $row->kategori ?></span></li>
-								<li class="pull-right"><span><i class="fa fa-info-circle"></i></span></li>
+								<li> <i class="fa fa-comments"> <span><?= $row->jmlkomen ?> Tanggapan</i> </span></li>
+								<li class="pull-right"><span><i class="fa fa-info-circle"></i> <?= $row->status ?></span></li>
 							</ul>
 						</div>
 					</div>
@@ -511,52 +514,137 @@
 				<div class="row">
 					<!--TYPOGRAPHY SECTION-->
 					<?php foreach ($aduan as $data) { ?>
-					<div class="col-md-4">
-						<div class="gall-grid">
-							<?php if ($data->lampiran != '') { ?>
-								<img data-caption="Caption foto aduan" src="<?= base_url() ?>files/aduan/source/<?= $data->lampiran ?>" class="materialboxed" alt="Foto Aduan" />
-							<?php } ?>
-						</div>
-					</div>
-					<div class="col-md-8">
+						<?php if ($data->lampiran != '') { ?>
+							<div class="col-md-4">
+								<div class="gall-grid">
+										<img data-caption="Caption foto aduan" src="<?= base_url() ?>files/aduan/source/<?= $data->lampiran ?>" class="materialboxed" alt="Foto Aduan" />
+								</div>
+							</div>
+						<?php } ?>
+					<div class="col-md-8
+					<?php if ($data->lampiran != ''){
+							echo "";
+						}else{
+							echo "col-md-offset-2";
+						} ?>">
 						<div class="head-typo typo-com">
 							<div class="room-rat-img">
 								<?php if ($data->foto != "") { ?>
-									<img class="materialboxed" data-caption="<?= $data->nama_user ?>" width="50px" height="50px" src="<?= base_url() ?>files/user/thumb/<?= $data->thumb ?>" alt="<?= $data->nama_user ?>">
+									<img class="materialboxed" data-caption="<?= p($data->nama_user) ?>" width="50px" height="50px" src="<?= base_url() ?>files/user/thumb/<?= $data->thumb ?>" alt="<?= p($data->nama_user)." ".$data->jmladuan ?>">
 								<?php } else { ?>
-									<img class="materialboxed" width="50px" height="50px" src="<?= base_url() ?>asset/fe/images/no-image-male-no-frame.png" alt="<?= $data->nama_user ?>">
+									<img class="materialboxed" width="50px" height="50px" src="<?= base_url() ?>asset/fe/images/no-image-male-no-frame.png" alt="<?= p($data->nama_user)." ".$data->jmladuan ?>">
 								<?php } ?>
-								<h2><?= $data->nama_user ?> <small><?= date('H:s d - m - Y', strtotime($data->dibuat)) ?></small></h2>
+								<h2>
+									<?= p($data->nama_user) ?> 
+									<small><?= $data->jmladuan ?></small>
+									<small><?= time_ago($data->tanggal) ?></small> &nbsp; 
+									<?php
+										if ($data->status == "masuk") {
+	                                       echo "<label class='label label-masuk'><b>".$data->status."</b></label>";
+	                                    }elseif($data->status == "diverifikasi"){
+	                                        echo "<label class='label label-info'><b>".$data->status."</b></label>";
+	                                    }elseif($data->status == "didisposisikan"){
+	                                        echo "<label class='label label-yellow'><b>".$data->status."</b></label>";
+	                                    }elseif($data->status == "penanganan"){
+	                                        echo "<label class='label label-warning'><b>".$data->status."</b></label>";
+	                                    }elseif($data->status == "sampah"){
+	                                        echo "<label class='label label-sampah'><b>".$data->status."</b></label>";
+	                                    }elseif($data->status == "bukan kewenangan"){
+	                                        echo "<label class='label label-danger'><b>".$data->status."</b></label>";
+	                                    }elseif($data->status == "selesai"){
+	                                        echo "<label class='label label-success'><b>".$data->status."</b></label>";
+	                                    }
+									?>
+								</h2>
 							</div>
-							<p><?= $data->aduan ?></p>
+							<p style="font-size: 20px"><?= $data->aduan ?></p>
 							<!--EVENT-->
-					<?php } ?>
 							<div class="aminities">
 								<ul>
 									<?php foreach ($komentar as $key) { ?>
 									<li class="aminities-line"> <i class="fa fa-clock-o" aria-hidden="true"></i>
 										<div class="room-rat-img">
-											<img class="img-responsive" width="30px" height="30px" src="<?= base_url() ?>files/logoApp.png" alt="Admin Lapor Bupati">
-											<h4>
-												Admin Lapor Bupati
-												<small><?= date('H:s d - m - Y', strtotime($key->dibuat)) ?></small>
-											</h4>
+											<img class="materialboxed" width="30px" height="30px"
+		                                    <?php
+		                                        if (!empty($key->id_admin)) {
+		                                            if (!empty($key->foto_admin)) {
+		                                                echo "src='".base_url()."files/administrator/thumb/".$key->foto_admin."'";
+		                                            }else{
+		                                                echo "src='".base_url()."asset/fe/images/no-image-male-no-frame.png'" ;
+		                                            }
+		                                        }elseif (!empty($key->id_opd)){
+		                                            if (!empty($key->foto_opd)) {
+		                                                echo "src='".base_url()."files/opd/thumb/".$key->foto_opd."'";
+		                                            }else{
+		                                                echo "src='".base_url()."asset/fe/images/no-image.png'" ;
+		                                            }
+		                                        }elseif (!empty($key->id_user)) {
+		                                            if (!empty($key->foto_user)) {
+		                                                echo "src='".base_url()."files/user/thumb/".$key->foto_user."'";
+		                                            }else{
+		                                                echo "src='".base_url()."asset/fe/images/no-image-male-no-frame.png'" ;
+		                                            }
+		                                        }
+		                                    ?>>
+											<h5>
+												<?php
+			                                        if (!empty($key->id_admin)) {
+			                                            echo "Admin Lapor Bupati";
+			                                        }elseif (!empty($key->id_opd)){
+			                                            echo $key->singkatan;
+			                                        }elseif (!empty($key->id_user)) {
+			                                            echo $key->nama_user;
+			                                        }
+			                                    ?>
+			                                    <small>
+			                                    	<?php
+				                                    if (!empty($key->id_admin)) {
+				                                        if ($key->id_admin == 'ADM004') {
+				                                            echo "Bupati Kab. Pekalongan";
+				                                        }
+				                                    }elseif (!empty($key->id_opd)){
+				                                        
+				                                    }elseif (!empty($key->id_user)) {
+				                                        echo "User";
+				                                    }
+				                                ?>
+			                                    </small>
+												<small><?= time_ago($key->tanggal) ?></small>
+												<?php if ($key->id_user == $this->session->userdata('id_user')) { ?>
+													<div class="pull-right">
+														<a href="<?= site_url('front/komentar/delete/'.$key->id_komentar.'/'.$this->uri->segment(3)) ?>"><span class="fa fa-trash-o"></span></a>&nbsp;&nbsp;
+														<a href="#"><span class="fa fa-pencil"></span></a>
+													</div>
+												<?php } ?>
+											</h5>
 										</div>
 										<p><?= $key->komentar ?>.</p>
 									</li>
 									<?php } ?>
 								</ul>
 							</div>
-							<form action="" method="POST">
+							<form method="POST" action="<?= site_url('front/komentar/tambah') ?>">
 								<div class="input-field col s9">
-									<textarea class="materialize-textarea" placeholder="Tulis Komentar..."></textarea>
+									<textarea class="materialize-textarea" name="komentar" required placeholder="Tulis Komentar..."></textarea>
 								</div>
 								<div class="input-field col s2">
-									<input class="waves-effect waves-light form-btn" type="submit" name="komentar" value="KIRIM">
+									<input type="hidden" name="uri" value="<?= $this->uri->segment(2) ?>">
+									<input type="hidden" name="id_aduan" value="<?= $data->id_aduan ?>">
+									<input type="hidden" name="id_user" value="<?= $this->session->userdata('id_user'); ?>">
+									<input class="waves-effect waves-light form-btn" type="submit" value="KIRIM">
+								</div>
+								<div class="file-field input-field col s9">
+									<div class="btn" id="pro-file-upload"> <span>File</span>
+										<input type="file" name="lampiran">
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path" type="text" placeholder="Lampirkan Foto">
+									</div>
 								</div>
 							</form>
 							<!--END EVENT-->
 						</div>
+					<?php } ?>
 					</div>
 					<!--END TYPOGRAPHY SECTION-->
 				</div>
@@ -731,7 +819,7 @@
 									<h4><?= $row->nama_opd; ?></h4> <span><?= $row->alamat; ?></span>
 									<p>Telepon : <?= $row->no_telp;?> &nbsp; Email : <?= $row->email; ?></p>
 								</div>
-								<div class="col-md-2"> <a href="<?= site_url('front/opd/detail/'.$row->id_opd) ?>" class="waves-effect waves-light event-regi">Selengkapnya</a> </div>
+								<div class="col-md-2"> <a href="<?= site_url('opd/detail/'.$row->id_opd) ?>" class="waves-effect waves-light event-regi">Selengkapnya</a> </div>
 							</div>
 							<!--END EVENT-->
 							<?php } ?>

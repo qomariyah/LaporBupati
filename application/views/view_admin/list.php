@@ -773,11 +773,11 @@
                                 <a href="<?= site_url('sysadmin/aduan/detail/'.$key->id_aduan)?>"><?= p($key->aduan) ?></a>
                             </td>
                             <td class="col-md-2 list-group-item"><b>
-                                <span class="badge badge-success"><b><?= $key->status ?></b></span>
                                 <?php 
                                 if ($key->rahasia == 1) {
                                     echo "&nbsp<span class='badge badge-danger'><b>rahasia</b></span>";
                                 } ?>
+                                <span class="badge badge-success"><b><?= $key->status ?></b></span>
                             </td>
                             <td class="col-md-1 list-group-item">
                                 <div class="btn-group pull-right">
@@ -1774,7 +1774,7 @@
                 <table>
                     <?php if ($jml_data_komentar == 0) { ?>
                         <tr>
-                            <td class="col-md-3 list-group-item"><b>Data Komentar ditemukan</b></td>
+                            <td class="col-md-3 list-group-item"><b>Data Komentar tidak ditemukan</b></td>
                         </tr>
                     <?php }else{ 
                         foreach ($data_komentar as $row) { ?>
@@ -1816,7 +1816,11 @@
                                 </span>
                                 <p><?php
                                     if (!empty($row->id_admin)) {
-                                        echo "Administrator";
+                                        if ($row->id_admin == 'ADM004') {
+                                            echo "Bupati Kab. Pekalongan";
+                                        }else{
+                                            echo "Administrator";
+                                        }
                                     }elseif (!empty($row->id_opd)){
                                         echo "Admin OPD ".$row->singkatan;
                                     }elseif (!empty($row->id_user)) {
@@ -1825,7 +1829,7 @@
                                 ?></p>
                             </td>
                             <td class="col-md-7 list-group-item">
-                                <a href="#"><?= p($row->komentar) ?></a>
+                                <a href="<?= site_url('sysadmin/aduan/detail/'.$row->id_aduan) ?>"><?= p($row->komentar) ?></a>
                             </td>
                             <td class="col-md-2 list-group-item"><b><?= time_ago($row->tanggal) ?></b></td>
                             <td class="col-md-1 list-group-item">

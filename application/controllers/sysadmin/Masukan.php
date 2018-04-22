@@ -13,7 +13,7 @@ class Masukan extends CI_Controller {
 	public function index(){
 		$data = array(
 			"title"			=> "Data Masukan - Admin Lapor Bupati",
-			"content"		=> "semua-masukan",
+			"content"		=> "masukan",
 			"breadcrumb"	=> "Data Masukan",
 			"masukan"		=> "active",
 			"dmasukan"		=> "active",
@@ -22,40 +22,7 @@ class Masukan extends CI_Controller {
         $this->load->view('view_admin/lbadmin', $data);
 	}
 
-    public function masukan_hari_ini(){
-    	$data = array(
-			"title"			=> "Data Masukan Hari Ini - Admin Lapor Bupati",
-			"content"		=> "masukan-hari-ini",
-			"breadcrumb"	=> "Data Masukan Hari Ini",
-			"masukan"		=> "active",
-			"dmasukan"		=> "active"
-		);
-        $this->load->view('view_admin/lbadmin', $data);
-    }
-
-    public function masukan_bulan_ini(){
-    	$data = array(
-			"title"			=> "Data Masukan Bulan Ini - Admin Lapor Bupati",
-			"content"		=> "masukan-bulan-ini",
-			"breadcrumb"	=> "Data Masukan Bulan Ini",
-			"masukan"		=> "active",
-			"dmasukan"		=> "active"
-		);
-        $this->load->view('view_admin/lbadmin', $data);
-    }
-
-    public function detail_masukan(){
-    	$data = array(
-			"title"			=> "Detail Masukan - Admin Lapor Bupati",
-			"content"		=> "detail-masukan",
-			"breadcrumb"	=> "Detail Masukan",
-			"masukan"		=> "active",
-			"dmasukan"		=> "active"
-		);
-        $this->load->view('view_admin/lbadmin', $data);
-    }
-
-    public function tambah_masukan(){
+    public function tambah(){
     	$data = array(
 			"title"			=> "Masukan - Admin Lapor Bupati",
 			"content"		=> "tambah-masukan",
@@ -64,6 +31,20 @@ class Masukan extends CI_Controller {
 			"dmasukan"		=> "active"
 		);
         $this->load->view('view_admin/lbadmin', $data);
+    }
+
+    public function delete(){
+    	$id = $this->input->post('id');
+    	$q = $this->mmasukan->delete($id);
+    	if ($q) {
+    		$this->session->set_flashdata('notif', 'Data masukan berhasil dihapus');
+    		$this->session->set_flashdata('type', 'success');
+    		redirect('sysadmin/masukan','refresh');
+    	}else{
+    		$this->session->set_flashdata('notif', 'Data masukan gagal dihapus');
+    		$this->session->set_flashdata('type', 'error');
+    		redirect('sysadmin/masukan','refresh');
+    	}
     }
 
 }

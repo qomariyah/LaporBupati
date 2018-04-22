@@ -4,18 +4,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Maduan extends CI_Model {
 
 	public function get_all_aduan() {
+		$this->db->select('*,tb_user.foto as foto, tb_aduan.dibuat as tanggal, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "bukan kewenangan" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->order_by('tb_aduan.dibuat', 'desc');
 		$this->db->where('tb_aduan.status !=', 'masuk');
 		$this->db->where('tb_aduan.status !=', 'sampah');
-		$this->db->order_by('tb_aduan.dibuat', 'desc');
-		$this->db->join('tb_user', 'tb_user.id_user = tb_aduan.id_user', 'left');
-		return $this->db->get('tb_aduan')->result();
+		return $this->db->get()->result();
 	}	
 
 	public function getAduanById($id){
-		$this->db->select('*, tb_aduan.dibuat as tanggal, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen');
+		$this->db->select('*,tb_user.foto as foto, tb_aduan.dibuat as tanggal, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "bukan kewenangan" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
 		$this->db->from('tb_aduan');
-		$this->db->where('id_aduan', $id);
 		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->where('id_aduan', $id);
 		return $this->db->get();
 	}
 
@@ -240,6 +242,10 @@ class Maduan extends CI_Model {
 	public function edit($data, $id){
 		$this->db->where('id_aduan', $id);
 		return $this->db->update('tb_aduan', $data);
+	}
+
+	public function tambah($data){
+		return $this->db->insert('tb_aduan', $data);
 	}
 
 

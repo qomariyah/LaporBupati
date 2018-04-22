@@ -10,33 +10,6 @@ class Lb extends CI_Controller {
 		$this->load->model('maduan');
 	}
 
-	public function create_captcha(){
-        $option = array (
-            'img_path'		=> './files/captcha/',
-            'img_url'		=> base_url('files/captcha'),
-            'img_width'		=> '190',
-            'img_height'	=> '45',
-            'word_length'	=> 4,
-            'font_size'		=> 20,
-            'pool'			=> '0123456789',
-            'expiration'	=> 7200
-        );
-
-        $cap = create_captcha($option);
-        $image = $cap['image'];
-
-        $this->session->set_userdata('captchaword', $cap['word']);
-        return $image;
-    }
-
-    public function check_captcha(){
-        if ($this->input->post('captcha') == $this->session->userdata('captchaword')) {
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     public function register_user() {
     	$data = array(
     		'id_user'	=> '',
@@ -53,7 +26,6 @@ class Lb extends CI_Controller {
 	public function index() {
 		$data['title'] = "Lapor Bupati";
 		$data['content'] = "home";
-		$data['image'] = $this->create_captcha();
 		$data['aduan'] = $this->maduan->get_all_aduan();
 		$this->load->view('view_front/lbfront', $data);
 	}
@@ -110,7 +82,6 @@ class Lb extends CI_Controller {
 		$data['title'] = "Login - Lapor Bupati";
 		$data['content'] = "login";
 		$data['error'] = "";
-		$data['image'] = $this->create_captcha();
 		$this->load->view('view_front/lbfront', $data);
 	}
 

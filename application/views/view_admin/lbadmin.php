@@ -100,14 +100,8 @@
                             $this->load->view('view_admin/form');
                         }else if($content == "edit-user"){
                             $this->load->view('view_admin/form');
-                        }else if($content == "semua-masukan"){
-                            $this->load->view('view_admin/list');
-                        }else if($content == "detail-masukan"){
-                            $this->load->view('view_admin/details');
-                        }else if($content == "masukan-hari-ini"){
-                            $this->load->view('view_admin/list');
-                        }else if($content == "masukan-bulan-ini"){
-                            $this->load->view('view_admin/list');
+                        }else if($content == "masukan"){
+                            $this->load->view('view_admin/table');
                         }else if($content == "komentar"){
                             $this->load->view('view_admin/list');
                         }else if($content == "pengaturan"){

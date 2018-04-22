@@ -5,104 +5,868 @@ class Aduan extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('maduan');
-		$this->load->model('mopd');
 		//Do your magic here
+        $this->load->model('maduan');
+        $this->load->model('mopd');
+        $this->load->model('mkomentar');
+        $this->load->model('msektor');
+
+        if($this->session->userdata('status') != 'loginberhasil'){
+            redirect(base_url('sysadminlogin/oauth'));
+        }
 	}
 
 	public function index(){
-		$data['title'] = "Bupati Pekalongan Lapor Bupati";
-        $data['content'] = "dashboard";
-        $data['breadcrumb'] = "Dashboard";
-        $data['Dashboard'] = "active";
-		$this->load->view('view_bupati/lbbupati', $data);
+		
 	}
 
-	//aduan
-	public function aduan_hari_ini(){
+	public function tambah(){
+
+	}
+
+	public function create(){
+
+	}
+
+	public function edit(){
+        $uri = $this->input->post('uri');
+        $id = $this->input->post('id_aduan');
+        $data = array(
+            'aduan'         => $this->input->post('aduan')
+        );
+        $this->maduan->edit($data, $id);
+        $this->session->set_flashdata('notif', 'Data aduan berhasil diedit');
+        $this->session->set_flashdata('type', 'success');
+        redirect('sysadmin/aduan/detail/'.$id);
+	}
+
+	public function update(){
+
+	}
+
+	public function delete(){
+
+	}
+
+	public function search(){
+
+	}
+
+	public function hari_ini($offset = 0){
 		$data['title'] = "Data Aduan Hari Ini - Admin Lapor Bupati";
         $data['content'] = "aduan-hari-ini";
         $data['breadcrumb'] = "Data Aduan Hari Ini";
         $data['Aduan'] = "active";
         $data['aduan_hari_ini'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/hari-ini');
+            $config['total_rows'] = $this->maduan->rowAduanHariIni(date('Y-m-d'))->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanHariIni(date('Y-m-d'), $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_hari_ini'] = $this->maduan->rowAduanHariIni(date('Y-m-d'))->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysbupati/aduan/hari-ini?cari='.$query);
+            $config['total_rows'] = $this->maduan->rowCariAduanHariIni($query, date('Y-m-d'))->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduanHariIni($query, date('Y-m-d'), $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_hari_ini'] = $this->maduan->rowCariAduanHariIni($query, date('Y-m-d'))->num_rows();
+        }
+
 		$this->load->view('view_bupati/lbbupati', $data);
 	}
 
-    public function detail_aduan_hari_ini(){
-        $data['title'] = "Detail Data Aduan Hari Ini - Admin Lapor Bupati";
-        $data['content'] = "detail-data-aduan-hari-ini";
-        $data['breadcrumb'] = "Detail Data Aduan Hari Ini";
+    public function masuk($offset = 0){
+        $data['title'] = "Data Aduan Masuk - Admin Lapor Bupati";
+        $data['content'] = "aduan-masuk";
+        $data['breadcrumb'] = "Data Aduan Masuk";
         $data['Aduan'] = "active";
-        $data['aduan_hari_ini'] = "active";
+        $data['aduan_masuk'] = "active";
         $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/masuk');
+            $config['total_rows'] = $this->maduan->jmlAduanStatus("masuk")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanStatusPage("masuk", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_masuk'] = $this->maduan->jmlAduanStatus("masuk")->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysbupati/aduan/masuk?cari='.$query);
+            $config['total_rows'] = $this->maduan->jmlCariAduan($query, "masuk")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduan($query, "masuk", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_masuk'] = $this->maduan->jmlCariAduan($query, "masuk")->num_rows();
+        }
+
         $this->load->view('view_bupati/lbbupati', $data);
     }
 
-    public function aduan_diterima(){
+    public function diverifikasi($offset = 0){
         $data['title'] = "Data Aduan Diterima - Admin Lapor Bupati";
-        $data['content'] = "aduan-diterima";
-        $data['breadcrumb'] = "Data Aduan Diterima";
+        $data['content'] = "aduan-diverifikasi";
+        $data['breadcrumb'] = "Data Aduan Diverifikasi";
         $data['Aduan'] = "active";
-        $data['aduan_diterima'] = "active";
+        $data['aduan_diverifikasi'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/diverifikasi');
+            $config['total_rows'] = $this->maduan->jmlAduanStatus("diverifikasi")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanStatusPage("diverifikasi", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_diverifikasi'] = $this->maduan->jmlAduanStatus("diverifikasi")->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysbupati/aduan/diverifikasi?cari='.$query);
+            $config['total_rows'] = $this->maduan->jmlCariAduan($query, "diverifikasi")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduan($query, "diverifikasi", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_diverifikasi'] = $this->maduan->jmlCariAduan($query, "diverifikasi")->num_rows();
+        }
+
         $this->load->view('view_bupati/lbbupati', $data);
     }
 
-    public function aduan_didisposiskan(){
+    public function didisposiskan($offset = 0){
         $data['title'] = "Data Aduan Disposisi - Admin Lapor Bupati";
         $data['content'] = "aduan-didisposisikan";
         $data['breadcrumb'] = "Data Aduan Disposisi";
         $data['Aduan'] = "active";
         $data['aduan_didisposiskan'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/didisposiskan');
+            $config['total_rows'] = $this->maduan->rowAduanDisposisi()->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanDisposisi($config['per_page'], $offset)->result();
+            $data['jml_data_aduan_disposisi'] = $this->maduan->rowAduanDisposisi()->num_rows();
+
+        }else{
+
+            $query = $this->input->get('cari');
+            $offset = $this->input->get('page');
+            $config['per_page'] = 20;
+            $config['base_url'] = site_url('sysbupati/aduan/didisposiskan?cari='.$query);
+            $config['total_rows'] = $this->maduan->rowCariAduanDisposisi($query)->num_rows();
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduanDisposisi($query, $offset, $config['per_page'])->result();
+            $data['jml_data_aduan_disposisi'] = $this->maduan->cariAduanDisposisi($query, $offset, $config['per_page'])->num_rows();
+        }
+
         $this->load->view('view_bupati/lbbupati', $data);
     }
 
-    public function aduan_dalam_penanganan(){
+    public function penanganan($offset = 0){
         $data['title'] = "Data Aduan dalam Penanganan - Admin Lapor Bupati";
         $data['content'] = "aduan-dalam-penanganan";
         $data['breadcrumb'] = "Data Aduan dalam Penanganan";
         $data['Aduan'] = "active";
         $data['aduan_dalam_penanganan'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/penanganan');
+            $config['total_rows'] = $this->maduan->jmlAduanStatus("penanganan")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanStatusPage("penanganan", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_penanganan'] = $this->maduan->jmlAduanStatus("penanganan")->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysbupati/aduan/penanganan?cari='.$query);
+            $config['total_rows'] = $this->maduan->jmlCariAduan($query, "penanganan")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduan($query, "penanganan", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_penanganan'] = $this->maduan->jmlCariAduan($query, "penanganan")->num_rows();
+        }
+
         $this->load->view('view_bupati/lbbupati', $data);
     }
 
-    public function aduan_selesai(){
+    public function selesai($offset = 0){
         $data['title'] = "Data Aduan Selesai - Admin Lapor Bupati";
         $data['content'] = "aduan-selesai";
         $data['breadcrumb'] = "Data Aduan Selesai";
         $data['Aduan'] = "active";
         $data['aduan_selesai'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/selesai');
+            $config['total_rows'] = $this->maduan->jmlAduanStatus("selesai")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanStatusPage("selesai", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_selesai'] = $this->maduan->jmlAduanStatus("selesai")->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysbupati/aduan/selesai?cari='.$query);
+            $config['total_rows'] = $this->maduan->jmlCariAduan($query, "selesai")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduan($query, "selesai", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_selesai'] = $this->maduan->jmlCariAduan($query, "selesai")->num_rows();
+        }
+
         $this->load->view('view_bupati/lbbupati', $data);
     }
 
-    public function aduan_bukan_kewenangan(){
+    public function bukan_kewenangan($offset = 0){
         $data['title'] = "Data Aduan Bukan Kewenangan - Admin Lapor Bupati";
         $data['content'] = "aduan-bukan-kewenangan";
         $data['breadcrumb'] = "Data Aduan Bukan Kewenangan";
         $data['Aduan'] = "active";
         $data['aduan_bukan_kewenangan'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/bukan-kewenangan');
+            $config['total_rows'] = $this->maduan->jmlAduanStatus("bukan kewenangan")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanStatusPage("bukan kewenangan", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_bukan_kewenangan'] = $this->maduan->jmlAduanStatus("bukan kewenangan")->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysbupati/aduan/bukan-kewenangan?cari='.$query);
+            $config['total_rows'] = $this->maduan->jmlCariAduan($query, "bukan kewenangan")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduan($query, "bukan kewenangan", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_bukan_kewenangan'] = $this->maduan->jmlCariAduan($query, "bukan kewenangan")->num_rows();
+        }
+
         $this->load->view('view_bupati/lbbupati', $data);
     }
 
-    public function tempat_sampah_aduan(){
+    public function sampah($offset = 0){
         $data['title'] = "Tempat Sampah Aduan - Admin Lapor Bupati";
         $data['content'] = "aduan-tempat-sampah";
         $data['breadcrumb'] = "Tempat Sampah Aduan";
         $data['Aduan'] = "active";
         $data['aduan_tempat_sampah'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/sampah');
+            $config['total_rows'] = $this->maduan->jmlAduanStatus("sampah")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanStatusPage("sampah", $config['per_page'], $offset)->result();
+            $data['jml_data_aduan_sampah'] = $this->maduan->jmlAduanStatus("sampah")->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysbupati/aduan/sampah?cari='.$query);
+            $config['total_rows'] = $this->maduan->jmlCariAduan($query, "sampah")->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduan($query, "sampah", $config['per_page'])->result();
+            $data['jml_data_aduan_sampah'] = $this->maduan->jmlCariAduan($query, "sampah")->num_rows();
+        }
+
         $this->load->view('view_bupati/lbbupati', $data);
     }
 
-    public function semua_aduan(){
+    public function semua($offset = 0){
         $data['title'] = "Data Semua Aduan - Admin Lapor Bupati";
         $data['content'] = "semua-aduan";
         $data['breadcrumb'] = "Data Semua Aduan";
         $data['Aduan'] = "active";
         $data['semua_aduan'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/semua/');
+            $config['total_rows'] = $this->maduan->rowAduanSemua()->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanSemua($config['per_page'], $offset)->result();
+            $data['jml_semua_aduan'] = $this->maduan->rowAduanSemua()->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysbupati/aduan/semua?cari='.$query);
+            $config['total_rows'] = $this->maduan->rowCariAduanSemua($query)->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduanSemua($query, $config['per_page'], $offset)->result();
+            $data['jml_semua_aduan'] = $this->maduan->rowCariAduanSemua($query)->num_rows();
+        }
+        $this->load->view('view_bupati/lbbupati', $data);
+    }
+
+    public function rahasia($offset = 0){
+        $data['title'] = "Data Aduan Rahasia - Admin Lapor Bupati";
+        $data['content'] = "aduan-rahasia";
+        $data['breadcrumb'] = "Data Aduan Rahasia";
+        $data['Aduan'] = "active";
+        $data['aduan_rahasia'] = "active";
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
+        $data['daftar_sektor'] = $this->msektor->daftarSektor()->result();
+        $this->session->set_flashdata('query', '');
+
+        if ($this->input->get('cari') == "") {
+            $config['base_url'] = site_url('sysbupati/aduan/semua/');
+            $config['total_rows'] = $this->maduan->rowAduanRahasia()->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+
+            $this->pagination->initialize($config);
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->aduanRahasia($config['per_page'], $offset)->result();
+            $data['jml_semua_aduan'] = $this->maduan->aduanRahasia($config['per_page'], $offset)->num_rows();
+        }else{
+
+            $query = $this->input->get('cari');
+            $config['base_url'] = site_url('sysbupati/aduan/semua?cari='.$query);
+            $config['total_rows'] = $this->maduan->rowCariAduanRahasia($query)->num_rows();
+            $config['per_page'] = 20;
+            $config['use_page_number'] = FALSE;
+            $config['page_query_string'] = TRUE;
+            $config['num_links'] = 5;
+            $config['full_tag_open'] = '<ul class="pagination pagination-sm">';
+            $config['full_tag_close'] = '</ul>';
+            $config['first_link'] = 'First';
+            $config['first_tag_open'] = '<li class="prev page">';
+            $config['first_tag_close'] = '</li>';
+            $config['last_link'] = 'Last';
+            $config['last_tag_open'] = '<li class="next page">';
+            $config['last_tag_close'] = '</li>';
+            $config['next_link'] = 'Next';
+            $config['next_tag_open'] = '<li class="next page">';
+            $config['next_tag_close'] = '</li>';
+            $config['prev_link'] = 'Prev';
+            $config['prev_tag_open'] = '<li class="prev page">';
+            $config['prev_tag_close'] = '</li>';
+            $config['cur_tag_open'] = '<li class="active"><a href="">';
+            $config['cur_tag_close'] = '</a></li>';
+            $config['num_tag_open'] = '<li class="page">';
+            $config['num_tag_close'] = '</li>';
+            
+            $this->pagination->initialize($config);
+            $offset = $this->input->get('per_page');
+            $this->session->set_flashdata('query', 'Hasil pencarian untuk <b>"'.$query.'"</b>');
+
+            $data['pagination'] = $this->pagination->create_links();
+            $data['data_aduan'] = $this->maduan->cariAduanRahasia($query, $config['per_page'], $offset)->result();
+            $data['jml_semua_aduan'] = $this->maduan->rowCariAduanRahasia($query)->num_rows();
+        }
+
+        $this->load->view('view_bupati/lbbupati', $data);
+    }
+
+
+    public function detail($id){
+        $data['title'] = "Detail Data Aduan - Admin Lapor Bupati";
+        $data['content'] = "detail-data-aduan";
+        $data['breadcrumb'] = "Detail Data Aduan";
+        $data['Aduan'] = "active";
+        $data['data_aduan'] = $this->maduan->getAduanById($id)->result();
+        $data['data_komentar'] = $this->mkomentar->komentarById($id)->result();
+        $data['daftar_opd'] = $this->mopd->daftar_opd();
         $this->load->view('view_bupati/lbbupati', $data);
     }
 
 }
 
-/* End of file Aduan.php */
-/* Location: ./application/controllers/sysbupati/Aduan.php */
+/* End of file Aduan */
+/* Location: ./application/controllers/admin/Aduan */

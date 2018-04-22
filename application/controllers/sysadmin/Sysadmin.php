@@ -87,7 +87,8 @@ class Sysadmin extends CI_Controller {
                         $adminopd = $this->mlogin->adminOpd($this->session->userdata('id_admin'))->result();
                         foreach ($adminopd as $key) {
                             $data_session1 = array(
-                                'id_opd' => $key->id_opd
+                                'id_opd' => $key->id_opd,
+                                'email_opd' => $key->email
                             );
                         }
 

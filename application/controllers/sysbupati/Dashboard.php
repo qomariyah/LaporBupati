@@ -19,7 +19,7 @@ class Dashboard extends CI_Controller {
         $data['Dashboard'] = "active";
         $data['aktivitas'] = $this->maktivitas->read();
         $data['jml_aktivitas'] = $this->maktivitas->read();
-		$this->load->view('view_opd/lbopd', $data);
+		$this->load->view('view_bupati/lbbupati', $data);
 	}
 
 }
