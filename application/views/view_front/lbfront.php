@@ -48,6 +48,8 @@
 				$this->load->view('view_front/mid_section');
 			} else if ($content == 'profil') {
 				$this->load->view('view_front/mid_section');
+			} else if ($content == 'aduan') {
+				$this->load->view('view_front/mid_section');
 			} else if ($content == 'detail-aduan') {
 				$this->load->view('view_front/mid_section');
 			} else if ($content == 'petunjuk-dan-syarat') {

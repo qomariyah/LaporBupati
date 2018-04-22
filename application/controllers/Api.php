@@ -137,7 +137,66 @@ class Api extends CI_Controller {
         }
 	}
 
+	//OPD SECTION
 
+	public function login_opd(){
+		$username = $this->input->post('username');
+		$pass = $this->input->post('pass');
+		$hasil = $this->mapi->login_opd($username);
+		if ($hasil->num_rows() == 1) {
+			foreach ($hasil->result_array() as $key) {
+				if ($key['aktif'] == 0) {
+					$response = array(
+						'code' => '2'
+					);
+				}else if($key['aktif'] == 1){
+
+					foreach ($hasil->result_array() as $row){
+	                    $data = $row['password'];
+	                }
+
+	                if (password_verify($pass, $data)) {
+
+	                	$opd = $this->mapi->getIdOpd($key['id_admin']);
+
+						foreach ($opd->result_array() as $data) {
+							$id_opd = $data['id_opd'];
+							$nama_opd = $data['nama_opd'];
+							$singkatan = $data['singkatan'];
+						}
+
+						$response = array(
+							'code'		=> '1',
+							'id_admin'	=> $key['id_admin'],
+							'id_opd'	=> $id_opd,
+							'nama_admin'	=> $key['nama_admin'],
+							'foto'		=> $key['foto'],
+							'thumb'		=> $key['thumbnail'],
+							'telp'		=> $key['no_telepon'],
+							'email'		=> $key['email'],
+							'alamat'		=> $key['alamat'],
+							'level'		=> $key['level'],
+							'jk'		=> $key['jk'],
+							'opd'		=> $nama_opd,
+							'singkatan'	=> $singkatan
+						);
+	                }else{
+	                	$response = array(
+							'code' => '0'
+						);
+	                }
+					echo json_encode($response);
+				}
+			}
+		}else{
+			$response = array(
+				'code' => '0'
+			);
+			echo json_encode($response);
+		}
+	}
+
+	//END OF OPD SECTION
 }
 
 /* End of file Api.php */

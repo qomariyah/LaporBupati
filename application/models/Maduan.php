@@ -10,8 +10,45 @@ class Maduan extends CI_Model {
 		$this->db->order_by('tb_aduan.dibuat', 'desc');
 		$this->db->where('tb_aduan.status !=', 'masuk');
 		$this->db->where('tb_aduan.status !=', 'sampah');
+		$this->db->limit(9, 0);
 		return $this->db->get()->result();
 	}	
+
+	public function aduanFront($limit, $offset) {
+		$this->db->select('*,tb_user.foto as foto, tb_aduan.dibuat as tanggal, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "bukan kewenangan" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->order_by('tb_aduan.dibuat', 'desc');
+		$this->db->where('tb_aduan.status !=', 'masuk');
+		$this->db->where('tb_aduan.status !=', 'sampah');
+		$this->db->limit($limit, $offset);
+		return $this->db->get()->result();
+	}	
+
+	public function jmlAduanFront(){
+		$this->db->where('status !=', 'masuk');
+		$this->db->where('status !=', 'sampah');
+		return $this->db->get('tb_aduan')->num_rows();
+	}
+
+	public function cariAduanFront($q, $limit, $offset) {
+		$this->db->select('*,tb_user.foto as foto, tb_aduan.dibuat as tanggal, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "bukan kewenangan" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');
+		$this->db->from('tb_aduan');
+		$this->db->join('tb_user', 'tb_aduan.id_user = tb_user.id_user');
+		$this->db->order_by('tb_aduan.dibuat', 'desc');
+		$this->db->where('tb_aduan.status !=', 'masuk');
+		$this->db->where('tb_aduan.status !=', 'sampah');
+		$this->db->like('tb_aduan.aduan', $q, 'BOTH');
+		$this->db->limit($limit, $offset);
+		return $this->db->get()->result();
+	}	
+
+	public function jmlCariAduanFront($q){
+		$this->db->where('status !=', 'masuk');
+		$this->db->where('status !=', 'sampah');
+		$this->db->like('tb_aduan.aduan', $q, 'BOTH');
+		return $this->db->get('tb_aduan')->num_rows();
+	}
 
 	public function getAduanById($id){
 		$this->db->select('*,tb_user.foto as foto, tb_aduan.dibuat as tanggal, (select count(tb_komentar.id_aduan) from tb_komentar where tb_komentar.id_aduan=tb_aduan.id_aduan group by tb_komentar.id_aduan) as jmlkomen, (select count(tb_aduan.id_user) from tb_aduan where tb_user.id_user=tb_aduan.id_user and tb_aduan.status != "masuk" and tb_aduan.status != "bukan kewenangan" and tb_aduan.status != "sampah" group by tb_aduan.id_user) as jmladuan');

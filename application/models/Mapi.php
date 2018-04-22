@@ -74,6 +74,22 @@ class Mapi extends CI_Model {
 		$this->db->where('id_user', $id);
 		return $this->db->get('tb_pemberitahuan')->result();
 	}
+
+	//OPD SECTION
+
+	public function login_opd($username){
+		$this->db->where('username', $username);
+		$this->db->where('aktif', 1);
+		return $this->db->get('tb_admin');
+	}
+
+	public function getIdOpd($id){
+		$this->db->select('id_opd, nama_opd, singkatan');
+		$this->db->where('id_admin', $id);
+		return $this->db->get('tb_opd');
+	}
+
+	//END OF OPD SECTION
 }
 
 /* End of file Mapi.php */

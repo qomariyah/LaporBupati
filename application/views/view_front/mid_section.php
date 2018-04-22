@@ -102,7 +102,7 @@
 							<div class="hl-3"></div>
 						</div>
 						<div class="center">
-							<form method="GET" action="">
+							<form method="GET" action="<?= site_url('aduan/data') ?>">
 								<ul class="foot-subsc">
 									<li>
 										<span class="fa fa-search"></span>&nbsp;&nbsp;
@@ -130,7 +130,7 @@
 								<p><a href="<?= base_url('aduan/detail/').base64_encode($row->id_aduan) ?>"><?= $row->nama_user?></a> <small><?= $row->jmladuan ?></small><span><?= time_ago($row->tanggal) ?></span>
 								</p>
 							</div>
-							<p style="font-size: 16px"><?php
+							<p style="font-size: 14px"><?php
                                 if (strlen($row->aduan) <= 150) {
                                     echo p($row->aduan);
                                 }else{
@@ -140,7 +140,7 @@
                             ?></p>
 							<ul>
 								<li> <i class="fa fa-tag"></i> <span><?= $row->kategori ?></span></li>
-								<li> <i class="fa fa-comments"> <span><?= $row->jmlkomen ?> Tanggapan</i> </span></li>
+								<li> <i class="fa fa-comments"> <span><?= $row->jmlkomen ?></i> </span></li>
 								<li class="pull-right"><span><i class="fa fa-info-circle"></i> <?= $row->status ?></span></li>
 							</ul>
 						</div>
@@ -170,6 +170,82 @@
 			</div>
 		</div>
 	<!--End Second Section-->
+<?php } ?>
+
+<?php if ($content == 'aduan') { ?>
+	<!--ABOUT SECTION-->
+			<br>
+			<br>
+			<br>
+			<br>
+		<div class="inn-body-section">
+			<div class="container">
+				<div class="row">
+					<div class="hom1-title">
+						<h2>Pengaduan Terkini</h2>
+						<div class="head-title">
+							<div class="hl-1"></div>
+							<div class="hl-2"></div>
+							<div class="hl-3"></div>
+						</div>
+						<div class="center">
+							<form method="GET" action="">
+								<ul class="foot-subsc">
+									<li>
+										<span class="fa fa-search"></span>&nbsp;&nbsp;
+										<input type="text" name="cari" placeholder="Cari...">
+									</li>
+								</ul>
+							</form>
+						</div>
+						<p><?= $this->session->flashdata('q'); ?></p>
+					</div>
+				</div>
+				<div class="row">
+					<?php if ($jml_data == 0) { ?>
+					<center><p>Data aduan tidak ditemukan</p></center>
+					<?php }else{ ?>
+					<?php foreach ($data_aduan as $row) { ?>
+					<div class="room-rat-inn room-rat-bor col-md-4">
+						<div class="room-rat-body">
+							<div class="room-rat-img">
+								<img class="img-responsive" width="50px" height="50px" <?php
+                                            if ($row->foto == "") {
+                                                echo "src='".base_url()."asset/fe/images/no-image-male-no-frame.png'" ;
+                                            }else{
+                                                echo "src='".base_url()."files/user/thumb/".$row->thumb."'";
+                                            }
+                                        ?>
+                                    alt="<?= $row->thumb ?>" alt="<?= $row->foto ?>">
+								<p><a href="<?= base_url('aduan/detail/').base64_encode($row->id_aduan) ?>"><?= $row->nama_user?></a> <small><?= $row->jmladuan ?></small><span><?= time_ago($row->tanggal) ?></span>
+								</p>
+							</div>
+							<p style="font-size: 14px"><?php
+                                if (strlen($row->aduan) <= 150) {
+                                    echo p($row->aduan);
+                                }else{
+                                    echo substr($row->aduan, 0, 150)." ..."; ?>
+                                    <a href="<?= site_url('aduan/detail/').base64_encode($row->id_aduan) ?>"> Selengkapnya</a>
+                                <?php }
+                            ?></p>
+							<ul>
+								<li> <i class="fa fa-tag"></i> <span><?= $row->kategori ?></span></li>
+								<li> <i class="fa fa-comments"> <span><?= $row->jmlkomen ?></i> </span></li>
+								<li class="pull-right"><span><i class="fa fa-info-circle"></i> <?= $row->status ?></span></li>
+							</ul>
+						</div>
+					</div>
+					<?php } ?>
+					<?php } ?>
+				</div>
+				<div class="db-pagi">
+					<?= $pagination ?>
+				</div>
+				<br>
+				<br>
+			</div>
+		</div>
+	<!--END ABOUT SECTION-->
 <?php } ?>
 
 <?php if ($content == 'tentang-lb') { ?>

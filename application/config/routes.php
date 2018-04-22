@@ -74,6 +74,9 @@ $route['sysadminlogin/oauth'] = 'sysadmin/sysadmin/oauth';
 $route['sysadminlogin/logout'] = 'sysadmin/sysadmin/logout';
 
 //aduan
+$route['aduan'] 			  = 'front/aduan/data';
+$route['aduan/data'] 			  = 'front/aduan/data';
+$route['aduan/data/(:any)']   = 'front/aduan/data/$1';
 $route['kontak'] 			  = 'front/kontak';
 $route['tentang'] 			  = 'front/tentang';
 $route['profil'] 			  = 'front/user/profil';

@@ -11,8 +11,79 @@ class Aduan extends CI_Controller {
 		$this->load->model('mkomentar');
 	}
 
-	public function index(){
-		
+	public function data($offset = 0){
+      $data['title'] = "Aduan - Lapor Bupati";
+      $data['content'] = "aduan";
+      $data['judul'] = "Aduan";
+
+      $q = $this->input->get('cari');
+
+      if (!isset($q)) {
+         $config['base_url'] = site_url('aduan/data/');
+         $config['total_rows'] = $this->maduan->jmlAduanFront();
+         $config['per_page'] = 3;
+         $config['uri_segment'] = 3;
+         $config['num_links'] = 5;
+         $config['full_tag_open'] = '<ul class="pagination">';
+         $config['full_tag_close'] = '</ul>';
+         $config['first_link'] = 'First';
+         $config['first_tag_open'] = '<li class="waves-effect">';
+         $config['first_tag_close'] = '</li>';
+         $config['last_link'] = 'Last';
+         $config['last_tag_open'] = '<li class="waves-effect">';
+         $config['last_tag_close'] = '</li>';
+         $config['next_link'] = '&gt;';
+         $config['next_tag_open'] = '<li class="waves-effect">';
+         $config['next_tag_close'] = '</li>';
+         $config['prev_link'] = '&lt;';
+         $config['prev_tag_open'] = '<li class="waves-effect">';
+         $config['prev_tag_close'] = '</li>';
+         $config['cur_tag_open'] = '<li class="waves-effect active"><a href="#">';
+         $config['cur_tag_close'] = '</a></li>';
+         $config['num_tag_open'] = '<li class="waves-effect">';
+         $config['num_tag_close'] = '</li>';
+         
+         $this->pagination->initialize($config);
+         $data['pagination'] = $this->pagination->create_links();
+         $data['data_aduan'] = $this->maduan->aduanFront($config['per_page'], $offset);
+         $data['jml_data'] = $this->maduan->jmlAduanFront();
+      }else{
+         $config['base_url'] = site_url('aduan/data/');
+         $config['total_rows'] = $this->maduan->jmlCariAduanFront($q);
+         $config['per_page'] = 3;
+         $config['uri_segment'] = 3;
+         $config['num_links'] = 5;
+         $config['full_tag_open'] = '<ul class="pagination">';
+         $config['full_tag_close'] = '</ul>';
+         $config['first_link'] = 'First';
+         $config['first_tag_open'] = '<li class="waves-effect">';
+         $config['first_tag_close'] = '</li>';
+         $config['last_link'] = 'Last';
+         $config['last_tag_open'] = '<li class="waves-effect">';
+         $config['last_tag_close'] = '</li>';
+         $config['next_link'] = '&gt;';
+         $config['next_tag_open'] = '<li class="waves-effect">';
+         $config['next_tag_close'] = '</li>';
+         $config['prev_link'] = '&lt;';
+         $config['prev_tag_open'] = '<li class="waves-effect">';
+         $config['prev_tag_close'] = '</li>';
+         $config['cur_tag_open'] = '<li class="waves-effect active"><a href="#">';
+         $config['cur_tag_close'] = '</a></li>';
+         $config['num_tag_open'] = '<li class="waves-effect">';
+         $config['num_tag_close'] = '</li>';
+         
+         $this->pagination->initialize($config);
+         $data['pagination'] = $this->pagination->create_links();
+         $data['data_aduan'] = $this->maduan->cariAduanFront($q, $config['per_page'], $offset);
+         $data['jml_data'] = $this->maduan->jmlCariAduanFront($q);
+         if ($this->maduan->jmlCariAduanFront($q) > 0) {
+            $this->session->set_flashdata('q', 'Menampilkan hasil pencarian <b>'.$q.'</b> '.$this->maduan->jmlCariAduanFront($q).' ditemukan');
+         }else{
+            $this->session->set_flashdata('q', 'Menampilkan hasil pencarian <b>'.$q.'</b> ');
+         }
+      }
+
+      $this->load->view('view_front/lbfront', $data);
 	}
 
 	public function aduan_saya() {
