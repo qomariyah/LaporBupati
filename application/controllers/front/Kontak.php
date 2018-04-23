@@ -23,6 +23,8 @@ class Kontak extends CI_Controller {
 			'masukan'	=> $this->input->post('masukan')
 		);
 		$this->mmasukan->create($data);
+        $this->session->set_flashdata('notif', '<p style="color:white">Terima kasih telah memberikan masukan, kritik dan saran</p>');
+        $this->session->set_flashdata('type', 'success');
 		redirect('kontak');
 	}
 

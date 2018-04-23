@@ -18,7 +18,7 @@ class Komentar extends CI_Controller {
             'role'          => 2
     	);
     	$this->mkomentar->insert($data);
-    	$this->session->set_flashdata('notif', 'Tanggapan berhasil ditambahkan');
+        $this->session->set_flashdata('notif', '<p style="color:white">Tanggapan berhasil ditambahkan</p>');
         $this->session->set_flashdata('type', 'success');
         redirect('aduan/detail/'.base64_encode($this->input->post('id_aduan')),'refresh');
     }
@@ -26,7 +26,7 @@ class Komentar extends CI_Controller {
     public function delete($id){
     	$uri = $this->input->post('uri');
     	$this->mkomentar->delete($id);
-    	$this->session->set_flashdata('notif', 'Tanggapan berhasil dihapus');
+        $this->session->set_flashdata('notif', '<p style="color:white">Tanggapan berhasil dihapus</p>');
         $this->session->set_flashdata('type', 'success');
     	redirect('aduan/detail/'.$this->uri->segment(5),'refresh');
     }
@@ -39,7 +39,7 @@ class Komentar extends CI_Controller {
     		'komentar'		=> $this->input->post('komentar')
     	);
     	$this->mkomentar->update($data, $id);
-    	$this->session->set_flashdata('notif', 'Tanggapan berhasil diubah');
+        $this->session->set_flashdata('notif', '<p style="color:white">Tanggapan berhasil diubah</p>');
         $this->session->set_flashdata('type', 'success');
     	if ($uri == 'detail') {
     		redirect('aduan/detail/'.$id_aduan,'refresh');

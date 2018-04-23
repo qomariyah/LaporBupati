@@ -148,22 +148,7 @@
 					<?php } ?>
 				</div>
 				<div class="db-pagi">
-					<ul class="pagination">
-						<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a>
-						</li>
-						<li class="waves-effect"><a href="#!">1</a>
-						</li>
-						<li class="waves-effect"><a href="#!">2</a>
-						</li>
-						<li class="waves-effect active"><a href="#!">3</a>
-						</li>
-						<li class="waves-effect"><a href="#!">4</a>
-						</li>
-						<li class="waves-effect"><a href="#!">5</a>
-						</li>
-						<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a>
-						</li>
-					</ul>
+					<center><a href="<?= site_url('aduan') ?>" class="btn btn-sm waves-effect">Selengkapnya...</a></center>
 				</div>
 				<br>
 				<br>
@@ -348,6 +333,7 @@
 							<br> <a href="<?= prep_url('dinkominfo.pekalongankab.go.id') ?>" target="_blank">DINKOMINFO Kabupaten Pekalongan</a> </p>
 					</div>
 				</div>
+				<?php if ($this->session->userdata('code') == 'loginuserberhasil') { ?>
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
 						<div class="book-form inn-com-form">
@@ -356,13 +342,13 @@
 							<form action="<?= site_url('front/kontak/kirimmasukan') ?>" class="col s12" method="POST">
 								<div class="row">
 									<div class="input-field col s12">
-										<input type="email" class="validate" name="email" value="<?= $this->session->userdata('email')?>">
+										<input type="email" class="validate" readonly name="email" value="<?= $this->session->userdata('email')?>">
 										<label data-error="wrong" data-success="right">Email</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="input-field col s12">
-										<textarea id="textarea" class="materialize-textarea" placeholder="Masukan" name="masukan"></textarea>
+										<textarea id="textarea" required autofocus class="materialize-textarea" placeholder="Masukan, kritik dan saran anda" name="masukan"></textarea>
 									</div>
 								</div>
 								<div class="row">
@@ -374,6 +360,7 @@
 						</div>
 					</div>
 				</div>
+				<?php } ?>
 			</div>
 		</div>
 		<div class="row">
@@ -616,19 +603,19 @@
 									<small><?= time_ago($data->tanggal) ?></small> &nbsp; 
 									<?php
 										if ($data->status == "masuk") {
-	                                       echo "<label class='label label-masuk'><b>".$data->status."</b></label>";
+	                                       echo "<label class='label label-masuk'><b style='color:white'>".$data->status."</b></label>";
 	                                    }elseif($data->status == "diverifikasi"){
-	                                        echo "<label class='label label-info'><b>".$data->status."</b></label>";
+	                                        echo "<label class='label label-info'><b style='color:white'>".$data->status."</b></label>";
 	                                    }elseif($data->status == "didisposisikan"){
-	                                        echo "<label class='label label-yellow'><b>".$data->status."</b></label>";
+	                                        echo "<label class='label label-yellow'><b style='color:white'>".$data->status."</b></label>";
 	                                    }elseif($data->status == "penanganan"){
-	                                        echo "<label class='label label-warning'><b>".$data->status."</b></label>";
+	                                        echo "<label class='label label-warning'><b style='color:white'>".$data->status."</b></label>";
 	                                    }elseif($data->status == "sampah"){
-	                                        echo "<label class='label label-sampah'><b>".$data->status."</b></label>";
+	                                        echo "<label class='label label-sampah'><b style='color:white'>".$data->status."</b></label>";
 	                                    }elseif($data->status == "bukan kewenangan"){
-	                                        echo "<label class='label label-danger'><b>".$data->status."</b></label>";
+	                                        echo "<label class='label label-danger'><b style='color:white'>".$data->status."</b></label>";
 	                                    }elseif($data->status == "selesai"){
-	                                        echo "<label class='label label-success'><b>".$data->status."</b></label>";
+	                                        echo "<label class='label label-success'><b style='color:white'>".$data->status."</b></label>";
 	                                    }
 									?>
 								</h2>
@@ -665,7 +652,11 @@
 											<h5>
 												<?php
 			                                        if (!empty($key->id_admin)) {
-			                                            echo "Admin Lapor Bupati";
+			                                        	if ($key->id_admin == 'ADM004') {
+				                                            echo "Bupati Kab. Pekalongan";
+				                                        }else{
+			                                            	echo "Admin Lapor Bupati";
+			                                        	}
 			                                        }elseif (!empty($key->id_opd)){
 			                                            echo $key->singkatan;
 			                                        }elseif (!empty($key->id_user)) {
@@ -675,13 +666,11 @@
 			                                    <small>
 			                                    	<?php
 				                                    if (!empty($key->id_admin)) {
-				                                        if ($key->id_admin == 'ADM004') {
-				                                            echo "Bupati Kab. Pekalongan";
-				                                        }
+				                                        
 				                                    }elseif (!empty($key->id_opd)){
 				                                        
 				                                    }elseif (!empty($key->id_user)) {
-				                                        echo "User";
+
 				                                    }
 				                                ?>
 			                                    </small>
@@ -699,25 +688,28 @@
 									<?php } ?>
 								</ul>
 							</div>
-							<form method="POST" action="<?= site_url('front/komentar/tambah') ?>">
-								<div class="input-field col s9">
-									<textarea class="materialize-textarea" name="komentar" required placeholder="Tulis Komentar..."></textarea>
-								</div>
-								<div class="input-field col s2">
-									<input type="hidden" name="uri" value="<?= $this->uri->segment(2) ?>">
-									<input type="hidden" name="id_aduan" value="<?= $data->id_aduan ?>">
-									<input type="hidden" name="id_user" value="<?= $this->session->userdata('id_user'); ?>">
-									<input class="waves-effect waves-light form-btn" type="submit" value="KIRIM">
-								</div>
-								<div class="file-field input-field col s9">
-									<div class="btn" id="pro-file-upload"> <span>File</span>
-										<input type="file" name="lampiran">
+							<?php if ($this->session->userdata('code') == 'loginuserberhasil') {
+								if ($data->status != 'selesai') { ?>
+								<form method="POST" action="<?= site_url('front/komentar/tambah') ?>">
+									<div class="input-field col s9">
+										<textarea class="materialize-textarea" name="komentar" required placeholder="Tulis Komentar..."></textarea>
 									</div>
-									<div class="file-path-wrapper">
-										<input class="file-path" type="text" placeholder="Lampirkan Foto">
+									<div class="input-field col s2">
+										<input type="hidden" name="uri" value="<?= $this->uri->segment(2) ?>">
+										<input type="hidden" name="id_aduan" value="<?= $data->id_aduan ?>">
+										<input type="hidden" name="id_user" value="<?= $this->session->userdata('id_user'); ?>">
+										<input class="waves-effect waves-light form-btn" type="submit" value="KIRIM">
 									</div>
-								</div>
+									<div class="file-field input-field col s9">
+										<div class="btn" id="pro-file-upload"> <span>File</span>
+											<input type="file" name="lampiran">
+										</div>
+										<div class="file-path-wrapper">
+											<input class="file-path" type="text" placeholder="Lampirkan Foto">
+										</div>
+									</div>
 							</form>
+							<?php }} ?>
 							<!--END EVENT-->
 						</div>
 					<?php } ?>
@@ -971,7 +963,6 @@
 			<div class="db-profile-edit">
 				<h3>Login untuk melanjutkan mengirim aduan</h3>
 				<form class="col s12" method="POST" action="<?= site_url('auth') ?>">
-					<p><?= $error ?></p>
 					<div>
 						<label class="col s4">Email atau No. Telepon</label>
 						<div class="input-field col s8">

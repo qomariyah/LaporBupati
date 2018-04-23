@@ -42,9 +42,10 @@ class User extends CI_Controller {
         }else {
         	$data['title']		= "Login - Lapor Bupati";
 			$data['content']	= "login";
-			$data['error']		= "<p class='alert alert-danger'>Gagal Coeg</p>";
-			$data['image']		= $this->create_captcha();
-			$this->load->view('view_front/lbfront', $data);
+
+            $this->session->set_flashdata('notif', '<p style="color:white">Email/No. Telepon dan kata sandi tidak cocok!</p>');
+            $this->session->set_flashdata('type', 'success');
+            redirect(site_url('login'),'refresh');
         }
 	}
 
@@ -88,6 +89,9 @@ class User extends CI_Controller {
     		'no_telepon'=> $this->input->post('telp')
     	);
     	$this->muser->register($data);
+        $this->session->set_flashdata('notif', '<p style="color:white">Pendaftaran berhasil! periksa email anda untuk mengaktifkan akun</p>');
+        $this->session->set_flashdata('type', 'success');
+        redirect(site_url('login'),'refresh');
     }
 
 }

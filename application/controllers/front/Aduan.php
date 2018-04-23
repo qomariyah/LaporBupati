@@ -12,16 +12,17 @@ class Aduan extends CI_Controller {
 	}
 
 	public function data($offset = 0){
-      $data['title'] = "Aduan - Lapor Bupati";
-      $data['content'] = "aduan";
-      $data['judul'] = "Aduan";
+        $data['title'] = "Aduan - Lapor Bupati";
+        $data['content'] = "aduan";
+        $data['judul'] = "Aduan";
 
-      $q = $this->input->get('cari');
+        $q = $this->input->get('cari');
+        $this->session->set_flashdata('query', '');
 
       if (!isset($q)) {
          $config['base_url'] = site_url('aduan/data/');
          $config['total_rows'] = $this->maduan->jmlAduanFront();
-         $config['per_page'] = 3;
+         $config['per_page'] = 12;
          $config['uri_segment'] = 3;
          $config['num_links'] = 5;
          $config['full_tag_open'] = '<ul class="pagination">';
@@ -48,11 +49,12 @@ class Aduan extends CI_Controller {
          $data['data_aduan'] = $this->maduan->aduanFront($config['per_page'], $offset);
          $data['jml_data'] = $this->maduan->jmlAduanFront();
       }else{
-         $config['base_url'] = site_url('aduan/data/');
+         $config['base_url'] = site_url('aduan/data?cari='.$q);
          $config['total_rows'] = $this->maduan->jmlCariAduanFront($q);
-         $config['per_page'] = 3;
+         $config['per_page'] = 12;
          $config['uri_segment'] = 3;
          $config['num_links'] = 5;
+         $config['page_query_string'] = TRUE;
          $config['full_tag_open'] = '<ul class="pagination">';
          $config['full_tag_close'] = '</ul>';
          $config['first_link'] = 'First';
@@ -71,13 +73,15 @@ class Aduan extends CI_Controller {
          $config['cur_tag_close'] = '</a></li>';
          $config['num_tag_open'] = '<li class="waves-effect">';
          $config['num_tag_close'] = '</li>';
+
+         $offset = $this->input->get('per_page');
          
          $this->pagination->initialize($config);
          $data['pagination'] = $this->pagination->create_links();
          $data['data_aduan'] = $this->maduan->cariAduanFront($q, $config['per_page'], $offset);
          $data['jml_data'] = $this->maduan->jmlCariAduanFront($q);
          if ($this->maduan->jmlCariAduanFront($q) > 0) {
-            $this->session->set_flashdata('q', 'Menampilkan hasil pencarian <b>'.$q.'</b> '.$this->maduan->jmlCariAduanFront($q).' ditemukan');
+            $this->session->set_flashdata('q', 'Menampilkan hasil pencarian <b>"'.$q.'"</b> '.$this->maduan->jmlCariAduanFront($q).' ditemukan');
          }else{
             $this->session->set_flashdata('q', 'Menampilkan hasil pencarian <b>'.$q.'</b> ');
          }
@@ -116,44 +120,33 @@ class Aduan extends CI_Controller {
         $this->upload->initialize($config);
 
         if(isset($_FILES['lampiran']['name'])){
-        	$this->upload->do_upload('lampiran');
-        	$data_upload = $this->upload->data();
+        	if ($this->upload->do_upload('lampiran')) {
+                $data_upload = $this->upload->data();
 
-        	$data = array(
-        		'id_user'	=> $this->session->userdata('id_user'),
-        		'aduan'		=> $this->input->post('aduan'),
-        		'lampiran'	=> $data_upload['file_name'],
-        		'kategori'	=> $this->input->post('kategori'),
-	            'dibaca' => '0'
-        	);
-
-        	$q = $this->maduan->tambah($data);
-        	if ($q) {
-        		$this->session->set_flashdata('notif', 'Aduan berhasil dikirim. Aduan akan diperiksa admin sebelum dipublikasikan');
+                $data = array(
+                    'id_user'   => $this->session->userdata('id_user'),
+                    'aduan'     => $this->input->post('aduan'),
+                    'lampiran'  => $data_upload['file_name'],
+                    'kategori'  => $this->input->post('kategori'),
+                    'dibaca' => '0'
+                );
+            }else{
+                $data = array(
+                    'id_user'   => $this->session->userdata('id_user'),
+                    'aduan'     => $this->input->post('aduan'),
+                    'kategori'  => $this->input->post('kategori'),
+                    'dibaca' => '0'
+                );
+            }
+            $q = $this->maduan->tambah($data);
+            if ($q) {
+                $this->session->set_flashdata('notif', '<p style="color:white">Aduan berhasil dikirim. Aduan akan diperiksa admin sebelum dipublikasikan</p>');
                 $this->session->set_flashdata('type', 'success');
-        	}else{
-        		$this->session->set_flashdata('notif', 'Aduan gaga; dikirim');
+            }else{
+                $this->session->set_flashdata('notif', '<p style="color:white">Aduan gagal dikirim</p>');
                 $this->session->set_flashdata('type', 'error');
-        	}
-        	redirect(site_url(),'refresh');
-
-        }else{
-        	$data = array(
-        		'id_user'	=> $this->session->userdata('id_user'),
-        		'aduan'		=> $this->input->post('aduan'),
-        		'kategori'	=> $this->input->post('kategori'),
-	            'dibaca' => '0'
-        	);
-
-        	$q = $this->maduan->tambah($data);
-        	if ($q) {
-        		$this->session->set_flashdata('notif', 'Aduan berhasil dikirim. Aduan akan diperiksa admin sebelum dipublikasikan');
-                $this->session->set_flashdata('type', 'success');
-        	}else{
-        		$this->session->set_flashdata('notif', 'Aduan gaga; dikirim');
-                $this->session->set_flashdata('type', 'error');
-        	}
-        	redirect(site_url(),'refresh');
+            }
+            redirect(site_url(),'refresh');
 	    }
 	}
 
